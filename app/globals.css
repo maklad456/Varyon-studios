@@ -2,32 +2,178 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
+@import "../styles/tkf.css";
+@import "../styles/matrixmetrics.css";
+@import "../styles/ninjapromo.css";
 
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    color-scheme: light;
+    --mm-brand: #ff6900;
+    --mm-accent: #1b9c85;
+    --mm-muted: #f7f7f7;
+    --mm-ink: #333333;
+    --mm-border: #eeeeee;
   }
-}
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  body {
+    font-family: var(--font-inter), "Inter", system-ui, -apple-system, BlinkMacSystemFont,
+      "Segoe UI", sans-serif;
+    background-color: #ffffff;
+    color: #111111;
+    min-height: 100vh;
+  }
+
+  ::selection {
+    background-color: #111111;
+    color: #ffffff;
+  }
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+}
+
+/* 404 page styles */
+.varyon404-page,
+.varyon404-page * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.varyon404-page {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000000;
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
+    sans-serif;
+}
+
+.varyon404-page .logo {
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  color: #ffffff;
+  font-size: 20px;
+  letter-spacing: 2px;
+  text-align: center;
+}
+
+.varyon404-page .logo-mount {
+  font-weight: 700;
+  font-size: 22px;
+}
+
+.varyon404-page .logo-media {
+  font-weight: 300;
+  font-size: 20px;
+  margin-left: -2px;
+}
+
+.varyon404-page #canvas-container {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.varyon404-page .content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  text-align: center;
+}
+
+.varyon404-page .error-code {
+  font-family: "Didot", "Bodoni MT", "Playfair Display", Georgia, serif;
+  font-size: 280px;
+  font-weight: 300;
+  color: #ffffff;
+  line-height: 0.9;
+  letter-spacing: 20px;
+  margin: 0;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  position: relative;
+}
+
+.varyon404-page .error-message {
+  font-size: 16px;
+  color: #888888;
+  margin-top: 30px;
+  font-weight: 300;
+  letter-spacing: 0.5px;
+}
+
+.varyon404-page .cta-button {
+  margin-top: 30px;
+  padding: 14px 32px;
+  background: linear-gradient(135deg, #4a4a4a 0%, #2e2e2e 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: 25px;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: inset 0 -2px 8px rgba(0, 0, 0, 0.3), 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.varyon404-page .cta-button:hover {
+  background: linear-gradient(135deg, #5a5a5a 0%, #3e3e3e 100%);
+  box-shadow: inset 0 -2px 8px rgba(0, 0, 0, 0.2), 0 6px 16px rgba(0, 0, 0, 0.5);
+  transform: translateY(-1px);
+}
+
+.varyon404-page .cta-button:active {
+  transform: translateY(0);
+  box-shadow: inset 0 -2px 8px rgba(0, 0, 0, 0.4), 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 768px) {
+  .varyon404-page .error-code {
+    font-size: 180px;
+    letter-spacing: 10px;
+  }
+
+  .varyon404-page .logo {
+    font-size: 16px;
+    top: 30px;
+  }
+
+  .varyon404-page .logo-mount {
+    font-size: 18px;
+  }
+
+  .varyon404-page .logo-media {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .varyon404-page .error-code {
+    font-size: 120px;
+    letter-spacing: 5px;
+  }
+
+  .varyon404-page .error-message {
+    font-size: 14px;
+  }
+
+  .varyon404-page .cta-button {
+    padding: 12px 28px;
+    font-size: 13px;
   }
 }
