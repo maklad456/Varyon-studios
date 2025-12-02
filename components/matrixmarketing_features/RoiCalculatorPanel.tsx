@@ -4,7 +4,14 @@ import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { useRoiCalculator } from "./useRoiCalculator";
 
-const inputFields = [
+type InputField = {
+  label: string;
+  field: "spend" | "customers" | "revenuePerCustomer" | "retentionMonths";
+  placeholder: string;
+  prefix?: string;
+};
+
+const inputFields: InputField[] = [
   {
     label: "Monthly Marketing Spend",
     field: "spend",
@@ -27,7 +34,7 @@ const inputFields = [
     field: "retentionMonths",
     placeholder: "9",
   },
-] as const;
+];
 
 const numberFormatter = (value: number) =>
   value.toLocaleString("en-US", {
@@ -79,7 +86,7 @@ export function RoiCalculatorPanel() {
     };
   }, [result]);
 
-  const handleInputChange = (field: typeof inputFields[number]["field"], value: string) => {
+  const handleInputChange = (field: InputField["field"], value: string) => {
     const numeric = Number(value);
     setInputs((prev) => ({ ...prev, [field]: Number.isNaN(numeric) ? 0 : numeric }));
   };
