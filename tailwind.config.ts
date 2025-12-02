@@ -9,6 +9,15 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        vs: {
+          bgLight: "#FAFFFD",
+          bgDark: "#000000",
+          textStrong: "#000000",
+          textBody: "#485563",
+          textOnDark: "#9CA3AF",
+          accent: "#10B981",
+          accentSoft: "#6EE7B7",
+        },
         text_primary: "#111111",
         text_muted: "#6B7280",
         text_light: "#FFFFFF",
@@ -34,6 +43,9 @@ const config: Config = {
         soft: "0 4px 12px rgba(0, 0, 0, 0.08)",
         strong: "0 6px 24px rgba(0, 0, 0, 0.15)",
         soft_dark: "0 18px 45px rgba(0, 0, 0, 0.45)",
+      },
+      fontFamily: {
+        suisse: ["var(--font-suisse-intl)", "sans-serif"],
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

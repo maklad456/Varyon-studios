@@ -1,18 +1,90 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { TKFPageTransitionProvider } from "@/components/thekeenfolks_features/TKFPageTransitionProvider";
+import { SiteHeader } from "@/components/layout/SiteHeader";
+import { SiteFooter } from "@/components/layout/SiteFooter";
+import { LeadCaptureModal } from "@/components/common/LeadCaptureModal";
 
-const inter = Inter({
-  subsets: ["latin"],
+const suisseIntl = localFont({
+  src: [
+    { path: "../public/fonts/suisse-intl/suisse-intl-regular.ttf", weight: "400", style: "normal" },
+    { path: "../public/fonts/suisse-intl/suisse-intl-medium.ttf", weight: "500", style: "normal" },
+    { path: "../public/fonts/suisse-intl/suisse-intl-semibold.ttf", weight: "600", style: "normal" },
+    { path: "../public/fonts/suisse-intl/suisse-intl-bold.ttf", weight: "700", style: "normal" },
+  ],
+  variable: "--font-suisse-intl",
   display: "swap",
-  variable: "--font-inter",
 });
 
+const siteUrl = "https://varyon-studios.com";
+
 export const metadata: Metadata = {
-  title: "Varyon Studios",
+  metadataBase: new URL(siteUrl),
+  title: "Varyon Studios | AI Media Production & Product Photography",
   description:
-    "Varyon Studios blends AI-first growth strategy, creative media, and performance systems.",
+    "Cairo-based AI content studio turning simple product photos into cinematic campaigns, ecommerce imagery and launch assets that sell.",
+  keywords: [
+    "AI media production agency",
+    "AI product photography",
+    "AI content studio",
+    "Product images for e-commerce",
+    "AI visuals for brands",
+  ],
+  openGraph: {
+    title: "Varyon Studios | AI Media Production & Product Photography",
+    description:
+      "Million-dollar photoshoots that actually sell. Get cinematic imagery, campaigns and videos built for conversion.",
+    url: siteUrl,
+    type: "website",
+    images: [
+      {
+        url: "/branding/vs-logo-light.png",
+        width: 800,
+        height: 400,
+        alt: "Varyon Studios — Million-dollar photoshoots that actually sell.",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Varyon Studios | AI Media Production & Product Photography",
+    description:
+      "AI-powered content studio for ecommerce brands in Egypt and beyond. Free sample within days.",
+    images: ["/branding/vs-logo-light.png"],
+  },
+};
+
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      name: "Varyon Studios",
+      url: siteUrl,
+      logo: `${siteUrl}/branding/vs-logo-light.png`,
+      contactPoint: {
+        "@type": "ContactPoint",
+        email: "info@varyonstudios.com",
+        telephone: "+49 170 6083757",
+        contactType: "sales",
+      },
+    },
+    {
+      "@type": "LocalBusiness",
+      name: "Varyon Studios",
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "Villa 9, Amr Ibn El Aas Street, South of Police Academy, First Settlement",
+        addressLocality: "New Cairo",
+        addressRegion: "Cairo",
+        addressCountry: "EG",
+      },
+      email: "info@varyonstudios.com",
+      telephone: "+49 170 6083757",
+      url: siteUrl,
+    },
+  ],
 };
 
 export default function RootLayout({
@@ -22,8 +94,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} bg-white text-[#111] antialiased`}>
-        <TKFPageTransitionProvider>{children}</TKFPageTransitionProvider>
+      <body className={`${suisseIntl.variable} bg-vs-bgLight text-vs-textBody antialiased`}>
+        <TKFPageTransitionProvider>
+          <SiteHeader />
+          <main className="pt-20">{children}</main>
+          <SiteFooter />
+          <LeadCaptureModal />
+        </TKFPageTransitionProvider>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        />
       </body>
     </html>
   );

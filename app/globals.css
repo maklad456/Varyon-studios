@@ -9,6 +9,13 @@
 @layer base {
   :root {
     color-scheme: light;
+    --vs-bg-light: #fafffd;
+    --vs-bg-dark: #000000;
+    --vs-text-strong: #000000;
+    --vs-text-body: #485563;
+    --vs-text-on-dark: #9ca3af;
+    --vs-accent: #10b981;
+    --vs-accent-soft: #6ee7b7;
     --mm-brand: #ff6900;
     --mm-accent: #1b9c85;
     --mm-muted: #f7f7f7;
@@ -17,15 +24,15 @@
   }
 
   body {
-    font-family: var(--font-inter), "Inter", system-ui, -apple-system, BlinkMacSystemFont,
-      "Segoe UI", sans-serif;
-    background-color: #ffffff;
-    color: #111111;
+    font-family: var(--font-suisse-intl), "SuisseIntl", "Inter", system-ui, -apple-system,
+      BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background-color: var(--vs-bg-light);
+    color: var(--vs-text-body);
     min-height: 100vh;
   }
 
   ::selection {
-    background-color: #111111;
+    background-color: var(--vs-accent);
     color: #ffffff;
   }
 }

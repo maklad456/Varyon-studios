@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import * as THREE from "three";
@@ -110,15 +111,16 @@ export default function NotFound() {
   return (
     <div className="varyon404-page">
       <div className="logo">
-        <span className="logo-mount">MOUNT</span>
-        <span className="logo-media">Media</span>
+        <div className="relative mx-auto h-10 w-40">
+          <Image src="/branding/vs-logo-light.png" alt="Varyon Studios" fill className="object-contain" />
+        </div>
       </div>
       <div id="canvas-container" ref={canvasRef} />
       <div className="content">
         <h1 className="error-code">404</h1>
-        <p className="error-message">Sorry, this page was not found</p>
+        <p className="error-message">You’ve found a dead link — but we’d rather create something new for you.</p>
         <button className="cta-button" onClick={() => router.push("/")}>
-          Back to Homepage
+          Back to homepage
         </button>
       </div>
     </div>
