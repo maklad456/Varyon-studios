@@ -37,15 +37,16 @@ export function SiteHeader() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-white/5 bg-[#020202]/70 backdrop-blur-xl">
-      <div className="mx-auto flex w-full items-center justify-between px-8 py-2 text-white sm:px-12 lg:px-16">
+      <div className="mx-auto flex w-full items-center justify-between px-6 py-5 text-white sm:px-8 lg:px-12">
         <Link href="/" aria-label="Varyon Studios" className="flex items-center">
-          <div className="relative h-20 w-20">
+          <div className="relative h-[67px] w-[67px]">
             <Image
               src="/branding/vs-icon-light.png"
               alt="Varyon Studios"
               fill
               className="object-contain"
-              sizes="80px"
+              sizes="(max-width: 768px) 67px, 134px"
+              quality={100}
               priority={pathname === "/"}
             />
           </div>
@@ -63,7 +64,7 @@ export function SiteHeader() {
             </button>
           ))}
           <Link href="/case-studies" className="text-white/80 transition hover:text-white">
-            Client's stories
+            Client&apos;s stories
           </Link>
         </nav>
 
@@ -98,7 +99,7 @@ export function SiteHeader() {
               </button>
             ))}
             <Link href="/case-studies" onClick={() => setMenuOpen(false)}>
-              Client's stories
+              Client&apos;s stories
             </Link>
             <a
               href={WHATSAPP_URL}
