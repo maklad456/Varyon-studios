@@ -8,7 +8,7 @@ const WHATSAPP_URL =
 export function FinalCtaSection() {
   return (
     <section className="bg-black py-12 text-white">
-      <div className="mx-auto flex max-w-6xl flex-col items-start gap-6 px-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+      <div className="mx-auto flex max-w-screen-2xl flex-col items-start gap-6 px-6 sm:flex-row sm:items-center sm:justify-between sm:px-8 lg:px-12">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.3em] text-vs-accent-soft">
             Final step

@@ -22,7 +22,7 @@ export function DiscoveryCallSection() {
 
   return (
     <section id="discovery" className="bg-vs-bgLight py-20">
-      <div className="mx-auto grid max-w-6xl gap-10 px-4 sm:px-6 lg:grid-cols-2">
+      <div className="mx-auto grid max-w-screen-2xl gap-10 px-6 sm:px-8 lg:grid-cols-2 lg:px-12">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.3em] text-vs-text-body/70">
             Need to think bigger?

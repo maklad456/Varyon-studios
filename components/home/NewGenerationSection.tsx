@@ -16,7 +16,7 @@ export function NewGenerationSection() {
 
   return (
     <section className="bg-black py-20 text-white">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+      <div className="mx-auto max-w-screen-2xl px-6 sm:px-8 lg:px-12">
         <p className="text-xs font-semibold uppercase tracking-[0.3em] text-vs-accent-soft">
           New generation
         </p>

@@ -3,7 +3,7 @@ import { capabilities } from "@/data/varyonContent";
 export function CapabilitiesSection() {
   return (
     <section id="capabilities" className="bg-black py-20 text-white">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+      <div className="mx-auto max-w-screen-2xl px-6 sm:px-8 lg:px-12">
         <p className="text-xs font-semibold uppercase tracking-[0.3em] text-vs-accent-soft">What we can produce</p>
         <h2 className="mt-4 text-3xl font-semibold text-white sm:text-[40px]">
           Every format you need to sell — from a single product to 1,000+ SKUs.

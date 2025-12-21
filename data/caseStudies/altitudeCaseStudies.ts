@@ -58,3 +58,5 @@ export function getCaseStudyBySlug(slug: string) {
   return altitudeCaseStudies.find((study) => study.slug === slug);
 }
 
+
+

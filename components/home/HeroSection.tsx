@@ -37,7 +37,7 @@ export function HeroSection() {
         </div>
         <div className="absolute inset-0 bg-gradient-to-r from-black via-black/70 to-transparent" />
       </div>
-      <div className="relative z-10 mx-auto flex min-h-screen max-w-6xl flex-col justify-center px-4 py-24 sm:px-6">
+      <div className="relative z-10 mx-auto flex min-h-screen max-w-screen-2xl flex-col justify-center px-6 py-24 sm:px-8 lg:px-12">
         <p className="text-xs font-semibold uppercase tracking-[0.4em] text-vs-accent-soft">AI-powered content studio</p>
         <h1 className="mt-6 max-w-3xl text-4xl font-semibold leading-tight text-white sm:text-5xl lg:text-[56px]">
           Million-dollar photoshoots that actually sell.

@@ -13,7 +13,7 @@ export function FaqSection() {
   };
 
   return (
-    <section id="faq" className="bg-white py-20">
+    <section id="faq" className="bg-white py-20 scroll-mt-24">
       <div className="mx-auto max-w-4xl px-4 sm:px-6">
         <p className="text-xs font-semibold uppercase tracking-[0.3em] text-vs-text-body/70">FAQ</p>
         <h2 className="mt-4 text-3xl font-semibold text-vs-text-strong sm:text-[40px]">Questions that come up a lot.</h2>

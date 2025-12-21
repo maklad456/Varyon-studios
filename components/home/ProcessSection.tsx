@@ -4,8 +4,8 @@ import { processSteps } from "@/data/varyonContent";
 
 export function ProcessSection() {
   return (
-    <section id="process" className="bg-vs-bgLight py-20">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+    <section id="process" className="bg-vs-bgLight py-20 scroll-mt-24">
+      <div className="mx-auto max-w-screen-2xl px-6 sm:px-8 lg:px-12">
         <p className="text-xs font-semibold uppercase tracking-[0.3em] text-vs-text-body/70">Process</p>
         <h2 className="mt-4 text-3xl font-semibold text-vs-text-strong sm:text-[40px]">
           From a few phone photos to a full campaign.

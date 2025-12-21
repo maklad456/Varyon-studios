@@ -11,7 +11,7 @@ const quickLinks = [
 export function SiteFooter() {
   return (
     <footer className="bg-black text-white">
-      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-16 sm:px-6 md:grid-cols-3">
+      <div className="mx-auto grid max-w-screen-2xl gap-10 px-6 py-16 sm:px-8 md:grid-cols-3 lg:px-12">
         <div>
           <p className="text-sm uppercase tracking-[0.3em] text-vs-accent-soft">Varyon Studios</p>
           <p className="mt-4 text-lg text-white">
@@ -47,7 +47,7 @@ export function SiteFooter() {
           </div>
         </div>
       </div>
-      <div className="border-t border-white/10 px-4 py-4 text-center text-xs text-white/60 sm:px-6">
+      <div className="border-t border-white/10 px-6 py-4 text-center text-xs text-white/60 sm:px-8 lg:px-12">
         © {new Date().getFullYear()} Varyon Studios. Cookies & privacy focused. All rights reserved.
       </div>
     </footer>

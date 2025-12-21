@@ -3,7 +3,7 @@ import { challengeLeft, challengeRight } from "@/data/varyonContent";
 export function ChallengeSplit() {
   return (
     <section id="challenges" className="bg-vs-bgLight py-20">
-      <div className="mx-auto grid max-w-6xl gap-10 px-4 sm:px-6 md:grid-cols-2">
+      <div className="mx-auto grid max-w-screen-2xl gap-10 px-6 sm:px-8 md:grid-cols-2 lg:px-12">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.3em] text-vs-text-body/70">
             Why traditional shoots are a nightmare

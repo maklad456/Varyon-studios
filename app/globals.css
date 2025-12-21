@@ -7,6 +7,12 @@
 @import "../styles/ninjapromo.css";
 
 @layer base {
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+  }
+
   :root {
     color-scheme: light;
     --vs-bg-light: #fafffd;

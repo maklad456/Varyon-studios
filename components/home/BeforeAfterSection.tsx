@@ -4,7 +4,7 @@ import { beforeAfterItems } from "@/data/varyonContent";
 export function BeforeAfterSection() {
   return (
     <section className="bg-white py-20">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+      <div className="mx-auto max-w-screen-2xl px-6 sm:px-8 lg:px-12">
         <p className="text-xs font-semibold uppercase tracking-[0.3em] text-vs-text-body/70">Proof</p>
         <h2 className="mt-4 text-3xl font-semibold text-vs-text-strong sm:text-[40px]">Before / after snapshots.</h2>
         <div className="mt-10 grid gap-8 md:grid-cols-3">

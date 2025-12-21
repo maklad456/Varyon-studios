@@ -30,8 +30,8 @@ export function CaseStudiesSection() {
   }, []);
 
   return (
-    <section id="case-studies" ref={sectionRef} className="bg-white py-20">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+    <section id="case-studies" ref={sectionRef} className="bg-white py-20 scroll-mt-24">
+      <div className="mx-auto max-w-screen-2xl px-6 sm:px-8 lg:px-12">
         <p className="text-xs font-semibold uppercase tracking-[0.3em] text-vs-text-body/70">
           Client stories
         </p>
