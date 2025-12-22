@@ -15,8 +15,17 @@ export function NewGenerationSection() {
   ];
 
   return (
-    <section className="site-section bg-black text-white">
-      <div className="site-container">
+    <section className="site-section relative bg-black text-white">
+      <div className="absolute inset-0">
+        <div className="relative h-full w-full">
+          <img 
+            src="/media/backgrounds/capabilities-bg-3.png" 
+            alt="" 
+            className="h-full w-full object-cover"
+          />
+        </div>
+      </div>
+      <div className="site-container relative z-10">
         <p className="text-xs font-semibold uppercase tracking-[0.3em] text-vs-accent-soft">
           New generation
         </p>

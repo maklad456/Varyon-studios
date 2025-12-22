@@ -23,9 +23,9 @@ export function HeroSection() {
     <section className="relative min-h-screen bg-black text-white" aria-label="Varyon Studios hero">
       <div className="absolute inset-0">
         <div className="relative h-full w-full">
-          <Image src="/media/hero/hero-image.png" alt="Varyon Studios hero" fill className="object-cover" priority quality={100} />
+          <Image src="/media/hero/hero-image.webp" alt="Varyon Studios hero" fill className="object-cover" priority quality={100} />
         </div>
-        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/70 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-black/20 to-transparent" />
       </div>
       <div className="relative z-10 site-container flex min-h-screen flex-col justify-center py-24">
         <p className="text-xs font-semibold uppercase tracking-[0.4em] text-vs-accent-soft">AI-powered content studio</p>

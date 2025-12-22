@@ -11,39 +11,50 @@ const quickLinks = [
 export function SiteFooter() {
   return (
     <footer className="bg-black text-white">
-      <div className="site-container grid gap-8 py-12 md:grid-cols-3">
-        <div>
-          <p className="text-sm uppercase tracking-[0.3em] text-vs-accent-soft">Varyon Studios</p>
-          <p className="mt-4 text-base leading-relaxed text-white">
-            AI-powered content studio for brands that want global-level visuals without global-level headaches.
-          </p>
+      <div className="relative">
+        <div className="absolute inset-0">
+          <div className="relative h-full w-full">
+            <img 
+              src="/media/backgrounds/capabilities-bg-3.png" 
+              alt="" 
+              className="h-full w-full object-cover"
+            />
+          </div>
         </div>
-        <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-vs-accent-soft">Quick links</p>
-          <ul className="mt-4 space-y-4 text-sm text-white/80">
-            {quickLinks.map((link) => (
-              <li key={link.href}>
-                <Link href={link.href} className="transition hover:text-white">
-                  {link.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-vs-accent-soft">Contact</p>
-          <div className="mt-4 space-y-4 text-sm leading-relaxed text-white/80">
-            <a href="mailto:info@varyonstudios.com" className="block hover:text-white">
-              info@varyonstudios.com
-            </a>
-            <a href="tel:+491706083757" className="block hover:text-white">
-              +49 170 6083757
-            </a>
-            <p>
-              Villa 9, Amr Ibn El Aas Street,
-              <br /> South of Police Academy, First Settlement,
-              <br /> New Cairo, Cairo, Egypt
+        <div className="site-container relative z-10 grid gap-8 py-12 md:grid-cols-3">
+          <div>
+            <p className="text-sm uppercase tracking-[0.3em] text-vs-accent-soft">Varyon Studios</p>
+            <p className="mt-4 text-base leading-relaxed text-white">
+              AI-powered content studio for brands that want global-level visuals without global-level headaches.
             </p>
+          </div>
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-vs-accent-soft">Quick links</p>
+            <ul className="mt-4 space-y-4 text-sm text-white/80">
+              {quickLinks.map((link) => (
+                <li key={link.href}>
+                  <Link href={link.href} className="transition hover:text-white">
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-vs-accent-soft">Contact</p>
+            <div className="mt-4 space-y-4 text-sm leading-relaxed text-white/80">
+              <a href="mailto:info@varyonstudios.com" className="block hover:text-white">
+                info@varyonstudios.com
+              </a>
+              <a href="tel:+491706083757" className="block hover:text-white">
+                +49 170 6083757
+              </a>
+              <p>
+                Villa 9, Amr Ibn El Aas Street,
+                <br /> South of Police Academy, First Settlement,
+                <br /> New Cairo, Cairo, Egypt
+              </p>
+            </div>
           </div>
         </div>
       </div>
