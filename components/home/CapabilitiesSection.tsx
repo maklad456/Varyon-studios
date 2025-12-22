@@ -6,11 +6,12 @@ export function CapabilitiesSection() {
       <div className="absolute inset-0">
         <div className="relative h-full w-full">
           <img 
-            src="/media/backgrounds/capabilities-bg-3.png" 
+            src="/media/backgrounds/capabilities-bg-3.webp" 
             alt="" 
             className="h-full w-full object-cover"
           />
         </div>
+        <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/40 to-transparent" />
       </div>
       <div className="site-container relative z-10">
         <p className="text-xs font-semibold uppercase tracking-[0.3em] text-vs-accent-soft">What we can produce</p>

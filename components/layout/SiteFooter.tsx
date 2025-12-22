@@ -15,12 +15,13 @@ export function SiteFooter() {
         <div className="absolute inset-0">
           <div className="relative h-full w-full">
             <img 
-              src="/media/backgrounds/capabilities-bg-3.png" 
+              src="/media/backgrounds/capabilities-bg-3.webp" 
               alt="" 
               className="h-full w-full object-cover"
             />
           </div>
         </div>
+        <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/40 to-transparent" />
         <div className="site-container relative z-10 grid gap-8 py-12 md:grid-cols-3">
           <div>
             <p className="text-sm uppercase tracking-[0.3em] text-vs-accent-soft">Varyon Studios</p>
