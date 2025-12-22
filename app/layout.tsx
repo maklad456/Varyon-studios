@@ -94,7 +94,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${suisseIntl.variable} bg-vs-bgLight text-vs-textBody antialiased`}>
+      <body className={`${suisseIntl.variable} font-sans bg-vs-bgLight text-vs-textBody antialiased`}>
         <TKFPageTransitionProvider>
           <SiteHeader />
           <main className="pt-0">{children}</main>

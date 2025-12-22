@@ -30,29 +30,29 @@ export function CaseStudiesSection() {
   }, []);
 
   return (
-    <section id="case-studies" ref={sectionRef} className="bg-white py-20 scroll-mt-24">
-      <div className="mx-auto max-w-screen-2xl px-6 sm:px-8 lg:px-12">
+    <section id="case-studies" ref={sectionRef} className="site-section bg-white scroll-mt-24">
+      <div className="site-container">
         <p className="text-xs font-semibold uppercase tracking-[0.3em] text-vs-text-body/70">
           Client stories
         </p>
-        <h2 className="mt-4 text-3xl font-semibold text-vs-text-strong sm:text-[40px]">
+        <h2 className="mt-4 text-3xl font-semibold leading-tight text-vs-text-strong sm:text-4xl sm:leading-tight">
           Three brands, three very different problems.
         </h2>
 
-        <div className="mt-10 grid gap-8 md:grid-cols-3">
+        <div className="mt-8 grid gap-8 md:grid-cols-3">
           {caseStudies.map((study) => (
-            <article key={study.slug} className="rounded-3xl border border-black/5 bg-vs-bgLight p-6 shadow-soft">
+            <article key={study.slug} className="rounded-3xl border border-black/5 bg-vs-bgLight p-8 shadow-soft transition-all duration-300 hover:shadow-[0_0_30px_rgba(16,185,129,0.4)]">
               <p className="text-xs font-semibold uppercase tracking-[0.3em] text-vs-accent">{study.tag}</p>
-              <h3 className="mt-3 text-xl font-semibold text-vs-text-strong">{study.name}</h3>
+              <h3 className="mt-4 text-xl font-semibold leading-tight text-vs-text-strong">{study.name}</h3>
               <p className="mt-4 text-sm font-semibold text-vs-text-body/70">Problem</p>
-              <p className="text-sm text-vs-text-body">{study.problem}</p>
+              <p className="mt-2 text-sm leading-relaxed text-vs-text-body">{study.problem}</p>
               <p className="mt-4 text-sm font-semibold text-vs-text-body/70">What we did</p>
-              <p className="text-sm text-vs-text-body">{study.approach}</p>
+              <p className="mt-2 text-sm leading-relaxed text-vs-text-body">{study.approach}</p>
               <p className="mt-4 text-sm font-semibold text-vs-text-body/70">Outcome</p>
-              <p className="text-sm text-vs-text-body">{study.outcome}</p>
+              <p className="mt-2 text-sm leading-relaxed text-vs-text-body">{study.outcome}</p>
               <Link
                 href={`/case-studies/${study.slug}`}
-                className="mt-6 inline-flex items-center text-sm font-semibold text-vs-accent"
+                className="mt-8 inline-flex items-center text-sm font-semibold text-vs-accent"
               >
                 View project →
               </Link>

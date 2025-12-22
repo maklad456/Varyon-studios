@@ -21,17 +21,17 @@ export function DiscoveryCallSection() {
   };
 
   return (
-    <section id="discovery" className="bg-vs-bgLight py-20">
-      <div className="mx-auto grid max-w-screen-2xl gap-10 px-6 sm:px-8 lg:grid-cols-2 lg:px-12">
+    <section id="discovery" className="site-section bg-vs-bgLight">
+      <div className="site-container grid gap-8 lg:grid-cols-2">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.3em] text-vs-text-body/70">
             Need to think bigger?
           </p>
-          <h2 className="mt-4 text-3xl font-semibold text-vs-text-strong sm:text-[40px]">
+          <h2 className="mt-4 text-3xl font-semibold leading-tight text-vs-text-strong sm:text-4xl sm:leading-tight">
             Planning a launch or campaign?
           </h2>
-          <p className="mt-4 text-base text-vs-text-body">
-            If you’re working on a new collection, campaign or rebrand, we can help you plan the visuals from day one — not just generate images at the end.
+          <p className="mt-6 text-base leading-relaxed text-vs-text-body">
+            If you&apos;re working on a new collection, campaign or rebrand, we can help you plan the visuals from day one — not just generate images at the end.
           </p>
           <a
             href={DISCOVERY_URL}
@@ -41,7 +41,7 @@ export function DiscoveryCallSection() {
               handleClick();
               trackEvent("whatsapp_click", { location: "discovery" });
             }}
-            className="mt-8 inline-flex items-center justify-center rounded-full border border-vs-text-body/30 px-8 py-3 text-xs font-semibold uppercase tracking-[0.3em] text-vs-text-strong"
+            className="btn-secondary mt-6 !border-vs-text-body/30 !text-vs-text-strong hover:!border-vs-text-strong"
           >
             Book a discovery call
           </a>

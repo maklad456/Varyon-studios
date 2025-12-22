@@ -45,7 +45,8 @@ const config: Config = {
         soft_dark: "0 18px 45px rgba(0, 0, 0, 0.45)",
       },
       fontFamily: {
-        suisse: ["var(--font-suisse-intl)", "sans-serif"],
+        sans: ["var(--font-suisse-intl)", "system-ui", "-apple-system", "sans-serif"],
+        suisse: ["var(--font-suisse-intl)", "system-ui", "-apple-system", "sans-serif"],
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

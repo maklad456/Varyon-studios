@@ -30,8 +30,7 @@
   }
 
   body {
-    font-family: var(--font-suisse-intl), "SuisseIntl", "Inter", system-ui, -apple-system,
-      BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-family: var(--font-suisse-intl), system-ui, -apple-system, sans-serif;
     background-color: var(--vs-bg-light);
     color: var(--vs-text-body);
     min-height: 100vh;
@@ -40,6 +39,29 @@
   ::selection {
     background-color: var(--vs-accent);
     color: #ffffff;
+  }
+}
+
+@layer components {
+  /* Site-wide container with consistent max-width and padding */
+  .site-container {
+    @apply mx-auto max-w-screen-2xl px-6 sm:px-8 lg:px-12;
+  }
+
+  /* Consistent section vertical spacing */
+  .site-section {
+    @apply py-12;
+  }
+
+  /* Button styles for consistency */
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-full bg-vs-accent px-8 py-4 text-center text-sm font-semibold uppercase tracking-[0.3em] text-black transition hover:bg-emerald-500;
+    min-height: 48px;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center rounded-full border border-white/30 px-8 py-4 text-center text-sm font-semibold uppercase tracking-[0.3em] text-white transition hover:border-white;
+    min-height: 48px;
   }
 }
 

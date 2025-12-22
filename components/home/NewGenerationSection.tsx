@@ -15,17 +15,17 @@ export function NewGenerationSection() {
   ];
 
   return (
-    <section className="bg-black py-20 text-white">
-      <div className="mx-auto max-w-screen-2xl px-6 sm:px-8 lg:px-12">
+    <section className="site-section bg-black text-white">
+      <div className="site-container">
         <p className="text-xs font-semibold uppercase tracking-[0.3em] text-vs-accent-soft">
           New generation
         </p>
-        <h2 className="mt-4 text-3xl font-semibold sm:text-[40px]">The new generation of content production.</h2>
-        <div className="mt-10 grid gap-6 md:grid-cols-3">
+        <h2 className="mt-4 text-3xl font-semibold leading-tight sm:text-4xl sm:leading-tight">The new generation of content production.</h2>
+        <div className="mt-8 grid gap-6 md:grid-cols-3">
           {pillars.map((pillar) => (
-            <article key={pillar.title} className="rounded-3xl border border-white/10 bg-white/5 p-6">
-              <h3 className="text-xl font-semibold text-white">{pillar.title}</h3>
-              <p className="mt-3 text-sm text-vs-text-on-dark">{pillar.body}</p>
+            <article key={pillar.title} className="rounded-3xl border border-white/10 bg-white/5 p-8 transition-all duration-300 hover:shadow-[0_0_30px_rgba(16,185,129,0.4)]">
+              <h3 className="text-xl font-semibold leading-tight text-white">{pillar.title}</h3>
+              <p className="mt-4 text-sm leading-relaxed text-vs-text-on-dark">{pillar.body}</p>
             </article>
           ))}
         </div>
