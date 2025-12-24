@@ -260,11 +260,11 @@ export function getLibrarySampleBySlug(slug: string): LibrarySample | undefined 
 
 // Get all unique industries
 export function getLibraryIndustries(): string[] {
-  return [...new Set(librarySamples.map((s) => s.industry))];
+  return Array.from(new Set(librarySamples.map((s) => s.industry)));
 }
 
 // Get all unique categories
 export function getLibraryCategories(): string[] {
-  return [...new Set(librarySamples.flatMap((s) => s.categories))];
+  return Array.from(new Set(librarySamples.flatMap((s) => s.categories)));
 }
 

@@ -21,7 +21,7 @@ export default function CaseStudiesPage() {
             Work we can show publicly.
           </h1>
           <p className="mt-4 max-w-3xl text-base leading-relaxed text-white/70 sm:text-lg">
-            Each of these projects solved a wildly different problem — from showing modular homes that didn't exist yet to generating 1,500+ ecommerce images without a single studio day.
+            Each of these projects solved a wildly different problem — from showing modular homes that didn&apos;t exist yet to generating 1,500+ ecommerce images without a single studio day.
           </p>
         </div>
       </section>

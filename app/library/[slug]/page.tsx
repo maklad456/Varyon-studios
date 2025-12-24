@@ -35,7 +35,7 @@ export default function LibraryDetailPage() {
     notFound();
   }
 
-  const hasChapters = sample.chapters && sample.chapters.length > 0;
+  const hasChapters = !!(sample.chapters && sample.chapters.length > 0);
   // For chapters, we'll pass the sample directly and let layouts handle stacking
   // For non-chapters, use the original logic
   const beforeImage = hasChapters ? "" : sample.before;
@@ -346,7 +346,7 @@ function ChapterCarousel({ chapter, sample, chapterIdx, isSquareAfter, imageErro
         <div className="flex flex-col">
           <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-vs-text-body/50">Before</p>
           <div className="relative h-[500px] overflow-hidden rounded-2xl border-2 border-dashed border-black/10 bg-white shadow-soft">
-            <ImageWithFallback src={chapter.before} alt={`${sample.name} chapter ${chapterIdx + 1} before`} className="object-contain p-4" fill sizes="50vw" priority={chapterIdx === 0} imageErrors={imageErrors} handleImageError={handleImageError} />
+            <ImageWithFallback src={chapter.before} alt={`${sample.name} chapter ${chapterIdx + 1} before`} className="object-contain p-4" sizes="50vw" priority={chapterIdx === 0} imageErrors={imageErrors} handleImageError={handleImageError} />
           </div>
         </div>
 
@@ -366,7 +366,7 @@ function ChapterCarousel({ chapter, sample, chapterIdx, isSquareAfter, imageErro
                       : "border-transparent opacity-60 hover:opacity-100 hover:scale-105"
                   }`}
                 >
-                  <ImageWithFallback src={src} alt={`Thumbnail ${idx + 1}`} className="object-cover" fill sizes="64px" imageErrors={imageErrors} handleImageError={handleImageError} />
+                  <ImageWithFallback src={src} alt={`Thumbnail ${idx + 1}`} className="object-cover" sizes="64px" imageErrors={imageErrors} handleImageError={handleImageError} />
                 </button>
               ))}
             </div>
@@ -379,7 +379,7 @@ function ChapterCarousel({ chapter, sample, chapterIdx, isSquareAfter, imageErro
               <button onClick={() => setSelectedIndex((prev) => (prev + 1) % chapter.after.length)} className="absolute right-2 top-1/2 z-20 -translate-y-1/2 rounded-full bg-white/90 p-2 shadow-lg transition-all hover:bg-white hover:shadow-xl">
                 <svg className="h-5 w-5 text-vs-text-strong" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
               </button>
-              <ImageWithFallback src={chapter.after[selectedIndex]} alt={`${sample.name} chapter ${chapterIdx + 1} after ${selectedIndex + 1}`} className="object-contain p-4" fill sizes="calc(50vw - 100px)" priority={chapterIdx === 0 && selectedIndex < 2} imageErrors={imageErrors} handleImageError={handleImageError} />
+              <ImageWithFallback src={chapter.after[selectedIndex]} alt={`${sample.name} chapter ${chapterIdx + 1} after ${selectedIndex + 1}`} className="object-contain p-4" sizes="calc(50vw - 100px)" priority={chapterIdx === 0 && selectedIndex < 2} imageErrors={imageErrors} handleImageError={handleImageError} />
             </div>
           </div>
         </div>
@@ -509,7 +509,6 @@ function LayoutB({ sample, beforeImage, afterImages, hasChapters, currentChapter
                       src={src} 
                       alt={`Thumbnail ${idx + 1}`} 
                       className="object-cover" 
-                      fill
                       sizes="64px" 
                       imageErrors={imageErrors} 
                       handleImageError={handleImageError} 
@@ -545,7 +544,6 @@ function LayoutB({ sample, beforeImage, afterImages, hasChapters, currentChapter
                   src={afterImages[selectedAfterIndex]} 
                   alt={`${sample.name} after ${selectedAfterIndex + 1}`} 
                   className="object-contain p-4" 
-                  fill
                   sizes="calc(50vw - 100px)" 
                   priority={selectedAfterIndex < 2}
                   imageErrors={imageErrors} 
