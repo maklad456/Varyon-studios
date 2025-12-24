@@ -16,9 +16,10 @@ QUALITY=90
 
 # Check if cwebp is installed
 if ! command -v cwebp &> /dev/null; then
-    echo "❌ Error: cwebp is not installed."
-    echo "   Install with: brew install webp"
-    exit 1
+    echo "⚠️  Warning: cwebp is not installed. Skipping conversion."
+    echo "   Images should already be converted and committed to the repository."
+    echo "   To convert locally, install with: brew install webp"
+    exit 0
 fi
 
 # Counters

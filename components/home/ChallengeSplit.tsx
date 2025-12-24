@@ -11,7 +11,7 @@ export function ChallengeSplit() {
           <ul className="mt-8 flex-1 space-y-4 text-base leading-relaxed text-black">
             {challengeLeft.map((item) => (
               <li key={item} className="flex gap-4">
-                <span className="mt-2 h-2 w-2 flex-shrink-0 rounded-full bg-vs-accent" />
+                <span className="mt-2 h-2 w-2 flex-shrink-0 rounded-full bg-black" />
                 <span>{item}</span>
               </li>
             ))}
