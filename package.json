@@ -4,9 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "npm run samples:webp && next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "samples:webp": "bash scripts/convert-samples-to-webp.sh",
+    "samples:validate": "node scripts/validate-samples.mjs",
+    "samples:setup": "bash scripts/setup-samples.sh"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",

@@ -71,6 +71,71 @@
   }
 }
 
+/* Intro Animation Styles */
+.introOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.introStage {
+  width: 100%;
+  max-width: 90vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (min-width: 768px) {
+  .introStage {
+    max-width: 75vw;
+  }
+}
+
+@media (min-width: 1024px) {
+  .introStage {
+    max-width: 75vw;
+  }
+}
+
+.introLogo {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.introLogo svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.introLogo svg text,
+.introLogo svg tspan {
+  fill: #ffffff !important;
+}
+
+.introLogo svg image {
+  filter: brightness(0) invert(1);
+}
+
+.appContent--hidden {
+  opacity: 0;
+}
+
+.appContent--visible {
+  opacity: 1;
+  transition: opacity 350ms ease;
+}
+
+body.intro-lock {
+  overflow: hidden;
+}
+
 /* 404 page styles */
 .varyon404-page,
 .varyon404-page * {

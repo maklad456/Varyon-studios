@@ -10,14 +10,26 @@ export const metadata: Metadata = {
 
 export default function CaseStudiesPage() {
   return (
-    <div className="bg-vs-bgLight py-24">
-      <div className="mx-auto max-w-5xl px-4 sm:px-6">
-        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-vs-text-body/70">Case studies</p>
-        <h1 className="mt-4 text-4xl font-semibold text-vs-text-strong">Work we can show publicly.</h1>
-        <p className="mt-4 max-w-3xl text-base text-vs-text-body">
-          Each of these projects solved a wildly different problem — from showing modular homes that didn’t exist yet to generating 1,500+ ecommerce images without a single studio day.
-        </p>
-        <div className="mt-10 space-y-8">
+    <main className="min-h-screen bg-vs-bgLight">
+      {/* Header */}
+      <section className="bg-vs-bgDark text-white pt-28 pb-12">
+        <div className="site-container pt-8">
+          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-vs-accent">
+            Case studies
+          </p>
+          <h1 className="mt-4 text-4xl font-semibold leading-tight text-white sm:text-5xl sm:leading-tight">
+            Work we can show publicly.
+          </h1>
+          <p className="mt-4 max-w-3xl text-base leading-relaxed text-white/70 sm:text-lg">
+            Each of these projects solved a wildly different problem — from showing modular homes that didn't exist yet to generating 1,500+ ecommerce images without a single studio day.
+          </p>
+        </div>
+      </section>
+
+      {/* Content */}
+      <section className="site-section">
+        <div className="site-container">
+          <div className="mt-10 space-y-8">
           {caseStudies.map((study) => (
             <article key={study.slug} className="rounded-3xl border border-black/5 bg-white p-6 shadow-soft">
               <p className="text-xs font-semibold uppercase tracking-[0.3em] text-vs-accent">{study.tag}</p>
@@ -32,8 +44,9 @@ export default function CaseStudiesPage() {
               </Link>
             </article>
           ))}
+          </div>
         </div>
-      </div>
-    </div>
+      </section>
+    </main>
   );
 }

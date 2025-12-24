@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import { TKFPageTransitionProvider } from "@/components/thekeenfolks_features/TKFPageTransitionProvider";
+// TKFPageTransitionProvider removed - no page transition animations
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { LeadCaptureModal } from "@/components/common/LeadCaptureModal";
+import { IntroOverlay } from "@/components/common/IntroOverlay";
 
 const suisseIntl = localFont({
   src: [
@@ -95,12 +96,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${suisseIntl.variable} font-sans bg-vs-bgLight text-vs-textBody antialiased`}>
-        <TKFPageTransitionProvider>
+        <IntroOverlay />
+        <div id="app-content" className="appContent--hidden">
           <SiteHeader />
           <main className="pt-0">{children}</main>
           <SiteFooter />
           <LeadCaptureModal />
-        </TKFPageTransitionProvider>
+        </div>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}

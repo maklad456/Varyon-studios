@@ -2,14 +2,21 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
 import { trackEvent } from "@/lib/analytics";
 
-const navItems = [
-  { label: "Work", href: "#case-studies" },
+const homeNavItems = [
+  { label: "What we offer", href: "#capabilities" },
   { label: "How it works", href: "#process" },
-  { label: "FAQ", href: "#faq" },
+  { label: "Case studies", href: "#case-studies" },
+  { label: "Library", href: "#library" },
+];
+
+const otherPagesNavItems = [
+  { label: "Home", href: "/" },
+  { label: "Case studies", href: "/case-studies" },
+  { label: "Library", href: "/library" },
 ];
 
 const WHATSAPP_URL =
@@ -17,7 +24,37 @@ const WHATSAPP_URL =
 
 export function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
+  
+  // Check if we're on the homepage
+  const isHomePage = pathname === "/";
+  
+  // Check if we're on a library detail page
+  const isLibraryDetailPage = pathname?.startsWith("/library/") && pathname !== "/library";
+  
+  // Determine which nav items to use
+  const navItems = isHomePage ? homeNavItems : otherPagesNavItems;
+
+  useEffect(() => {
+    if (!isLibraryDetailPage) {
+      // On non-library pages, always use the overlay style
+      setIsScrolled(true);
+      return;
+    }
+
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      setIsScrolled(scrollY > 0);
+    };
+
+    // Set initial state
+    handleScroll();
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [isLibraryDetailPage]);
 
   const handleWhatsApp = () => {
     trackEvent("whatsapp_click", { location: "header" });
@@ -30,29 +67,33 @@ export function SiteHeader() {
         element.scrollIntoView({ behavior: "smooth", block: "start" });
       }
     } else if (href.startsWith("/")) {
-      window.location.href = href;
+      router.push(href);
     }
     setMenuOpen(false);
   };
 
+  // Determine header background classes based on scroll state and page type
+  const headerBgClass = isLibraryDetailPage && !isScrolled
+    ? "bg-[#020202] backdrop-blur-none" // Solid black when at top on library pages
+    : "bg-[#020202]/70 backdrop-blur-xl"; // Gray overlay when scrolled or on other pages
+
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-white/5 bg-[#020202]/70 backdrop-blur-xl">
-      <div className="mx-auto flex w-full items-center justify-between px-6 py-4 text-white sm:px-8 lg:px-12">
+    <header className={`fixed inset-x-0 top-0 z-50 border-b border-white/5 transition-all duration-300 ${headerBgClass}`}>
+      <div className="mx-auto flex w-full items-center justify-between px-6 py-5 text-white sm:px-8 lg:px-12">
         <Link href="/" aria-label="Varyon Studios" className="flex items-center">
-          <div className="relative h-20 w-20">
+          <div className="relative h-14 w-14">
             <Image
               src="/branding/vs-icon-light.png"
               alt="Varyon Studios"
               fill
               className="object-contain"
-              sizes="80px"
-              quality={100}
+              sizes="56px"
               priority={pathname === "/"}
             />
           </div>
         </Link>
 
-        <nav className="hidden items-center justify-center gap-8 text-base font-medium tracking-wide md:flex">
+        <nav className="hidden items-center justify-center gap-10 text-sm font-medium tracking-wide md:flex">
           {navItems.map((item) => (
             <button
               key={item.href}
@@ -63,18 +104,22 @@ export function SiteHeader() {
               {item.label}
             </button>
           ))}
-          <Link href="/case-studies" className="text-white/80 transition hover:text-white">
-            Success stories
-          </Link>
         </nav>
 
         <div className="hidden items-center justify-end gap-4 md:flex">
+          <button
+            type="button"
+            onClick={() => handleNavClick("#faq")}
+            className="text-xs uppercase tracking-[0.2em] text-white/60 transition hover:text-white"
+          >
+            FAQ
+          </button>
           <a
             href={WHATSAPP_URL}
             target="_blank"
             rel="noreferrer"
             onClick={handleWhatsApp}
-            className="rounded-full bg-vs-accent px-6 py-3 text-center text-[11px] font-semibold uppercase leading-tight tracking-[0.2em] text-black transition hover:bg-emerald-500"
+            className="flex flex-col items-center rounded-full bg-vs-accent px-6 py-3 text-[11px] font-semibold uppercase leading-tight tracking-[0.2em] text-black transition hover:bg-emerald-500"
           >
             <span className="block">Get your free</span>
             <span className="block">sample</span>
@@ -98,9 +143,6 @@ export function SiteHeader() {
                 {item.label}
               </button>
             ))}
-            <Link href="/case-studies" onClick={() => setMenuOpen(false)}>
-              Success stories
-            </Link>
             <a
               href={WHATSAPP_URL}
               target="_blank"
@@ -109,11 +151,10 @@ export function SiteHeader() {
                 handleWhatsApp();
                 setMenuOpen(false);
               }}
-              className="rounded-full bg-vs-accent px-4 py-3 text-center text-xs font-semibold uppercase tracking-[0.2em] text-black"
+              className="flex flex-col items-center rounded-full bg-vs-accent px-4 py-3 text-center text-xs font-semibold uppercase tracking-[0.2em] text-black"
             >
-              Get your free
-              <br />
-              sample
+              <span>Get your free</span>
+              <span>sample</span>
             </a>
           </div>
         </div>
