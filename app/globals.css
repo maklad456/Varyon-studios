@@ -11,6 +11,7 @@
   body {
     margin: 0;
     padding: 0;
+    overflow-x: hidden;
   }
 
   :root {
@@ -276,4 +277,23 @@ body.intro-lock {
     padding: 12px 28px;
     font-size: 13px;
   }
+}
+
+/* Logo Marquee Animation - Seamless Infinite Loop */
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-100% / 3));
+  }
+}
+
+.animate-scroll {
+  animation: scroll 23s linear infinite;
+  will-change: transform;
+}
+
+.animate-scroll:hover {
+  animation-play-state: paused;
 }

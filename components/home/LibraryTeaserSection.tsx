@@ -1,9 +1,30 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useRef } from "react";
 import { trackEvent } from "@/lib/analytics";
 import { getLibraryIndustries } from "@/data/librarySamples";
+
+// Logo filenames from logo-carousel folder
+const logoFiles = [
+  "20250518_2020_Minimalist_Logo_Design_remix_01jvj6hnfcf8w9xe6ksz2e3xqh_1 copy.png",
+  "352988881_588704730017442_5215786875835733250_n-removebg-preview copy.png",
+  "Anetos_Logo_White.png",
+  "Drowzy_Logo_No_BKGD copy.png",
+  "Favicon copy.png",
+  "Long_Black_no_BG copy.png",
+  "MESH_logo_transparent-removebg-preview copy.png",
+  "Purple_Modern_Eid_Al_Fitr_Greeting_Instagram_Post copy.png",
+  "Zee_Designs_Plexi_Glass_Logo copy.png",
+  "home-hive-white.png",
+  "lilly-home-logo_180x copy.png",
+  "logo copy.png",
+  "logo-header copy.png",
+  "transparent-1-1 copy.png",
+  "website-logo-Main copy.png",
+  "wood_workers_logo copy.png",
+];
 
 export function LibraryTeaserSection() {
   const sectionRef = useRef<HTMLElement | null>(null);
@@ -57,6 +78,30 @@ export function LibraryTeaserSection() {
             Across 30+ industries — explore a curated library of before/after samples
             that showcase real transformations.
           </p>
+
+          {/* Logo Marquee - Full Width */}
+          <div className="mt-10 -mx-6 w-[100vw] overflow-hidden py-4 sm:-mx-8 lg:-mx-12" style={{ marginLeft: 'calc(-50vw + 50%)', marginRight: 'calc(-50vw + 50%)' }}>
+            <div className="flex animate-scroll gap-8 md:gap-12" style={{ width: 'max-content' }}>
+              {/* Render all 16 logos multiple times for seamless infinite loop */}
+              {[...Array(3)].map((_, setNum) =>
+                logoFiles.map((logo, index) => (
+                  <div
+                    key={`set${setNum}-logo${index}`}
+                    className="flex h-20 w-40 flex-shrink-0 items-center justify-center px-4"
+                  >
+                    <Image
+                      src={`/logo-carousel/${logo}`}
+                      alt={`Client logo ${index + 1}`}
+                      width={160}
+                      height={80}
+                      className="h-full w-full object-contain object-center opacity-100 transition-all duration-300 hover:opacity-90"
+                      unoptimized
+                    />
+                  </div>
+                ))
+              )}
+            </div>
+          </div>
 
           {/* CTA */}
           <Link
