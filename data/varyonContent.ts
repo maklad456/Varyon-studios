@@ -38,26 +38,68 @@ export const capabilities = [
   {
     title: "Product-only on clean backgrounds",
     body: "Perfectly lit, high-consistency imagery for PDPs, marketplaces and configurators.",
+    images: [
+      "/Every-format/Product-only.webp",
+      "/Every-format/product-only-2.webp",
+    ],
   },
   {
     title: "Lifestyle & in-use scenes",
     body: "Scenes that sell the feeling of owning your product, not just the object itself.",
+    images: [
+      "/Every-format/lifestyle-and-in-use-scene.webp",
+      "/Every-format/lifestyle-and-in-use_bloom_low_1x.webp",
+      "/Every-format/lifestyle-and-use-scene.webp",
+    ],
   },
   {
     title: "On-model fashion & people shots",
     body: "Human storytelling without casting, travel or wardrobe headaches.",
+    images: [
+      "/Every-format/on-model_bloom_low_1x.webp",
+      "/Every-format/on-model 2_bloom_low_1x.webp",
+    ],
   },
   {
     title: "CGI / impossible angles & locations",
-    body: "Gravity-defying hero shots, cutaways and exploded views your competitors can’t film.",
+    body: "Gravity-defying hero shots, cutaways and exploded views your competitors can't film.",
+    images: [
+      "/Every-format/impossible-shot.webp",
+      "/Every-format/impossible-shot-2.webp",
+      "/Every-format/impossible-shot-3.webp",
+    ],
   },
   {
     title: "Detail & macro shots",
     body: "Bring textures, stitching and material stories to life for discerning buyers.",
+    images: [
+      "/Every-format/detial-and-macro-shot.webp",
+      "/Every-format/detailed-and-macro-shot.webp",
+    ],
   },
   {
-    title: "Cinematic campaign videos",
-    body: "Launch films and loops built for paid social, retail screens and immersive websites.",
+    title: "Product effects & before/after",
+    body: "Before/after pairs, application visuals, texture reveals, and outcome-style scenes—crafted to stay credible and category-appropriate for PDPs, ads, and social.",
+    images: [
+      "/Every-format/before:after-effect.webp",
+      "/Every-format/before:after-effect-2.webp",
+    ],
+  },
+  {
+    title: "Designed creatives with text",
+    body: "Fully designed posts and banners with headlines, benefit bullets, badges, and layout systems—delivered in formats for web, ads, stories, and feeds.",
+    images: [
+      "/Every-format/full-design-1.webp",
+      "/Every-format/full-design-2.webp",
+    ],
+  },
+  {
+    title: "Bundles, sets & variant grids",
+    body: "Combo images that show bundles, multi-item sets, and full variant ranges (sizes/colors) in one clean composition—perfect for collections, ads, and launch pages.",
+    images: [
+      "/Every-format/bundles-1.webp",
+      "/Every-format/bundles-2.webp",
+    ],
   },
 ];
 

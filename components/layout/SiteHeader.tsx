@@ -9,14 +9,12 @@ import { trackEvent } from "@/lib/analytics";
 const homeNavItems = [
   { label: "What we offer", href: "#capabilities" },
   { label: "How it works", href: "#process" },
-  { label: "Case studies", href: "#case-studies" },
-  { label: "Library", href: "#library" },
+  { label: "Our work", href: "#library" },
 ];
 
 const otherPagesNavItems = [
   { label: "Home", href: "/" },
-  { label: "Case studies", href: "/case-studies" },
-  { label: "Library", href: "/library" },
+  { label: "Our work", href: "/library" },
 ];
 
 const WHATSAPP_URL =
