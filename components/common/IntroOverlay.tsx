@@ -110,6 +110,7 @@ export function IntroOverlay() {
     await new Promise((resolve) => setTimeout(resolve, 200)); // Small delay to ensure DOM is ready
 
     const overlay = document.getElementById("intro-overlay");
+    const logoContainer = overlay?.querySelector('[data-intro-logo-container]') as HTMLElement;
     const svg = overlay?.querySelector("svg");
     const line1 = svg?.querySelector('#ARYON');
     const line2 = svg?.querySelector('#STUDIOS');
@@ -120,8 +121,8 @@ export function IntroOverlay() {
                   svg?.querySelector('#Outline_copy_Image image') ||
                   svg?.querySelector('g#Outline_copy_Image image');
 
-    if (!overlay || !svg || !line1 || !line2) {
-      console.error("Missing required elements:", { overlay: !!overlay, svg: !!svg, line1: !!line1, line2: !!line2 });
+    if (!overlay || !logoContainer || !svg || !line1 || !line2) {
+      console.error("Missing required elements:", { overlay: !!overlay, logoContainer: !!logoContainer, svg: !!svg, line1: !!line1, line2: !!line2 });
       finishIntro();
       return;
     }
@@ -137,12 +138,8 @@ export function IntroOverlay() {
       // Wait a moment to show the logo
       await new Promise((resolve) => setTimeout(resolve, 1400));
 
-      // Fade out text lines
-      (line1 as HTMLElement).animate(
-        [{ opacity: 1 }, { opacity: 0 }],
-        { duration: 560, fill: "forwards" }
-      );
-      (line2 as HTMLElement).animate(
+      // Fade out entire logo and text together
+      logoContainer.animate(
         [{ opacity: 1 }, { opacity: 0 }],
         { duration: 560, fill: "forwards" }
       );
@@ -315,14 +312,19 @@ export function IntroOverlay() {
   return (
     <div id="intro-overlay" className="introOverlay" aria-hidden="true">
       <div className="introStage">
-        {svgContent ? (
-          <div
-            dangerouslySetInnerHTML={{ __html: svgContent }}
-            className="introLogo"
-          />
-        ) : (
-          <div className="introLogo" />
-        )}
+        <div data-intro-logo-container className="w-full flex flex-col items-center">
+          {svgContent ? (
+            <div
+              dangerouslySetInnerHTML={{ __html: svgContent }}
+              className="introLogo"
+            />
+          ) : (
+            <div className="introLogo" />
+          )}
+          <p className="-mt-9 ml-1 text-[3.3rem] font-thin text-white sm:text-[4.125rem]" style={{ fontFamily: '"Space Grotesk", system-ui, sans-serif' }}>
+            Too Good to Skip
+          </p>
+        </div>
       </div>
     </div>
   );
