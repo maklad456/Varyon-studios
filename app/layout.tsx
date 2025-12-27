@@ -6,6 +6,7 @@ import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { LeadCaptureModal } from "@/components/common/LeadCaptureModal";
 import { IntroOverlay } from "@/components/common/IntroOverlay";
+import { HomepageScrollSnap } from "@/components/common/HomepageScrollSnap";
 
 const suisseIntl = localFont({
   src: [
@@ -96,6 +97,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${suisseIntl.variable} font-sans bg-vs-bgLight text-vs-textBody antialiased`}>
+        <HomepageScrollSnap />
         <IntroOverlay />
         <div id="app-content" className="appContent--hidden">
           <SiteHeader />

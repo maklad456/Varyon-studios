@@ -120,12 +120,12 @@ export function LibraryTeaserSection() {
             </p>
 
             {/* Headline */}
-            <h3 className="mt-3 text-xl font-semibold leading-tight text-white sm:text-2xl sm:leading-tight">
+            <h3 className="mt-3 text-3xl font-semibold leading-tight text-white sm:text-4xl sm:leading-tight">
               Four brands. Four different production problems. One strategy-first pipeline.
             </h3>
 
             {/* Support line */}
-            <p className="mt-4 max-w-2xl text-base leading-relaxed text-white/70">
+            <p className="mt-4 max-w-2xl text-base leading-relaxed text-white/70 sm:text-lg">
               Deep, technical breakdowns of how we build systems that scale.
             </p>
 
@@ -139,7 +139,7 @@ export function LibraryTeaserSection() {
             </Link>
 
             {/* Micro line */}
-            <p className="mt-3 text-xs text-white/50">
+            <p className="mt-3 text-sm text-white/50">
               Discovery Homes · Zee Plexiglass Designs · Woodworkers · Mehos
             </p>
           </div>

@@ -67,12 +67,66 @@
   .btn-secondary {
     @apply inline-flex items-center justify-center rounded-full border border-white/30 px-8 py-4 text-center text-sm font-semibold uppercase tracking-[0.3em] text-white transition hover:border-white;
     min-height: 48px;
+    /* Match btn-primary dimensions exactly */
+    box-sizing: border-box;
   }
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  /* Homepage scroll snap - desktop/tablet only */
+  html.homeSnap {
+    scroll-snap-type: y proximity;
+  }
+
+  @media (max-width: 767px) {
+    html.homeSnap {
+      scroll-snap-type: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html.homeSnap {
+      scroll-snap-type: none !important;
+    }
+  }
+
+  .snapStop {
+    scroll-snap-align: start;
+  }
+
+  /* Video carousel slide animations */
+  @keyframes slide-in-right {
+    from {
+      opacity: 0;
+      transform: translateX(50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes slide-in-left {
+    from {
+      opacity: 0;
+      transform: translateX(-50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .animate-slide-in-right {
+    animation: slide-in-right 0.5s ease-in-out;
+  }
+
+  .animate-slide-in-left {
+    animation: slide-in-left 0.5s ease-in-out;
   }
 }
 

@@ -2,150 +2,43 @@
 
 import { capabilities } from "@/data/varyonContent";
 import Image from "next/image";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 
 export function CapabilitiesSection() {
   const [activeCapabilityIndex, setActiveCapabilityIndex] = useState(0);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
-  const capabilityIntervalRef = useRef<NodeJS.Timeout | null>(null);
-  const imageIntervalRef = useRef<NodeJS.Timeout | null>(null);
-  const clickedCapabilityRef = useRef<number | null>(null);
-  const imageDirectionRef = useRef<"forward" | "backward">("forward");
 
   const activeCapability = capabilities[activeCapabilityIndex];
   const activeImage = activeCapability.images[activeImageIndex];
 
-  // Auto-advance images within current capability - forward then backward once
+  // Auto-advance images within current capability (every 3 seconds)
   useEffect(() => {
     if (!activeCapability.images || activeCapability.images.length <= 1) return;
 
-    // Clear any existing interval
-    if (imageIntervalRef.current) {
-      clearInterval(imageIntervalRef.current);
-    }
-
-    // Reset to start when capability changes
-    setActiveImageIndex(0);
-    imageDirectionRef.current = "forward";
-
     const imageInterval = setInterval(() => {
-      setActiveImageIndex((prev) => {
-        if (imageDirectionRef.current === "forward") {
-          if (prev < activeCapability.images.length - 1) {
-            return prev + 1;
-          } else {
-            // Reached the end, go backward
-            imageDirectionRef.current = "backward";
-            return prev - 1;
-          }
-        } else {
-          // Going backward
-          if (prev > 0) {
-            return prev - 1;
-          } else {
-            // Reached the start, stop cycling (will restart when capability changes)
-            clearInterval(imageInterval);
-            return 0;
-          }
-        }
-      });
+      setActiveImageIndex((prev) => (prev + 1) % activeCapability.images.length);
     }, 3000);
 
-    imageIntervalRef.current = imageInterval;
+    return () => clearInterval(imageInterval);
+  }, [activeCapabilityIndex, activeCapability.images]);
 
-    return () => {
-      if (imageIntervalRef.current) {
-        clearInterval(imageIntervalRef.current);
-      }
-    };
-  }, [activeCapabilityIndex, activeCapability.images.length]);
-
-  // Auto-advance capabilities (every 6 seconds, or 16 seconds if manually clicked)
+  // Auto-advance capabilities (every 6 seconds)
   useEffect(() => {
-    // Clear any existing interval
-    if (capabilityIntervalRef.current) {
-      clearInterval(capabilityIntervalRef.current);
-    }
-
-    const baseInterval = 6000;
-    const extraTimeOnClick = 10000;
-    const intervalTime = clickedCapabilityRef.current === activeCapabilityIndex 
-      ? baseInterval + extraTimeOnClick 
-      : baseInterval;
-
     const capabilityInterval = setInterval(() => {
       setActiveCapabilityIndex((prev) => {
         const next = (prev + 1) % capabilities.length;
         setActiveImageIndex(0); // Reset image index when changing capability
-        imageDirectionRef.current = "forward";
-        clickedCapabilityRef.current = null; // Reset click tracking
         return next;
       });
-    }, intervalTime);
+    }, 6000);
 
-    capabilityIntervalRef.current = capabilityInterval;
-
-    return () => {
-      if (capabilityIntervalRef.current) {
-        clearInterval(capabilityIntervalRef.current);
-      }
-    };
-  }, [activeCapabilityIndex]);
+    return () => clearInterval(capabilityInterval);
+  }, []);
 
   // Reset image index when capability changes manually
   const handleCapabilityClick = (index: number) => {
-    // Clear existing intervals
-    if (capabilityIntervalRef.current) {
-      clearInterval(capabilityIntervalRef.current);
-    }
-    if (imageIntervalRef.current) {
-      clearInterval(imageIntervalRef.current);
-    }
-
     setActiveCapabilityIndex(index);
     setActiveImageIndex(0);
-    imageDirectionRef.current = "forward";
-    clickedCapabilityRef.current = index; // Mark this as clicked
-
-    // Restart the capability interval with extra time
-    const baseInterval = 6000;
-    const extraTimeOnClick = 10000;
-    const intervalTime = baseInterval + extraTimeOnClick;
-
-    capabilityIntervalRef.current = setInterval(() => {
-      setActiveCapabilityIndex((prev) => {
-        const next = (prev + 1) % capabilities.length;
-        setActiveImageIndex(0);
-        imageDirectionRef.current = "forward";
-        clickedCapabilityRef.current = null;
-        return next;
-      });
-    }, intervalTime);
-
-    // Restart image cycling
-    if (capabilities[index].images && capabilities[index].images.length > 1) {
-      imageIntervalRef.current = setInterval(() => {
-        setActiveImageIndex((prev) => {
-          if (imageDirectionRef.current === "forward") {
-            if (prev < capabilities[index].images.length - 1) {
-              return prev + 1;
-            } else {
-              imageDirectionRef.current = "backward";
-              return prev - 1;
-            }
-          } else {
-            if (prev > 0) {
-              return prev - 1;
-            } else {
-              if (imageIntervalRef.current) {
-                clearInterval(imageIntervalRef.current);
-              }
-              return 0;
-            }
-          }
-        });
-      }, 3000);
-    }
   };
 
   return (
