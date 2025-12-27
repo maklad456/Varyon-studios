@@ -14,7 +14,8 @@ const homeNavItems = [
 
 const otherPagesNavItems = [
   { label: "Home", href: "/" },
-  { label: "Our work", href: "/library" },
+  { label: "Library", href: "/library" },
+  { label: "Case studies", href: "/case-studies" },
 ];
 
 const WHATSAPP_URL =

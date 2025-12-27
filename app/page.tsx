@@ -3,7 +3,6 @@ import { ChallengeSplit } from "@/components/home/ChallengeSplit";
 import { CapabilitiesSection } from "@/components/home/CapabilitiesSection";
 import { ProcessSection } from "@/components/home/ProcessSection";
 import { LibraryTeaserSection } from "@/components/home/LibraryTeaserSection";
-import { CaseStudiesSection } from "@/components/home/CaseStudiesSection";
 import { NewGenerationSection } from "@/components/home/NewGenerationSection";
 import { DiscoveryCallSection } from "@/components/home/DiscoveryCallSection";
 import { FaqSection } from "@/components/home/FaqSection";
@@ -19,9 +18,8 @@ export default function Home() {
       <CapabilitiesSection />
       <ProcessSection />
       <LibraryTeaserSection />
-      <CaseStudiesSection />
-      <NewGenerationSection />
       <DiscoveryCallSection />
+      <NewGenerationSection />
       <FaqSection />
       <FinalCtaSection />
     </div>

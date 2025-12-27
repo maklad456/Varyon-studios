@@ -112,6 +112,38 @@ export function LibraryTeaserSection() {
             Explore the Library
           </Link>
 
+          {/* Case Studies Teaser */}
+          <div className="mt-8 flex flex-col items-center text-center">
+            {/* Label */}
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-vs-accent">
+              CASE STUDIES
+            </p>
+
+            {/* Headline */}
+            <h3 className="mt-3 text-xl font-semibold leading-tight text-white sm:text-2xl sm:leading-tight">
+              Four brands. Four different production problems. One strategy-first pipeline.
+            </h3>
+
+            {/* Support line */}
+            <p className="mt-4 max-w-2xl text-base leading-relaxed text-white/70">
+              Deep, technical breakdowns of how we build systems that scale.
+            </p>
+
+            {/* Button */}
+            <Link
+              href="/case-studies"
+              className="btn-secondary mt-5"
+              onClick={() => trackEvent("case_studies_teaser_cta_click")}
+            >
+              Explore case studies
+            </Link>
+
+            {/* Micro line */}
+            <p className="mt-3 text-xs text-white/50">
+              Discovery Homes · Zee Plexiglass Designs · Woodworkers · Mehos
+            </p>
+          </div>
+
           {/* Industry pills */}
           <div className="mt-10 flex flex-wrap justify-center gap-2">
             {displayedIndustries.map((industry) => (

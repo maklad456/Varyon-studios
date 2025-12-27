@@ -2,6 +2,7 @@ export type CaseStudy = {
   slug: string;
   name: string;
   tag: string;
+  summary: string; // Short summary line for homepage cards
   problem: string;
   approach: string;
   outcome: string;
@@ -120,9 +121,34 @@ export const processSteps = [
 
 export const caseStudies: CaseStudy[] = [
   {
+    slug: "discovery-homes",
+    name: "Discovery Homes",
+    tag: "Modular homes (Canada)",
+    summary: "Floor plans + early renders → launch-ready interiors/exteriors across finishes, locations, and lifestyle moments.",
+    problem:
+      "Needed to show modular homes that hadn't been built yet, in different finishes, locations and furnishing styles.",
+    approach:
+      "Turned 2D floor plans into interior/exterior visuals, delivered multiple finishing styles and exterior environments with people enjoying the spaces.",
+    outcome:
+      "A launch-ready visual library that would have cost a fortune to build and shoot physically.",
+  },
+  {
+    slug: "zee-plexiglass-designs",
+    name: "Zee Plexiglass Designs",
+    tag: "Home accessories / e-commerce",
+    summary: "200+ products, 2,000+ images — including missing size/color/finish variants — without studio logistics.",
+    problem:
+      "200+ plexiglass products and 1,500+ images needed. Logistics and studio costs made a traditional shoot unrealistic.",
+    approach:
+      "Built modern interiors inspired by Gigi Abdelhamid's style, generated missing product variations and multiple lifestyle views per SKU.",
+    outcome:
+      "A catalogue that finally matches the brand's taste — without ever shipping products to a studio.",
+  },
+  {
     slug: "woodworkers",
     name: "Woodworkers",
-    tag: "Home furniture & electrical",
+    tag: "Home furniture & wall décor / e-commerce",
+    summary: "Lifestyle + installation visuals built around buyer intent (panel covers, world maps, wall art) across multiple markets.",
     problem:
       "Needed lifestyle images and installation shots for electrical panel covers and decor pieces across Egypt and international markets.",
     approach:
@@ -131,28 +157,16 @@ export const caseStudies: CaseStudy[] = [
       "A full library of visuals that feel premium, on-brand and consistent across two websites.",
   },
   {
-    slug: "zee-plexiglass",
-    name: "Zee Plexiglass Designs",
-    tag: "Home accessories / e-commerce",
-    problem:
-      "200+ plexiglass products and 1,500+ images needed. Logistics and studio costs made a traditional shoot unrealistic.",
-    approach:
-      "Built modern interiors inspired by Gigi Abdelhamid’s style, generated missing product variations and multiple lifestyle views per SKU.",
-    outcome:
-      "A catalogue that finally matches the brand’s taste — without ever shipping products to a studio.",
-  },
-  {
-    slug: "discovery-homes",
-    name: "Discovery Homes",
-    tag: "Modular homes",
-    problem:
-      "Needed to show modular homes that hadn’t been built yet, in different finishes, locations and furnishing styles.",
-    approach:
-      "Turned 2D floor plans into interior/exterior visuals, delivered multiple finishing styles and exterior environments with people enjoying the spaces.",
-    outcome:
-      "A launch-ready visual library that would have cost a fortune to build and shoot physically.",
+    slug: "mehos",
+    name: "Mehos",
+    tag: "Skincare / e-commerce + social campaign",
+    summary: "World-per-product visuals + full campaign pack (168+ images, 10 videos, website + social assets).",
+    problem: "",
+    approach: "",
+    outcome: "",
   },
 ];
+
 
 export const beforeAfterItems: BeforeAfterItem[] = [
   {
