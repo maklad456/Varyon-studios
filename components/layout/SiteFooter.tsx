@@ -2,11 +2,16 @@ import Link from "next/link";
 import Image from "next/image";
 
 const quickLinks = [
-  { label: "Work", href: "/case-studies" },
-  { label: "How it works", href: "/#process" },
-  { label: "FAQs", href: "/#faq" },
-  { label: "Privacy", href: "/privacy-policy" },
-  { label: "Terms", href: "/terms" },
+  { label: "Terms and Conditions", href: "/terms" },
+  { label: "Refund Policy", href: "/policies?tab=refund" },
+  { label: "Privacy Policy", href: "/policies?tab=privacy" },
+  { label: "Explore Library", href: "/library" },
+  { label: "Explore Case Studies", href: "/case-studies" },
+];
+
+const mobileLinks = [
+  { label: "Policies", href: "/privacy-policy" },
+  { label: "Terms and Conditions", href: "/terms" },
 ];
 
 export function SiteFooter() {
@@ -38,7 +43,7 @@ export function SiteFooter() {
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.3em] text-vs-accent-soft">Quick links</p>
             <ul className="mt-4 space-y-4 text-sm text-white/80">
-              {quickLinks.map((link) => (
+              {mobileLinks.map((link) => (
                 <li key={link.href}>
                   <Link href={link.href} className="transition hover:text-white">
                     {link.label}
