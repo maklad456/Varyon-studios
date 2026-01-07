@@ -172,20 +172,20 @@ export const beforeAfterItems: BeforeAfterItem[] = [
   {
     label: "Coffee table",
     format: "Website hero",
-    beforeSrc: "/media/before-after/before-1.jpg",
-    afterSrc: "/media/before-after/after-1.jpg",
+    beforeSrc: "/media/before-after/before-1.webp",
+    afterSrc: "/media/before-after/after-1.webp",
   },
   {
     label: "Modular lighting",
     format: "Paid social carousel",
-    beforeSrc: "/media/before-after/before-2.jpg",
-    afterSrc: "/media/before-after/after-2.jpg",
+    beforeSrc: "/media/before-after/before-2.webp",
+    afterSrc: "/media/before-after/after-2.webp",
   },
   {
     label: "Kitchen appliance",
     format: "Product detail page",
-    beforeSrc: "/media/before-after/before-3.jpg",
-    afterSrc: "/media/before-after/after-3.jpg",
+    beforeSrc: "/media/before-after/before-3.webp",
+    afterSrc: "/media/before-after/after-3.webp",
   },
 ];
 

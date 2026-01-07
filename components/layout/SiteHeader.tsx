@@ -97,7 +97,7 @@ export function SiteHeader() {
         <Link href="/" aria-label="Varyon Studios" className="flex items-center justify-start">
           <div className="relative h-14 w-14">
             <Image
-              src="/branding/vs-icon-light.png"
+              src="/branding/vs-icon-light.webp"
               alt="Varyon Studios"
               fill
               className="object-contain"

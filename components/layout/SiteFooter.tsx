@@ -10,7 +10,7 @@ const quickLinks = [
 ];
 
 const mobileLinks = [
-  { label: "Policies", href: "/privacy-policy" },
+  { label: "Policies", href: "/policies" },
   { label: "Terms and Conditions", href: "/terms" },
 ];
 

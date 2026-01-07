@@ -34,11 +34,12 @@ function PoliciesContent() {
           Last updated: January 7, 2026
         </p>
 
-        {/* Tabs - Mobile and Desktop */}
-        <div className="mt-8 flex gap-3 md:gap-4">
+        {/* Tabs - Mobile Buttons and Desktop Buttons */}
+        {/* Mobile Buttons */}
+        <div className="mt-8 flex gap-3 md:hidden">
           <button
             onClick={() => setActiveTab("privacy")}
-            className={`flex-1 md:flex-none whitespace-nowrap rounded-full px-6 py-3 text-sm font-semibold uppercase tracking-[0.2em] transition-all ${
+            className={`flex-1 rounded-full px-4 py-3 text-xs font-semibold uppercase tracking-[0.2em] transition-all ${
               activeTab === "privacy"
                 ? "bg-vs-accent text-black"
                 : "border border-vs-text-body/30 bg-transparent text-vs-text-body hover:border-vs-accent hover:text-vs-accent"
@@ -50,7 +51,35 @@ function PoliciesContent() {
           </button>
           <button
             onClick={() => setActiveTab("refund")}
-            className={`flex-1 md:flex-none whitespace-nowrap rounded-full px-6 py-3 text-sm font-semibold uppercase tracking-[0.2em] transition-all ${
+            className={`flex-1 rounded-full px-4 py-3 text-xs font-semibold uppercase tracking-[0.2em] transition-all ${
+              activeTab === "refund"
+                ? "bg-vs-accent text-black"
+                : "border border-vs-text-body/30 bg-transparent text-vs-text-body hover:border-vs-accent hover:text-vs-accent"
+            }`}
+            aria-label="View Refund Policy"
+            aria-pressed={activeTab === "refund"}
+          >
+            Refund Policy
+          </button>
+        </div>
+
+        {/* Desktop Buttons */}
+        <div className="mt-8 hidden gap-4 md:flex">
+          <button
+            onClick={() => setActiveTab("privacy")}
+            className={`whitespace-nowrap rounded-full px-6 py-3 text-sm font-semibold uppercase tracking-[0.2em] transition-all ${
+              activeTab === "privacy"
+                ? "bg-vs-accent text-black"
+                : "border border-vs-text-body/30 bg-transparent text-vs-text-body hover:border-vs-accent hover:text-vs-accent"
+            }`}
+            aria-label="View Privacy Policy"
+            aria-pressed={activeTab === "privacy"}
+          >
+            Privacy Policy
+          </button>
+          <button
+            onClick={() => setActiveTab("refund")}
+            className={`whitespace-nowrap rounded-full px-6 py-3 text-sm font-semibold uppercase tracking-[0.2em] transition-all ${
               activeTab === "refund"
                 ? "bg-vs-accent text-black"
                 : "border border-vs-text-body/30 bg-transparent text-vs-text-body hover:border-vs-accent hover:text-vs-accent"

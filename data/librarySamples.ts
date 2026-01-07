@@ -210,7 +210,7 @@ export const librarySamples: LibrarySample[] = [
     blurb: "Wellness-driven lifestyle goods across sleep, kitchen, and bath.",
     description: "Rustic positions wellness as a lifestyle, spanning product lines across rest, kitchen, and bathroom essentials. Their catalog mixes practical self-care items with home-friendly lifestyle goods.",
     coverImage: "/samples/rustic/after/01.webp",
-    before: "/samples/rustic/before.png",
+    before: "/samples/rustic/before.webp",
     after: [
       "/samples/rustic/after/01.webp",
       "/samples/rustic/after/02.webp",
