@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { trackEvent } from "@/lib/analytics";
 import { getLibraryIndustries } from "@/data/librarySamples";
 
@@ -26,12 +26,33 @@ const logoFiles = [
   "wood_workers_logo copy.png",
 ];
 
+// Additional industries to add to the list
+const additionalIndustries = [
+  "Home Furniture",
+  "Interior Design",
+  "Home Accessories",
+  "Modular Homes",
+  "Real Estate Marketing",
+  "E-commerce Retail",
+  "Beauty & Personal Care",
+  "Food & Beverage",
+  "Fashion & Accessories",
+  "Consumer Electronics",
+];
+
 export function LibraryTeaserSection() {
   const sectionRef = useRef<HTMLElement | null>(null);
-  const allIndustries = getLibraryIndustries();
-  // Show first 8 industries, then "+X more"
-  const displayedIndustries = allIndustries.slice(0, 8);
-  const remainingCount = allIndustries.length - displayedIndustries.length;
+  const [isIndustriesExpanded, setIsIndustriesExpanded] = useState(false);
+  
+  const baseIndustries = getLibraryIndustries();
+  // Combine base industries with additional ones, remove duplicates
+  const allIndustries = Array.from(new Set([...baseIndustries, ...additionalIndustries]));
+  
+  // Show first 8 industries by default
+  const displayedIndustries = isIndustriesExpanded 
+    ? allIndustries 
+    : allIndustries.slice(0, 8);
+  const remainingCount = allIndustries.length - 8;
 
   useEffect(() => {
     const node = sectionRef.current;
@@ -62,14 +83,8 @@ export function LibraryTeaserSection() {
     >
       <div className="site-container">
         <div className="flex flex-col items-center text-center">
-          {/* Stats badge */}
-          <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2">
-            <span className="text-vs-accent text-lg font-semibold">100+</span>
-            <span className="text-sm text-white/70">clients worldwide</span>
-          </div>
-
           {/* Headline */}
-          <h2 className="mt-6 text-3xl font-semibold leading-tight text-white sm:text-4xl sm:leading-tight md:text-5xl md:leading-tight">
+          <h2 className="text-3xl font-semibold leading-tight text-white sm:text-4xl sm:leading-tight md:text-5xl md:leading-tight">
             Connected with 100+ clients worldwide
           </h2>
 
@@ -145,19 +160,34 @@ export function LibraryTeaserSection() {
           </div>
 
           {/* Industry pills */}
-          <div className="mt-10 flex flex-wrap justify-center gap-2">
-            {displayedIndustries.map((industry) => (
-              <span
-                key={industry}
-                className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-medium text-white/60"
-              >
-                {industry}
-              </span>
-            ))}
+          <div className="mt-10 w-full">
+            <div 
+              id="industries-list" 
+              className="flex flex-wrap justify-center gap-2 transition-all duration-300"
+            >
+              {displayedIndustries.map((industry) => (
+                <span
+                  key={industry}
+                  className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-medium text-white/60"
+                >
+                  {industry}
+                </span>
+              ))}
+            </div>
             {remainingCount > 0 && (
-              <span className="rounded-full border border-vs-accent/30 bg-vs-accent/10 px-3 py-1.5 text-xs font-medium text-vs-accent">
-                +{remainingCount} more
-              </span>
+              <div className="mt-4 flex justify-center">
+                <button
+                  onClick={() => {
+                    setIsIndustriesExpanded(!isIndustriesExpanded);
+                    trackEvent("industries_expand", { expanded: !isIndustriesExpanded });
+                  }}
+                  aria-expanded={isIndustriesExpanded}
+                  aria-controls="industries-list"
+                  className="rounded-full border border-vs-accent/30 bg-vs-accent/10 px-4 py-2 text-sm font-medium text-vs-accent transition-all hover:bg-vs-accent/20"
+                >
+                  {isIndustriesExpanded ? "Show less" : `+${remainingCount} more`}
+                </button>
+              </div>
             )}
           </div>
         </div>

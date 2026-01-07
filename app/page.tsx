@@ -5,6 +5,7 @@ import { VideoCapabilitySection } from "@/components/home/VideoCapabilitySection
 import { ProcessSection } from "@/components/home/ProcessSection";
 import { LibraryTeaserSection } from "@/components/home/LibraryTeaserSection";
 import { NewGenerationSection } from "@/components/home/NewGenerationSection";
+import ClientFeedbackSlider from "@/components/home/ClientFeedbackSlider";
 import { DiscoveryCallSection } from "@/components/home/DiscoveryCallSection";
 import { FaqSection } from "@/components/home/FaqSection";
 import { FinalCtaSection } from "@/components/home/FinalCtaSection";
@@ -31,6 +32,9 @@ export default function Home() {
       </div>
       <div className="snapStop">
         <LibraryTeaserSection />
+      </div>
+      <div className="snapStop">
+        <ClientFeedbackSlider />
       </div>
       <div className="snapStop">
         <DiscoveryCallSection />

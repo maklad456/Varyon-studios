@@ -110,31 +110,33 @@ export function ProcessSection() {
                   </div>
                   <div className="w-full rounded-2xl border border-black/5 bg-white p-6 shadow-soft transition-all duration-300 hover:shadow-[0_0_30px_rgba(16,185,129,0.4)]">
                     <h3 className="text-xl font-semibold leading-tight text-vs-text-strong">{step.title}</h3>
-                    <p className="mt-2 text-sm leading-relaxed text-vs-text-body">{step.description}</p>
+                    <p className="mt-2 text-base leading-relaxed text-vs-text-body">{step.description}</p>
                   </div>
                 </li>
               ))}
             </ol>
           </div>
           
-          {/* Bottom Row: 3 steps (centered) */}
+          {/* Bottom Row: 3 steps (centered, matching upper row box sizes) */}
           <div className="relative">
-            {/* Connector Line - Bottom Row */}
-            <div className="absolute left-1/2 right-0 top-6 h-0.5 bg-vs-accent/20 -translate-x-1/2 max-w-3xl" />
+            {/* Connector Line - Bottom Row (matches the width of the 3 boxes) */}
+            <div className="absolute top-6 h-0.5 bg-vs-accent/20 left-1/2 -translate-x-1/2" style={{ width: 'calc(75% - 2.25rem)' }} />
             
-            <ol className="relative grid grid-cols-3 gap-4 mx-auto max-w-3xl">
-              {timelineSteps.slice(4, 7).map((step) => (
-                <li key={step.number} className="flex flex-col items-center">
-                  <div className="relative z-10 mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-vs-accent text-sm font-bold text-white shadow-[0_0_20px_rgba(16,185,129,0.3)]">
-                    {step.number}
-                  </div>
-                  <div className="w-full rounded-2xl border border-black/5 bg-white p-6 shadow-soft transition-all duration-300 hover:shadow-[0_0_30px_rgba(16,185,129,0.4)]">
-                    <h3 className="text-xl font-semibold leading-tight text-vs-text-strong">{step.title}</h3>
-                    <p className="mt-2 text-sm leading-relaxed text-vs-text-body">{step.description}</p>
-                  </div>
-                </li>
-              ))}
-            </ol>
+            <div className="relative flex justify-center">
+              <ol className="flex gap-4" style={{ width: 'calc(75% - 2.25rem)' }}>
+                {timelineSteps.slice(4, 7).map((step) => (
+                  <li key={step.number} className="flex flex-col items-center flex-1">
+                    <div className="relative z-10 mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-vs-accent text-sm font-bold text-white shadow-[0_0_20px_rgba(16,185,129,0.3)]">
+                      {step.number}
+                    </div>
+                    <div className="w-full rounded-2xl border border-black/5 bg-white p-6 shadow-soft transition-all duration-300 hover:shadow-[0_0_30px_rgba(16,185,129,0.4)]">
+                      <h3 className="text-xl font-semibold leading-tight text-vs-text-strong">{step.title}</h3>
+                      <p className="mt-2 text-base leading-relaxed text-vs-text-body">{step.description}</p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </div>
           </div>
         </div>
       </div>

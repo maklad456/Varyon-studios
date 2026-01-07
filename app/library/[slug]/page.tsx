@@ -322,6 +322,21 @@ function LayoutA({ sample, beforeImage, afterImages, hasChapters, currentChapter
           </div>
         </div>
       </div>
+
+      {/* CTA Section */}
+      <section className="site-section bg-vs-bgDark py-12 md:py-6">
+        <div className="site-container text-center">
+          <h2 className="text-2xl font-semibold text-white sm:text-3xl">
+            Ready for your transformation?
+          </h2>
+          <p className="mt-4 text-base text-white/70">
+            Let&apos;s discuss how we can elevate your brand visuals.
+          </p>
+          <Link href="/#discovery" className="btn-primary mt-8">
+            Connect with us
+          </Link>
+        </div>
+      </section>
       
     </main>
   );
@@ -627,6 +642,21 @@ function LayoutB({ sample, beforeImage, afterImages, hasChapters, currentChapter
           </>
         )}
       </section>
+
+      {/* CTA Section */}
+      <section className="site-section bg-vs-bgDark py-12 md:py-6">
+        <div className="site-container text-center">
+          <h2 className="text-2xl font-semibold text-white sm:text-3xl">
+            Ready for your transformation?
+          </h2>
+          <p className="mt-4 text-base text-white/70">
+            Let&apos;s discuss how we can elevate your brand visuals.
+          </p>
+          <Link href="/#discovery" className="btn-primary mt-8">
+            Connect with us
+          </Link>
+        </div>
+      </section>
       
     </main>
   );
@@ -701,6 +731,21 @@ function LayoutC({ sample, beforeImage, afterImages, hasChapters, currentChapter
           </section>
         </>
       )}
+
+      {/* CTA Section */}
+      <section className="site-section bg-vs-bgDark py-12 md:py-6">
+        <div className="site-container text-center">
+          <h2 className="text-2xl font-semibold text-white sm:text-3xl">
+            Ready for your transformation?
+          </h2>
+          <p className="mt-4 text-base text-white/70">
+            Let&apos;s discuss how we can elevate your brand visuals.
+          </p>
+          <Link href="/#discovery" className="btn-primary mt-8">
+            Connect with us
+          </Link>
+        </div>
+      </section>
       
     </main>
   );
@@ -802,6 +847,21 @@ function LayoutD({ sample, beforeImage, afterImages, hasChapters, currentChapter
           </section>
         </>
       )}
+
+      {/* CTA Section */}
+      <section className="site-section bg-vs-bgDark py-12 md:py-6">
+        <div className="site-container text-center">
+          <h2 className="text-2xl font-semibold text-white sm:text-3xl">
+            Ready for your transformation?
+          </h2>
+          <p className="mt-4 text-base text-white/70">
+            Let&apos;s discuss how we can elevate your brand visuals.
+          </p>
+          <Link href="/#discovery" className="btn-primary mt-8">
+            Connect with us
+          </Link>
+        </div>
+      </section>
       
     </main>
   );
@@ -899,6 +959,21 @@ function LayoutE({ sample, beforeImage, afterImages, hasChapters, currentChapter
           </section>
         </>
       )}
+
+      {/* CTA Section */}
+      <section className="site-section bg-vs-bgDark py-12 md:py-6">
+        <div className="site-container text-center">
+          <h2 className="text-2xl font-semibold text-white sm:text-3xl">
+            Ready for your transformation?
+          </h2>
+          <p className="mt-4 text-base text-white/70">
+            Let&apos;s discuss how we can elevate your brand visuals.
+          </p>
+          <Link href="/#discovery" className="btn-primary mt-8">
+            Connect with us
+          </Link>
+        </div>
+      </section>
       
     </main>
   );

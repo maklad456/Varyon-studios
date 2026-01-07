@@ -55,14 +55,11 @@ export function CapabilitiesSection() {
       </div>
       <div className="site-container relative z-10 flex flex-col md:justify-start py-1 md:py-8 lg:py-8 w-full">
         <p className="text-xs font-semibold uppercase tracking-[0.3em] text-vs-accent-soft md:text-sm">What we can produce</p>
-        <h2 className="mt-2 text-3xl font-semibold leading-tight text-white md:text-4xl md:leading-tight lg:text-4xl lg:leading-tight md:mt-3">
-          Every format you need to sell — from a single product to 1,000+ SKUs.
-        </h2>
         
         {/* Carousel Container */}
-        <div className="mt-4 flex flex-col gap-4 md:flex-row md:items-start md:gap-6 lg:gap-8 md:mt-5">
+        <div className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-12 lg:gap-8 lg:items-stretch md:mt-5">
           {/* Left: Text Content */}
-          <div className="flex flex-col md:w-[min(400px,32vw)] md:flex-shrink-0 lg:w-[400px]">
+          <div className="flex flex-col col-span-1 lg:col-span-5 min-w-0 w-full max-w-full lg:h-full lg:justify-between">
             {/* Mobile: Glass card - fixed height matching "Bundles, sets & variant grids" size */}
             <div className="md:hidden rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md p-3 h-[145px] flex flex-col">
               <h3 className="text-xl font-semibold leading-tight text-white">
@@ -73,39 +70,52 @@ export function CapabilitiesSection() {
               </p>
             </div>
 
-            {/* Desktop: Glass card with fixed height */}
-            <div className="hidden md:block rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md p-6 lg:p-8 h-[280px] lg:h-[300px] flex flex-col justify-between">
-              <div>
-                <h3 className="text-3xl font-semibold leading-tight text-white md:text-4xl md:leading-tight lg:text-4xl lg:leading-tight">
-                  {activeCapability.title}
-                </h3>
-                <p className="mt-3 text-base leading-relaxed text-vs-text-on-dark md:text-lg md:mt-4 lg:text-lg">
-                  {activeCapability.body}
-                </p>
+            {/* Desktop: Container with equal spacing */}
+            <div className="hidden md:flex md:flex-col md:h-full md:justify-between">
+              {/* Title - Moved to left column */}
+              <h2 className="text-3xl font-semibold leading-tight text-white md:text-4xl md:leading-tight lg:text-4xl lg:leading-tight">
+                Every format you need to sell — from a single product to 1,000+ SKUs.
+              </h2>
+
+              {/* Navigation Buttons */}
+              <div className="flex flex-wrap gap-2">
+                {capabilities.map((capability, index) => (
+                  <button
+                    key={capability.title}
+                    onClick={() => handleCapabilityClick(index)}
+                    className={`rounded-full px-4 py-2 text-sm font-medium transition-all whitespace-nowrap ${
+                      index === activeCapabilityIndex
+                        ? "border border-white text-white bg-white/5"
+                        : "bg-white/10 text-white/70 hover:bg-white/20 hover:text-white border border-transparent"
+                    }`}
+                    aria-label={`View ${capability.title}`}
+                  >
+                    {capability.title}
+                  </button>
+                ))}
               </div>
-            </div>
-            
-            {/* Navigation Buttons - Below Text on Desktop, Below Image on Mobile */}
-            <div className="hidden md:flex md:flex-wrap md:gap-2 md:mt-5">
-              {capabilities.map((capability, index) => (
-                <button
-                  key={capability.title}
-                  onClick={() => handleCapabilityClick(index)}
-                  className={`rounded-full px-4 py-2 text-sm font-medium transition-all ${
-                    index === activeCapabilityIndex
-                      ? "border border-white text-white bg-white/5"
-                      : "bg-white/10 text-white/70 hover:bg-white/20 hover:text-white border border-transparent"
-                  }`}
-                  aria-label={`View ${capability.title}`}
-                >
-                  {capability.title}
-                </button>
-              ))}
+
+              {/* Desktop: Glass card - consistent height for all capabilities */}
+              <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md p-6 lg:p-8 flex flex-col w-full max-w-full overflow-hidden min-h-[200px] lg:min-h-[220px]">
+                <div className="min-w-0">
+                  <h3 className="text-3xl font-semibold leading-tight text-white md:text-4xl md:leading-tight lg:text-4xl lg:leading-tight break-words">
+                    {activeCapability.title}
+                  </h3>
+                  <p className="mt-3 text-base leading-relaxed text-vs-text-on-dark md:text-lg md:mt-4 lg:text-lg break-words">
+                    {activeCapability.body}
+                  </p>
+                </div>
+              </div>
+              
+              {/* Pricing Text - Desktop only, aligned to bottom */}
+              <p className="text-base leading-relaxed text-vs-text-on-dark md:text-lg">
+                Pricing depends on volume, formats and complexity. We&apos;ll scope it with you on WhatsApp or a quick call.
+              </p>
             </div>
           </div>
 
           {/* Right: Image Carousel */}
-          <div className="relative aspect-[4/5] w-full flex-1 overflow-hidden rounded-2xl border border-white/10 bg-white/5 md:max-h-[60vh] lg:max-h-[65vh]">
+          <div className="relative aspect-[4/5] w-full col-span-1 lg:col-span-7 min-w-0 overflow-hidden rounded-2xl border border-white/10 md:max-h-[60vh] lg:max-h-[65vh]">
             <Image
               src={activeImage}
               alt={activeCapability.title}
@@ -151,11 +161,12 @@ export function CapabilitiesSection() {
               </button>
             ))}
           </div>
+          
+          {/* Pricing Text - Mobile only, below capability buttons */}
+          <p className="md:hidden mt-8 text-sm leading-relaxed text-vs-text-on-dark">
+            Pricing depends on volume, formats and complexity. We&apos;ll scope it with you on WhatsApp or a quick call.
+          </p>
         </div>
-
-        <p className="mt-4 text-sm leading-relaxed text-vs-text-on-dark md:text-base md:mt-6">
-          Pricing depends on volume, formats and complexity — we&apos;ll scope it with you on WhatsApp or a quick call.
-        </p>
       </div>
     </section>
   );

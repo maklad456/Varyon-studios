@@ -10,6 +10,7 @@ const homeNavItems = [
   { label: "What we offer", href: "#capabilities" },
   { label: "How it works", href: "#process" },
   { label: "Our work", href: "#library" },
+  { label: "FAQs", href: "#faq" },
 ];
 
 const otherPagesNavItems = [
@@ -63,7 +64,20 @@ export function SiteHeader() {
     if (href.startsWith("#")) {
       const element = document.querySelector(href);
       if (element) {
-        element.scrollIntoView({ behavior: "smooth", block: "start" });
+        // Get the computed scroll-margin-top from the element (matches scroll-mt-24 = 96px)
+        const computedStyle = window.getComputedStyle(element);
+        const scrollMarginTop = parseInt(computedStyle.scrollMarginTop) || 96;
+        
+        // Get element position relative to document
+        const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+        
+        // Scroll to position accounting for scroll margin
+        const offsetPosition = elementPosition - scrollMarginTop;
+
+        window.scrollTo({
+          top: Math.max(0, offsetPosition),
+          behavior: "smooth"
+        });
       }
     } else if (href.startsWith("/")) {
       router.push(href);
@@ -78,8 +92,8 @@ export function SiteHeader() {
 
   return (
     <header className={`fixed inset-x-0 top-0 z-50 border-b border-white/5 transition-all duration-300 ${headerBgClass}`}>
-      <div className="mx-auto flex w-full items-center justify-between px-6 py-5 text-white sm:px-8 lg:px-12">
-        <Link href="/" aria-label="Varyon Studios" className="flex items-center">
+      <div className="mx-auto grid w-full grid-cols-3 items-center pl-6 pr-1 py-5 text-white sm:px-8 lg:px-12">
+        <Link href="/" aria-label="Varyon Studios" className="flex items-center justify-start">
           <div className="relative h-14 w-14">
             <Image
               src="/branding/vs-icon-light.png"
@@ -106,13 +120,6 @@ export function SiteHeader() {
         </nav>
 
         <div className="hidden items-center justify-end gap-4 md:flex">
-          <button
-            type="button"
-            onClick={() => handleNavClick("#faq")}
-            className="text-xs uppercase tracking-[0.2em] text-white/60 transition hover:text-white"
-          >
-            FAQ
-          </button>
           <a
             href={WHATSAPP_URL}
             target="_blank"
@@ -125,14 +132,16 @@ export function SiteHeader() {
           </a>
         </div>
 
-        <button
-          className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/20 text-white md:hidden"
-          onClick={() => setMenuOpen((prev) => !prev)}
-          aria-label="Toggle menu"
-        >
-          <span className="sr-only">Toggle menu</span>
-          <span className="block h-0.5 w-5 bg-white" />
-        </button>
+        <div className="flex items-center justify-end md:hidden">
+          <button
+            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/20 text-white"
+            onClick={() => setMenuOpen((prev) => !prev)}
+            aria-label="Toggle menu"
+          >
+            <span className="sr-only">Toggle menu</span>
+            <span className="block h-0.5 w-5 bg-white" />
+          </button>
+        </div>
       </div>
       {menuOpen && (
         <div className="border-t border-white/10 bg-[#020202]/95 px-4 py-6 shadow-lg md:hidden">
