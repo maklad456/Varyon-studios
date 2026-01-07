@@ -65,13 +65,6 @@ export function IntroOverlay() {
     };
   }, [pathname]);
 
-  // Run animation when image is loaded
-  useEffect(() => {
-    if (shouldShow && imageLoaded) {
-      runIntroAnimation();
-    }
-  }, [shouldShow, imageLoaded]);
-
   const runIntroAnimation = async () => {
     await new Promise((resolve) => setTimeout(resolve, 200)); // Small delay to ensure DOM is ready
 
@@ -125,6 +118,14 @@ export function IntroOverlay() {
       finishIntro();
     }
   };
+
+  // Run animation when image is loaded
+  useEffect(() => {
+    if (shouldShow && imageLoaded) {
+      runIntroAnimation();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [shouldShow, imageLoaded]);
 
   if (!shouldShow) return null;
 

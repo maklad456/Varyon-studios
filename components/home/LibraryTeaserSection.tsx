@@ -89,7 +89,7 @@ export function LibraryTeaserSection() {
 
           {/* Subcopy */}
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-white/70 sm:text-lg">
-            A peek at what's possible — and exactly how we build it.
+            A peek at what&apos;s possible — and exactly how we build it.
           </p>
 
           {/* Logo Marquee - Full Width */}

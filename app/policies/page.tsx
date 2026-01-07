@@ -68,14 +68,14 @@ function PoliciesContent() {
             <section>
               <h2 className="text-xl font-semibold text-vs-text-strong">1. Introduction</h2>
               <p className="mt-2">
-                Welcome to Varyon Studios ("Varyon Studios", "we", "our" or "us"). We are an AI‑powered content studio that creates images, videos and creative concepts for clients around the world. This notice explains how we collect, use, disclose and safeguard your personal information when you interact with us—whether through our website, contact forms, WhatsApp messages or client projects. We comply with the Egyptian Personal Data Protection Law No. 151/2020 (PDPL), the EU General Data Protection Regulation (GDPR) for visitors in the EEA/UK, and other applicable privacy laws.
+                Welcome to Varyon Studios (&quot;Varyon Studios&quot;, &quot;we&quot;, &quot;our&quot; or &quot;us&quot;). We are an AI‑powered content studio that creates images, videos and creative concepts for clients around the world. This notice explains how we collect, use, disclose and safeguard your personal information when you interact with us—whether through our website, contact forms, WhatsApp messages or client projects. We comply with the Egyptian Personal Data Protection Law No. 151/2020 (PDPL), the EU General Data Protection Regulation (GDPR) for visitors in the EEA/UK, and other applicable privacy laws.
               </p>
             </section>
 
             <section>
               <h2 className="text-xl font-semibold text-vs-text-strong">2. Who we are</h2>
               <p className="mt-2">
-                Varyon Studios acts as the <strong>data controller</strong> for information processed through our website, enquiry forms and marketing channels. When we are engaged on a client project we may also act as a <strong>data processor</strong> under the client's instructions. You can contact us at:
+                Varyon Studios acts as the <strong>data controller</strong> for information processed through our website, enquiry forms and marketing channels. When we are engaged on a client project we may also act as a <strong>data processor</strong> under the client&apos;s instructions. You can contact us at:
               </p>
               <ul className="mt-2 ml-6 list-disc space-y-1">
                 <li><strong>Email:</strong> info@varyonstudios.com</li>
@@ -166,14 +166,14 @@ function PoliciesContent() {
             <section>
               <h2 className="text-xl font-semibold text-vs-text-strong">11. Cookies & analytics</h2>
               <p className="mt-2">
-                Our website uses first‑party cookies and pseudonymous analytics services (Google Analytics 4 and Microsoft Clarity) to understand how visitors use our pages and to improve user experience. These cookies may set identifiers in your browser. You can manage cookie preferences through your browser settings or Google's opt‑out tools. We do not use tracking pixels for advertising.
+                Our website uses first‑party cookies and pseudonymous analytics services (Google Analytics 4 and Microsoft Clarity) to understand how visitors use our pages and to improve user experience. These cookies may set identifiers in your browser. You can manage cookie preferences through your browser settings or Google&apos;s opt‑out tools. We do not use tracking pixels for advertising.
               </p>
             </section>
 
             <section>
               <h2 className="text-xl font-semibold text-vs-text-strong">12. Third‑party tools and AI models</h2>
               <p className="mt-2">
-                To deliver your project we rely on various third‑party platforms, including Adobe Creative Cloud, Canva, CapCut, EmailJS, cloud storage providers and multiple generative AI models (e.g., OpenAI, Midjourney, Stable Diffusion) to generate images and videos. These processors may handle the data you provide under their own terms. We evaluate each provider's security posture and ensure they process data only as necessary to deliver our services.
+                To deliver your project we rely on various third‑party platforms, including Adobe Creative Cloud, Canva, CapCut, EmailJS, cloud storage providers and multiple generative AI models (e.g., OpenAI, Midjourney, Stable Diffusion) to generate images and videos. These processors may handle the data you provide under their own terms. We evaluate each provider&apos;s security posture and ensure they process data only as necessary to deliver our services.
               </p>
             </section>
 

@@ -17,7 +17,7 @@ export default function TermsPage() {
           <section>
             <h2 className="text-xl font-semibold text-vs-text-strong">1. Introduction</h2>
             <p className="mt-2">
-              Welcome to Varyon Studios ("Varyon Studios," "we," "our" or "us"). These Terms & Conditions ("Terms") govern your access to and use of our websites, products and services (collectively, the "Service"), including any AI‑generated images, videos or other creative content we produce for you. By accessing or using the Service, you acknowledge that you have read, understood and agree to be bound by these Terms.
+              Welcome to Varyon Studios (&quot;Varyon Studios,&quot; &quot;we,&quot; &quot;our&quot; or &quot;us&quot;). These Terms & Conditions (&quot;Terms&quot;) govern your access to and use of our websites, products and services (collectively, the &quot;Service&quot;), including any AI‑generated images, videos or other creative content we produce for you. By accessing or using the Service, you acknowledge that you have read, understood and agree to be bound by these Terms.
             </p>
           </section>
 
@@ -105,7 +105,7 @@ export default function TermsPage() {
           <section>
             <h2 className="text-xl font-semibold text-vs-text-strong">11. Disclaimer of warranties</h2>
             <p className="mt-2">
-              The Service is provided "as is" and "as available". While we strive for high‑quality results, AI‑generated content is inherently variable. To the maximum extent permitted by law, we make no warranties—express or implied—regarding fitness for a particular purpose, merchantability, non‑infringement or that the Service will be error‑free or uninterrupted. You acknowledge that the creative outputs are subjective and may not exactly match your expectations.
+              The Service is provided &quot;as is&quot; and &quot;as available&quot;. While we strive for high‑quality results, AI‑generated content is inherently variable. To the maximum extent permitted by law, we make no warranties—express or implied—regarding fitness for a particular purpose, merchantability, non‑infringement or that the Service will be error‑free or uninterrupted. You acknowledge that the creative outputs are subjective and may not exactly match your expectations.
             </p>
           </section>
 
@@ -140,7 +140,7 @@ export default function TermsPage() {
           <section>
             <h2 className="text-xl font-semibold text-vs-text-strong">16. Contact us</h2>
             <p className="mt-2">
-              Questions about these Terms or about our services? Contact us at info@varyonstudios.com or at the postal address provided in the "Who we are" section above.
+              Questions about these Terms or about our services? Contact us at info@varyonstudios.com or at the postal address provided in the &quot;Who we are&quot; section above.
             </p>
           </section>
         </div>
