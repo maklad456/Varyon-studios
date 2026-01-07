@@ -165,21 +165,34 @@
   width: 100%;
   height: auto;
   display: block;
+  max-width: 90vw;
 }
 
-.introLogo svg {
+.introLogo img {
   width: 100%;
   height: auto;
   display: block;
+  object-fit: contain;
 }
 
-.introLogo svg text,
-.introLogo svg tspan {
-  fill: #ffffff !important;
+/* Mobile specific */
+@media (max-width: 767px) {
+  .introLogo {
+    max-width: 85vw;
+  }
 }
 
-.introLogo svg image {
-  filter: brightness(0) invert(1);
+/* Desktop specific */
+@media (min-width: 768px) {
+  .introLogo {
+    max-width: 75vw;
+  }
+}
+
+@media (min-width: 1024px) {
+  .introLogo {
+    max-width: 65vw;
+  }
 }
 
 .appContent--hidden {
