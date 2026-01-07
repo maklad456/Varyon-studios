@@ -119,10 +119,10 @@ export default function ClientFeedbackSlider() {
     <section className="site-section bg-white py-16 md:py-20">
       <div className="site-container">
         {/* Header - Left aligned */}
-        <p className="text-xs font-semibold uppercase tracking-[0.25em] text-black/50">
+        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-vs-accent-soft md:text-sm">
           CLIENT FEEDBACK
         </p>
-        <h2 className="mt-4 text-4xl font-semibold leading-[1.05] text-black md:text-6xl">
+        <h2 className="mt-4 text-3xl font-semibold leading-[1.05] text-black md:text-5xl">
           We make long-term partners.
           <br />
           Most clients come back for every launch.

@@ -27,7 +27,7 @@ export function NewGenerationSection() {
         <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/40 to-transparent" />
       </div>
       <div className="site-container relative z-10">
-        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-vs-accent-soft">
+        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-vs-accent-soft md:text-sm">
           New generation
         </p>
         <h2 className="mt-4 text-3xl font-semibold leading-tight sm:text-4xl sm:leading-tight">The new generation of content production.</h2>

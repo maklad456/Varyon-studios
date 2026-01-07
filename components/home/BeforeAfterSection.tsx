@@ -5,8 +5,8 @@ export function BeforeAfterSection() {
   return (
     <section className="site-section bg-white">
       <div className="site-container">
-        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-vs-text-body/70">Proof</p>
-        <h2 className="mt-4 text-3xl font-semibold leading-tight text-vs-text-strong sm:text-4xl sm:leading-tight">Before / after snapshots.</h2>
+        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-vs-accent-soft md:text-sm">Proof</p>
+        <h2 className="mt-4 text-3xl font-semibold leading-[1.05] text-black md:text-5xl">Before / after snapshots.</h2>
         <div className="mt-8 grid gap-8 md:grid-cols-3">
           {beforeAfterItems.map((item) => (
             <article key={item.label} className="rounded-3xl bg-vs-bgLight p-6 shadow-soft transition-all duration-300 hover:shadow-[0_0_30px_rgba(16,185,129,0.4)]">

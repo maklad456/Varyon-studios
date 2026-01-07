@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import { trackEvent } from "@/lib/analytics";
 
 const homeNavItems = [
+  { label: "Why Varyon", href: "#challenges" },
   { label: "What we offer", href: "#capabilities" },
   { label: "How it works", href: "#process" },
   { label: "Our work", href: "#library" },
@@ -92,7 +93,7 @@ export function SiteHeader() {
 
   return (
     <header className={`fixed inset-x-0 top-0 z-50 border-b border-white/5 transition-all duration-300 ${headerBgClass}`}>
-      <div className="mx-auto grid w-full grid-cols-3 items-center pl-6 pr-1 py-5 text-white sm:px-8 lg:px-12">
+      <div className="mx-auto grid w-full grid-cols-3 items-center pl-6 pr-6 py-5 text-white sm:px-8 lg:px-12 md:pr-1">
         <Link href="/" aria-label="Varyon Studios" className="flex items-center justify-start">
           <div className="relative h-14 w-14">
             <Image
@@ -132,7 +133,7 @@ export function SiteHeader() {
           </a>
         </div>
 
-        <div className="flex items-center justify-end md:hidden">
+        <div className="flex items-center justify-end md:hidden col-start-3">
           <button
             className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/20 text-white"
             onClick={() => setMenuOpen((prev) => !prev)}

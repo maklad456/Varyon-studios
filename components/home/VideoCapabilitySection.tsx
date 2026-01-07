@@ -77,10 +77,7 @@ export function VideoCapabilitySection() {
   return (
     <section className="site-section bg-white">
       <div className="site-container">
-        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-vs-text-body/70">
-          What we can produce
-        </p>
-        <h2 className="mt-4 text-3xl font-semibold leading-tight text-vs-text-strong sm:text-4xl sm:leading-tight">
+        <h2 className="text-3xl font-semibold leading-[1.05] text-black md:text-5xl">
           Video (Shorts + Campaign)
         </h2>
         <p className="mt-4 text-base leading-relaxed text-vs-text-body sm:text-lg">
@@ -111,8 +108,8 @@ export function VideoCapabilitySection() {
               }`}
             >
               <div className="text-6xl mb-4 md:text-7xl">{currentVideo.icon}</div>
-              <h3 className="text-2xl font-semibold text-vs-text-strong md:text-3xl">{currentVideo.label}</h3>
-              <p className="mt-3 text-base leading-relaxed text-vs-text-body md:text-lg">
+              <h3 className="text-2xl font-semibold text-vs-text-strong md:text-3xl max-w-[200px] md:max-w-none">{currentVideo.label}</h3>
+              <p className="mt-3 text-base leading-relaxed text-vs-text-body md:text-lg max-w-[200px] md:max-w-none">
                 {currentVideo.description}
               </p>
             </div>

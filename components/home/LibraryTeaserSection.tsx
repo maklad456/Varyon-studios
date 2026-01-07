@@ -45,14 +45,9 @@ export function LibraryTeaserSection() {
   const [isIndustriesExpanded, setIsIndustriesExpanded] = useState(false);
   
   const baseIndustries = getLibraryIndustries();
-  // Combine base industries with additional ones, remove duplicates
-  const allIndustries = Array.from(new Set([...baseIndustries, ...additionalIndustries]));
-  
-  // Show first 8 industries by default
-  const displayedIndustries = isIndustriesExpanded 
-    ? allIndustries 
-    : allIndustries.slice(0, 8);
-  const remainingCount = allIndustries.length - 8;
+  // Combine base industries with additional ones, remove duplicates, and add Clothing at the beginning
+  const combinedIndustries = Array.from(new Set([...baseIndustries, ...additionalIndustries]));
+  const allIndustries = ["Clothing", ...combinedIndustries.filter(industry => industry !== "Clothing")];
 
   useEffect(() => {
     const node = sectionRef.current;
@@ -83,15 +78,18 @@ export function LibraryTeaserSection() {
     >
       <div className="site-container">
         <div className="flex flex-col items-center text-center">
+          {/* Section Title */}
+          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-vs-accent-soft md:text-sm">
+            Our work
+          </p>
           {/* Headline */}
-          <h2 className="text-3xl font-semibold leading-tight text-white sm:text-4xl sm:leading-tight md:text-5xl md:leading-tight">
+          <h2 className="mt-4 text-3xl font-semibold leading-[1.05] text-white md:text-5xl">
             Connected with 100+ clients worldwide
           </h2>
 
           {/* Subcopy */}
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-white/70 sm:text-lg">
-            Across 30+ industries — explore a curated library of before/after samples
-            that showcase real transformations.
+            A peek at what's possible — and exactly how we build it.
           </p>
 
           {/* Logo Marquee - Full Width */}
@@ -102,13 +100,13 @@ export function LibraryTeaserSection() {
                 logoFiles.map((logo, index) => (
                   <div
                     key={`set${setNum}-logo${index}`}
-                    className="flex h-20 w-40 flex-shrink-0 items-center justify-center px-4"
+                    className="flex h-20 w-40 md:h-28 md:w-56 flex-shrink-0 items-center justify-center px-4"
                   >
                     <Image
                       src={`/logo-carousel/${logo}`}
                       alt={`Client logo ${index + 1}`}
-                      width={160}
-                      height={80}
+                      width={224}
+                      height={112}
                       className="h-full w-full object-contain object-center opacity-100 transition-all duration-300 hover:opacity-90"
                       unoptimized
                     />
@@ -118,45 +116,37 @@ export function LibraryTeaserSection() {
             </div>
           </div>
 
-          {/* CTA */}
-          <Link
-            href="/library"
-            className="btn-primary mt-8"
-            onClick={() => trackEvent("library_teaser_cta_click")}
-          >
-            Explore the Library
-          </Link>
+          {/* CTAs */}
+          <div className="mt-8 flex flex-col items-center gap-6 sm:flex-row sm:justify-center sm:gap-8">
+            {/* Primary CTA */}
+            <div className="flex flex-col items-center text-center">
+              <Link
+                href="/library"
+                className="btn-primary px-10 py-5 text-base"
+                onClick={() => trackEvent("library_teaser_cta_click")}
+              >
+                Explore the Library
+              </Link>
+              <p className="mt-2 text-base leading-relaxed text-white/70 sm:text-lg">
+                <span className="block">Browse real before/after</span>
+                <span className="block">transformations.</span>
+              </p>
+            </div>
 
-          {/* Case Studies Teaser */}
-          <div className="mt-8 flex flex-col items-center text-center">
-            {/* Label */}
-            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-vs-accent">
-              CASE STUDIES
-            </p>
-
-            {/* Headline */}
-            <h3 className="mt-3 text-3xl font-semibold leading-tight text-white sm:text-4xl sm:leading-tight">
-              Four brands. Four different production problems. One strategy-first pipeline.
-            </h3>
-
-            {/* Support line */}
-            <p className="mt-4 max-w-2xl text-base leading-relaxed text-white/70 sm:text-lg">
-              Deep, technical breakdowns of how we build systems that scale.
-            </p>
-
-            {/* Button */}
-            <Link
-              href="/case-studies"
-              className="btn-secondary mt-5"
-              onClick={() => trackEvent("case_studies_teaser_cta_click")}
-            >
-              Explore case studies
-            </Link>
-
-            {/* Micro line */}
-            <p className="mt-3 text-sm text-white/50">
-              Discovery Homes · Zee Plexiglass Designs · Woodworkers · Mehos
-            </p>
+            {/* Secondary CTA */}
+            <div className="flex flex-col items-center text-center">
+              <Link
+                href="/case-studies"
+                className="btn-secondary px-10 py-5 text-base"
+                onClick={() => trackEvent("case_studies_teaser_cta_click")}
+              >
+                Explore Case Studies
+              </Link>
+              <p className="mt-2 text-base leading-relaxed text-white/70 sm:text-lg">
+                <span className="block">Deep, technical breakdowns</span>
+                <span className="block">of selected projects.</span>
+              </p>
+            </div>
           </div>
 
           {/* Industry pills */}
@@ -165,27 +155,46 @@ export function LibraryTeaserSection() {
               id="industries-list" 
               className="flex flex-wrap justify-center gap-2 transition-all duration-300"
             >
-              {displayedIndustries.map((industry) => (
-                <span
-                  key={industry}
-                  className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-medium text-white/60"
-                >
-                  {industry}
-                </span>
-              ))}
-            </div>
-            {remainingCount > 0 && (
-              <div className="mt-4 flex justify-center">
+              {allIndustries.map((industry, index) => {
+                // On mobile: hide industries beyond first 2 when collapsed. On desktop: show all
+                const isHiddenOnMobile = !isIndustriesExpanded && index >= 2;
+                return (
+                  <span
+                    key={industry}
+                    className={`rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-sm font-medium text-white/70 sm:text-base ${isHiddenOnMobile ? 'hidden md:inline-block' : ''}`}
+                  >
+                    {industry}
+                  </span>
+                );
+              })}
+              {/* Mobile: Show count button inline when collapsed */}
+              {!isIndustriesExpanded && (
                 <button
                   onClick={() => {
-                    setIsIndustriesExpanded(!isIndustriesExpanded);
-                    trackEvent("industries_expand", { expanded: !isIndustriesExpanded });
+                    setIsIndustriesExpanded(true);
+                    trackEvent("industries_expand", { expanded: true });
                   }}
                   aria-expanded={isIndustriesExpanded}
                   aria-controls="industries-list"
-                  className="rounded-full border border-vs-accent/30 bg-vs-accent/10 px-4 py-2 text-sm font-medium text-vs-accent transition-all hover:bg-vs-accent/20"
+                  className="md:hidden rounded-full border border-vs-accent/30 bg-vs-accent/10 px-3 py-1.5 text-sm font-medium text-vs-accent transition-all hover:bg-vs-accent/20"
                 >
-                  {isIndustriesExpanded ? "Show less" : `+${remainingCount} more`}
+                  +{allIndustries.length - 2}
+                </button>
+              )}
+            </div>
+            {/* Mobile: Show less button below when expanded */}
+            {isIndustriesExpanded && (
+              <div className="mt-4 flex justify-center md:hidden">
+                <button
+                  onClick={() => {
+                    setIsIndustriesExpanded(false);
+                    trackEvent("industries_expand", { expanded: false });
+                  }}
+                  aria-expanded={isIndustriesExpanded}
+                  aria-controls="industries-list"
+                  className="whitespace-nowrap rounded-full border border-vs-accent/30 bg-vs-accent/10 px-5 py-2.5 text-sm font-medium text-vs-accent transition-all hover:bg-vs-accent/20"
+                >
+                  Show less
                 </button>
               </div>
             )}

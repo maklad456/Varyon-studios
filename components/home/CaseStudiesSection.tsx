@@ -36,10 +36,10 @@ export function CaseStudiesSection() {
   return (
     <section id="case-studies" ref={sectionRef} className="site-section bg-white scroll-mt-24">
       <div className="site-container">
-        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-vs-text-body/70">
+        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-vs-accent-soft md:text-sm">
           Client stories
         </p>
-        <h2 className="mt-4 text-3xl font-semibold leading-tight text-vs-text-strong sm:text-4xl sm:leading-tight">
+        <h2 className="mt-4 text-3xl font-semibold leading-[1.05] text-black md:text-5xl">
           Four brands. Four different production problems. One strategy-first pipeline.
         </h2>
 

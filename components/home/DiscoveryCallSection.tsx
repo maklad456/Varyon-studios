@@ -21,13 +21,13 @@ export function DiscoveryCallSection() {
   };
 
   return (
-    <section id="discovery" className="site-section bg-vs-bgLight">
+    <section id="discovery" className="site-section bg-vs-bgLight hidden">
       <div className="site-container grid gap-8 lg:grid-cols-2">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-vs-text-body/70">
+          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-vs-accent-soft md:text-sm">
             Need to think bigger?
           </p>
-          <h2 className="mt-4 text-3xl font-semibold leading-tight text-vs-text-strong sm:text-4xl sm:leading-tight">
+          <h2 className="mt-4 text-3xl font-semibold leading-[1.05] text-black md:text-5xl">
             Planning a launch or campaign?
           </h2>
           <p className="mt-6 text-base leading-relaxed text-vs-text-body">

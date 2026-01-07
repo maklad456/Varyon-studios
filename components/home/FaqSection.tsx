@@ -6,19 +6,22 @@ import { trackEvent } from "@/lib/analytics";
 
 export function FaqSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [showAll, setShowAll] = useState(false);
 
   const handleToggle = (index: number) => {
     setOpenIndex((prev) => (prev === index ? null : index));
     trackEvent("faq_toggle", { index });
   };
 
+  const displayedFaqs = showAll ? faqItems : faqItems.slice(0, 3);
+
   return (
     <section id="faq" className="site-section bg-white scroll-mt-24">
       <div className="site-container">
-        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-vs-text-body/70">FAQ</p>
-        <h2 className="mt-4 text-3xl font-semibold leading-tight text-vs-text-strong sm:text-4xl sm:leading-tight">Questions that come up a lot.</h2>
+        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-vs-accent-soft md:text-sm">FAQ</p>
+        <h2 className="mt-4 text-3xl font-semibold leading-[1.05] text-black md:text-5xl">Questions that come up a lot.</h2>
         <div className="mt-8 space-y-4">
-          {faqItems.map((item, index) => {
+          {displayedFaqs.map((item, index) => {
             const isOpen = openIndex === index;
             return (
               <div key={item.question} className="rounded-3xl border border-black/5 bg-vs-bgLight p-6 transition-all duration-300 hover:shadow-[0_0_30px_rgba(16,185,129,0.4)]">
@@ -36,6 +39,19 @@ export function FaqSection() {
             );
           })}
         </div>
+        {faqItems.length > 3 && (
+          <div className="mt-6 flex justify-center">
+            <button
+              onClick={() => {
+                setShowAll(!showAll);
+                trackEvent("faq_show_more", { showAll: !showAll });
+              }}
+              className="rounded-full border border-vs-accent/30 bg-vs-accent/10 px-6 py-2.5 text-sm font-medium text-vs-accent transition-all hover:bg-vs-accent/20"
+            >
+              {showAll ? "Show less" : "Show more"}
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );

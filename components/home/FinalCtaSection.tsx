@@ -10,27 +10,29 @@ export function FinalCtaSection() {
     <section className="bg-black py-12 text-white">
       <div className="site-container flex flex-col items-start gap-8 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-vs-accent-soft">
+          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-vs-accent-soft md:text-sm">
             Final step
           </p>
           <h3 className="mt-4 text-2xl font-semibold leading-tight">Ready to see what AI can really do for your brand?</h3>
         </div>
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
-          <a
-            href={WHATSAPP_URL}
-            target="_blank"
-            rel="noreferrer"
-            onClick={() => trackEvent("whatsapp_click", { location: "final-cta" })}
-            className="btn-primary"
-          >
-            Get your free sample on WhatsApp
-          </a>
-          <a
-            href="mailto:info@varyonstudios.com"
-            className="text-sm text-white/80 underline-offset-4 hover:underline"
-          >
-            Or email us at info@varyonstudios.com
-          </a>
+        <div className="flex flex-col items-center sm:items-end gap-4 w-full sm:w-auto">
+          <div className="flex flex-col items-center gap-4 w-full sm:w-auto">
+            <a
+              href={WHATSAPP_URL}
+              target="_blank"
+              rel="noreferrer"
+              onClick={() => trackEvent("whatsapp_click", { location: "final-cta" })}
+              className="btn-primary w-full sm:w-auto text-center"
+            >
+              Get your free sample
+            </a>
+            <a
+              href="mailto:info@varyonstudios.com"
+              className="text-sm text-white/80 underline-offset-4 hover:underline text-center"
+            >
+              Or email us at info@varyonstudios.com
+            </a>
+          </div>
         </div>
       </div>
     </section>

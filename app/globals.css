@@ -355,3 +355,10 @@ body.intro-lock {
 .animate-scroll:hover {
   animation-play-state: paused;
 }
+
+/* Hide progress bars on mobile in CapabilitiesSection */
+@media (max-width: 767px) {
+  .progress-bar-mobile-hide {
+    display: none !important;
+  }
+}

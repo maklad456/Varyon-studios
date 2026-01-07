@@ -47,8 +47,8 @@ export function ProcessSection() {
   return (
     <section id="process" className="site-section bg-vs-bgLight scroll-mt-24" data-section="process">
       <div className="site-container">
-        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-vs-text-body/70">Process</p>
-        <h2 className="mt-4 text-3xl font-semibold leading-tight text-vs-text-strong sm:text-4xl sm:leading-tight">
+        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-vs-accent-soft md:text-sm">Process</p>
+        <h2 className="mt-4 text-3xl font-semibold leading-[1.05] text-black md:text-5xl">
           From a few phone photos to a full campaign.
         </h2>
 

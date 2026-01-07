@@ -29,9 +29,9 @@ export const challengeLeft = [
 ];
 
 export const challengeRight = [
-  "You send a few good mobile photos or references.",
+  "Send a few good mobile photos or references.",
   "We design the scenes: interiors, models, locations, impossible angles.",
-  "You get cinematic images and videos ready for your website, ads and socials.",
+  "Get cinematic images and videos ready for your website, ads and socials.",
   "Zero logistics. Lower cost. Ideas that would be impossible or too expensive to film in real life.",
 ];
 
@@ -214,6 +214,11 @@ export const faqItems = [
     question: "Can you match our existing brand guidelines?",
     answer:
       "Yes. We work with your fonts, palettes, target markets and existing campaigns so nothing feels off when you swap in the new visuals.",
+  },
+  {
+    question: "Is your workflow \"AI-only\"?",
+    answer:
+      "No. We use AI as part of a professional post-production pipeline — not as a one-click solution. We combine multiple AI models (not just one) with the same tools modern creative teams use every day (Photoshop, Premiere/Adobe Suite, plus tools like Canva/CapCut when needed). That means you're getting strategy, art direction, compositing, retouching, and finishing — so the final visuals look premium, consistent, and ready to ship.",
   },
 ];
 
