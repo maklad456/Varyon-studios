@@ -13,14 +13,14 @@ export function CaseStudiesHubClient({ caseStudies }: { caseStudies: CaseStudy[]
 
   return (
     <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-      {caseStudies.map((study) => (
-        <CaseStudyCard key={study.slug} study={study} />
+      {caseStudies.map((study, index) => (
+        <CaseStudyCard key={study.slug} study={study} index={index} />
       ))}
     </div>
   );
 }
 
-function CaseStudyCard({ study }: { study: CaseStudy }) {
+function CaseStudyCard({ study, index }: { study: CaseStudy; index: number }) {
   return (
     <Link
       href={`/case-studies/${study.slug}`}
@@ -35,7 +35,9 @@ function CaseStudyCard({ study }: { study: CaseStudy }) {
             alt={study.name}
             fill
             className="object-cover"
-            sizes="(max-width: 768px) 100vw, 50vw"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+            loading={index < 4 ? "eager" : "lazy"}
+            fetchPriority={index < 2 ? "high" : "auto"}
           />
         ) : study.slug === "mehos" ? (
           <Image
@@ -43,7 +45,9 @@ function CaseStudyCard({ study }: { study: CaseStudy }) {
             alt={study.name}
             fill
             className="object-cover"
-            sizes="(max-width: 768px) 100vw, 50vw"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+            loading={index < 4 ? "eager" : "lazy"}
+            fetchPriority={index < 2 ? "high" : "auto"}
           />
         ) : study.slug === "woodworkers" ? (
           <Image
@@ -51,7 +55,9 @@ function CaseStudyCard({ study }: { study: CaseStudy }) {
             alt={study.name}
             fill
             className="object-cover"
-            sizes="(max-width: 768px) 100vw, 50vw"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+            loading={index < 4 ? "eager" : "lazy"}
+            fetchPriority={index < 2 ? "high" : "auto"}
           />
         ) : study.slug === "zee-plexiglass-designs" ? (
           <Image
@@ -59,7 +65,9 @@ function CaseStudyCard({ study }: { study: CaseStudy }) {
             alt={study.name}
             fill
             className="object-cover"
-            sizes="(max-width: 768px) 100vw, 50vw"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+            loading={index < 4 ? "eager" : "lazy"}
+            fetchPriority={index < 2 ? "high" : "auto"}
           />
         ) : (
           <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-vs-accent/10 to-vs-accent/5">

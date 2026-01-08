@@ -108,7 +108,8 @@ export function LibraryTeaserSection() {
                       width={224}
                       height={112}
                       className="h-full w-full object-contain object-center opacity-100 transition-all duration-300 hover:opacity-90"
-                      unoptimized
+                      sizes="(max-width: 768px) 160px, 224px"
+                      loading="lazy"
                     />
                   </div>
                 ))

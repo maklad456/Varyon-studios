@@ -48,8 +48,8 @@ export default function LibraryPage() {
       <section ref={sectionRef} className="site-section">
         <div className="site-container">
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {visibleSamples.map((sample) => (
-              <LibraryCard key={sample.slug} sample={sample} />
+            {visibleSamples.map((sample, index) => (
+              <LibraryCard key={sample.slug} sample={sample} index={index} />
             ))}
           </div>
 
@@ -95,7 +95,7 @@ export default function LibraryPage() {
   );
 }
 
-function LibraryCard({ sample }: { sample: LibrarySample }) {
+function LibraryCard({ sample, index }: { sample: LibrarySample; index: number }) {
   const [imageError, setImageError] = useState(false);
   const isAnetos = sample.slug === "anetos";
 
@@ -114,7 +114,8 @@ function LibraryCard({ sample }: { sample: LibrarySample }) {
             fill
             className={isAnetos ? "object-cover transition-transform duration-500 group-hover:scale-105" : "object-contain p-2 transition-transform duration-500 group-hover:scale-105"}
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            loading="lazy"
+            loading={index < 6 ? "eager" : "lazy"}
+            fetchPriority={index < 3 ? "high" : "auto"}
             onError={() => setImageError(true)}
           />
         ) : (

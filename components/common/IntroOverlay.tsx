@@ -148,6 +148,8 @@ export function IntroOverlay() {
               width={3237}
               height={2030}
               priority
+              fetchPriority="high"
+              quality={90}
               className="w-full h-auto"
               onLoad={() => setImageLoaded(true)}
             />

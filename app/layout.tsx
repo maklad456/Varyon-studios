@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import localFont from "next/font/local";
 import "./globals.css";
 // TKFPageTransitionProvider removed - no page transition animations
@@ -97,6 +98,19 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${suisseIntl.variable} font-sans bg-vs-bgLight text-vs-textBody antialiased`}>
+        {/* Google tag (gtag.js) */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-RCYFF994BH"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-RCYFF994BH');
+          `}
+        </Script>
         <HomepageScrollSnap />
         <IntroOverlay />
         <div id="app-content" className="appContent--hidden">

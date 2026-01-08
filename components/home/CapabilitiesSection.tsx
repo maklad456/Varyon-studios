@@ -45,10 +45,14 @@ export function CapabilitiesSection() {
     <section id="capabilities" className="site-section relative bg-black text-white scroll-mt-24 min-h-screen md:min-h-0 md:h-auto flex flex-col pb-0 md:pb-12">
       <div className="absolute inset-0">
         <div className="relative h-full w-full">
-          <img 
+          <Image 
             src="/media/backgrounds/capabilities-bg-3.webp" 
             alt="" 
-            className="h-full w-full object-cover"
+            fill
+            className="object-cover"
+            sizes="100vw"
+            priority
+            quality={85}
           />
         </div>
         <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/40 to-transparent" />
@@ -208,8 +212,9 @@ export function CapabilitiesSection() {
               alt={activeCapability.title}
               fill
               className="object-contain transition-opacity duration-500 md:scale-110"
-              sizes="(max-width: 1024px) 100vw, 50vw"
+              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 100vw, 58vw"
               priority={activeCapabilityIndex === 0}
+              fetchPriority={activeCapabilityIndex === 0 ? "high" : "auto"}
             />
             
             {/* Image indicators (if multiple images) */}

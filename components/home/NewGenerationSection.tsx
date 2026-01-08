@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export function NewGenerationSection() {
   const pillars = [
     {
@@ -18,10 +20,14 @@ export function NewGenerationSection() {
     <section className="site-section relative bg-black text-white">
       <div className="absolute inset-0">
         <div className="relative h-full w-full">
-          <img 
+          <Image 
             src="/media/backgrounds/capabilities-bg-3.webp" 
             alt="" 
-            className="h-full w-full object-cover"
+            fill
+            className="object-cover"
+            sizes="100vw"
+            priority
+            quality={85}
           />
         </div>
         <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/40 to-transparent" />

@@ -218,6 +218,7 @@ function ImageWithFallback({
       className={className || "object-contain"}
       sizes={sizes}
       priority={priority}
+      fetchPriority={priority ? "high" : "auto"}
       onError={() => handleImageError(src)}
     />
   );
