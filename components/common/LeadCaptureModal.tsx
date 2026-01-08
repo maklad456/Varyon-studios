@@ -136,7 +136,7 @@ export function LeadCaptureModal() {
     if (emailsSent) {
       setStatusMessage("Your code is on the way to your inbox.");
     } else {
-      setStatusMessage("We couldn't send the email right now, but your code is below.");
+      setStatusMessage("We couldn&apos;t send the email right now, but your code is below.");
     }
 
     setCode(generated);
@@ -172,7 +172,7 @@ export function LeadCaptureModal() {
             </p>
             <h3 className="mt-2 text-2xl font-semibold text-vs-text-strong">Get 10% off your first shoot</h3>
             <p className="mt-3 text-sm text-vs-text-body">
-              Share a few details and we'll email you a personal code for 10% off your first order — no commitment, no spam.
+              Share a few details and we&apos;ll email you a personal code for 10% off your first order — no commitment, no spam.
             </p>
           </div>
           <button onClick={handleClose} aria-label="Close popup" className="text-sm text-vs-text-body">
