@@ -2,10 +2,14 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { caseStudies } from "@/data/varyonContent";
 import { CaseStudiesHubClient } from "./CaseStudiesHubClient";
+import { CaseStudiesCTAClient } from "./CaseStudiesCTAClient";
 
 export const metadata: Metadata = {
   title: "Case Studies | Varyon Studios",
-  description: "Deep, technical breakdowns of how we build systems that scale.",
+  description: "Explore detailed case studies showcasing how Varyon Studios transforms brands with AI-powered visual content. Real projects, real results.",
+  alternates: {
+    canonical: "https://varyonstudios.com/case-studies",
+  },
 };
 
 export default function CaseStudiesPage() {
@@ -43,9 +47,7 @@ export default function CaseStudiesPage() {
           <p className="mt-4 text-base text-white/70">
             Let&apos;s discuss how we can elevate your brand visuals.
           </p>
-          <Link href="/#discovery" className="btn-primary mt-8">
-            Connect with us
-          </Link>
+          <CaseStudiesCTAClient />
         </div>
       </section>
     </main>

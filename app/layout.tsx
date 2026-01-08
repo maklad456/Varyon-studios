@@ -20,7 +20,7 @@ const suisseIntl = localFont({
   display: "swap",
 });
 
-const siteUrl = "https://varyon-studios.com";
+const siteUrl = "https://varyonstudios.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -34,12 +34,19 @@ export const metadata: Metadata = {
     "Product images for e-commerce",
     "AI visuals for brands",
   ],
+  icons: {
+    icon: "/branding/vs-icon-dark.png",
+    shortcut: "/branding/vs-icon-dark.png",
+    apple: "/branding/vs-icon-dark.png",
+  },
   openGraph: {
     title: "Varyon Studios | AI Media Production & Product Photography",
     description:
       "Million-dollar photoshoots that actually sell. Get cinematic imagery, campaigns and videos built for conversion.",
     url: siteUrl,
     type: "website",
+    locale: "en_US",
+    siteName: "Varyon Studios",
     images: [
       {
         url: "/branding/vs-logo-light.png",
@@ -56,6 +63,10 @@ export const metadata: Metadata = {
       "AI-powered content studio for ecommerce brands in Egypt and beyond. Free sample within days.",
     images: ["/branding/vs-logo-light.png"],
   },
+  other: {
+    "geo.region": "EG",
+    "geo.placename": "Cairo",
+  },
 };
 
 const schema = {
@@ -69,7 +80,7 @@ const schema = {
       contactPoint: {
         "@type": "ContactPoint",
         email: "info@varyonstudios.com",
-        telephone: "+49 170 6083757",
+        telephone: "+20 11 1600 1400",
         contactType: "sales",
       },
     },
@@ -84,8 +95,18 @@ const schema = {
         addressCountry: "EG",
       },
       email: "info@varyonstudios.com",
-      telephone: "+49 170 6083757",
+      telephone: "+20 11 1600 1400",
       url: siteUrl,
+    },
+    {
+      "@type": "WebSite",
+      name: "Varyon Studios",
+      url: siteUrl,
+      description: "AI-powered content studio turning simple product photos into cinematic campaigns, ecommerce imagery and launch assets that sell.",
+      publisher: {
+        "@type": "Organization",
+        name: "Varyon Studios",
+      },
     },
   ],
 };
@@ -101,9 +122,9 @@ export default function RootLayout({
         {/* Google tag (gtag.js) */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-RCYFF994BH"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
-        <Script id="google-analytics" strategy="afterInteractive">
+        <Script id="google-analytics" strategy="lazyOnload">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}

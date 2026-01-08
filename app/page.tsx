@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { HeroSection } from "@/components/home/HeroSection";
 import { ChallengeSplit } from "@/components/home/ChallengeSplit";
 import { CapabilitiesSection } from "@/components/home/CapabilitiesSection";
@@ -11,6 +12,15 @@ import { FaqSection } from "@/components/home/FaqSection";
 import { FinalCtaSection } from "@/components/home/FinalCtaSection";
 
 export const dynamic = "force-static";
+
+export const metadata: Metadata = {
+  title: "Varyon Studios | AI Media Production & Product Photography",
+  description:
+    "Cairo-based AI content studio turning simple product photos into cinematic campaigns, ecommerce imagery and launch assets that sell.",
+  alternates: {
+    canonical: "https://varyonstudios.com",
+  },
+};
 
 export default function Home() {
   return (

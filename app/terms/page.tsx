@@ -3,6 +3,9 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Terms & Conditions | Varyon Studios",
   description: "Legal terms covering Varyon Studios creative services and website use.",
+  alternates: {
+    canonical: "https://varyonstudios.com/terms",
+  },
 };
 
 export default function TermsPage() {

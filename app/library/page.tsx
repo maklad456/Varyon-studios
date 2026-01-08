@@ -26,6 +26,10 @@ export default function LibraryPage() {
     trackEvent("library_load_more", { count: nextCount });
   };
 
+  const handleCtaClick = () => {
+    trackEvent("cta_connect_click", { location: "library" });
+  };
+
   return (
     <main className="min-h-screen bg-vs-bgLight">
       {/* Header */}
@@ -86,7 +90,7 @@ export default function LibraryPage() {
           <p className="mt-4 text-base text-white/70">
             Let&apos;s discuss how we can elevate your brand visuals.
           </p>
-          <Link href="/#discovery" className="btn-primary mt-8">
+          <Link href="/#discovery" className="btn-primary mt-8" onClick={handleCtaClick}>
             Connect with us
           </Link>
         </div>
@@ -166,4 +170,3 @@ function LibraryCard({ sample, index }: { sample: LibrarySample; index: number }
     </Link>
   );
 }
-

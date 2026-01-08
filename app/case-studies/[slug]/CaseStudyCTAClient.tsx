@@ -15,3 +15,14 @@ export function CaseStudyCTAClient({ slug }: { slug: string }) {
   );
 }
 
+export function CaseStudyConnectCTA() {
+  return (
+    <Link
+      href="/#discovery"
+      className="btn-primary mt-8"
+      onClick={() => trackEvent("cta_connect_click", { location: "case-study-detail" })}
+    >
+      Connect with us
+    </Link>
+  );
+}
