@@ -16,11 +16,13 @@ const LOCAL_STORAGE_KEY = "vs_lead_popup_dismissed";
 const LOCAL_STORAGE_CODE_KEY = "vs_lead_popup_code";
 const LOCAL_STORAGE_FORM_KEY = "vs_lead_popup_form";
 
-// EmailJS Configuration - using public key (safe to expose client-side)
-const EMAILJS_SERVICE_ID = "service_t645r5h";
-const EMAILJS_TEMPLATE_ID = "template_o2u23o6";
-const EMAILJS_PUBLIC_KEY = "EbiCFriLNvLNCFYAm";
 const EMAILJS_API_URL = "https://api.emailjs.com/api/v1.0/email/send";
+
+// EmailJS Configuration from environment variables
+const EMAILJS_SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || "service_t645r5h";
+const EMAILJS_CUSTOMER_TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_CUSTOMER_TEMPLATE_ID || "template_o2u23o6";
+const EMAILJS_ADMIN_TEMPLATE_ID = "template_0wy5yrf";
+const EMAILJS_PUBLIC_KEY = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || "EbiCFriLNvLNCFYAm";
 
 type LeadForm = {
   name: string;
@@ -43,7 +45,10 @@ function generateCode() {
   return `VS10-${random}`;
 }
 
-async function sendEmailViaEmailJS(templateParams: Record<string, string>) {
+/**
+ * Reusable helper function to send emails via EmailJS REST API
+ */
+async function sendEmailJS(templateId: string, templateParams: Record<string, any>): Promise<boolean> {
   try {
     const response = await fetch(EMAILJS_API_URL, {
       method: "POST",
@@ -52,7 +57,7 @@ async function sendEmailViaEmailJS(templateParams: Record<string, string>) {
       },
       body: JSON.stringify({
         service_id: EMAILJS_SERVICE_ID,
-        template_id: EMAILJS_TEMPLATE_ID,
+        template_id: templateId,
         user_id: EMAILJS_PUBLIC_KEY,
         template_params: templateParams,
       }),
@@ -60,14 +65,13 @@ async function sendEmailViaEmailJS(templateParams: Record<string, string>) {
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error("EmailJS API error:", response.status, errorText);
-      return false;
+      throw new Error(`EmailJS API error (${response.status}): ${errorText}`);
     }
 
     return true;
   } catch (err) {
-    console.error("Failed to send email:", err);
-    return false;
+    const errorMessage = err instanceof Error ? err.message : "Unknown error";
+    throw new Error(errorMessage);
   }
 }
 
@@ -144,6 +148,7 @@ export function LeadCaptureModal() {
     setSubmitting(true);
     const generated = code || generateCode();
 
+    // Build payload with all form fields
     const templateParams = {
       code: generated,
       name: form.name,
@@ -154,10 +159,28 @@ export function LeadCaptureModal() {
       timestamp: new Date().toISOString(),
     };
 
-    // Send email via EmailJS REST API
-    const emailSent = await sendEmailViaEmailJS(templateParams);
+    // Send both emails using Promise.allSettled
+    // Customer email success determines UI success
+    // Admin email failure should not block user success
+    const [customerResult, adminResult] = await Promise.allSettled([
+      sendEmailJS(EMAILJS_CUSTOMER_TEMPLATE_ID, templateParams),
+      sendEmailJS(EMAILJS_ADMIN_TEMPLATE_ID, templateParams),
+    ]);
 
-    if (emailSent) {
+    // Check customer email result (this determines success)
+    const customerEmailSent = customerResult.status === "fulfilled" && customerResult.value === true;
+
+    // Log admin email failure if it occurred (but don't block success)
+    if (adminResult.status === "rejected") {
+      const errorMessage = adminResult.reason instanceof Error 
+        ? adminResult.reason.message 
+        : String(adminResult.reason);
+      console.warn("Admin email failed to send:", errorMessage);
+    } else if (adminResult.status === "fulfilled" && adminResult.value === false) {
+      console.warn("Admin email returned false");
+    }
+
+    if (customerEmailSent) {
       setStatusMessage("Your code is on the way to your inbox.");
     } else {
       setStatusMessage("We couldn&apos;t send the email right now, but your code is below.");
