@@ -130,6 +130,23 @@
   }
 }
 
+/* Hide scrollbar on desktop - keeps scrolling functionality */
+@media (min-width: 768px) {
+  html {
+    /* Firefox */
+    scrollbar-width: none;
+    /* IE and Edge */
+    -ms-overflow-style: none;
+  }
+
+  html::-webkit-scrollbar {
+    /* Chrome, Safari, Opera */
+    display: none;
+    width: 0;
+    height: 0;
+  }
+}
+
 /* Intro Animation Styles */
 .introOverlay {
   position: fixed;
