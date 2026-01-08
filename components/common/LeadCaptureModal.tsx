@@ -2,7 +2,6 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { usePathname } from "next/navigation";
-import * as emailjs from "@emailjs/browser";
 import { trackEvent } from "@/lib/analytics";
 
 const intentOptions = [
@@ -15,13 +14,7 @@ const intentOptions = [
 
 const LOCAL_STORAGE_KEY = "vs_lead_popup_dismissed";
 const LOCAL_STORAGE_CODE_KEY = "vs_lead_popup_code";
-
-const emailConfig = {
-  serviceId: process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
-  userTemplateId: process.env.NEXT_PUBLIC_EMAILJS_USER_TEMPLATE_ID,
-  adminTemplateId: process.env.NEXT_PUBLIC_EMAILJS_ADMIN_TEMPLATE_ID,
-  publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY,
-};
+const LOCAL_STORAGE_FORM_KEY = "vs_lead_popup_form";
 
 type LeadForm = {
   name: string;
@@ -44,20 +37,17 @@ function generateCode() {
   return `VS10-${random}`;
 }
 
-async function sendEmail(payload: Record<string, string>, templateId?: string) {
-  if (
-    !emailConfig.serviceId ||
-    !templateId ||
-    !emailConfig.publicKey
-  ) {
-    return false;
-  }
-
+async function sendEmailsServer(payload: Record<string, string>) {
   try {
-    await emailjs.send(emailConfig.serviceId, templateId, payload, emailConfig.publicKey);
-    return true;
-  } catch (error) {
-    console.error("EmailJS error", error);
+    const res = await fetch("/api/send-lead", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    const result = await res.json();
+    return result.ok;
+  } catch (err) {
+    console.error("API email error", err);
     return false;
   }
 }
@@ -74,8 +64,19 @@ export function LeadCaptureModal() {
     if (typeof window === "undefined" || pathname !== "/") return;
     const dismissed = localStorage.getItem(LOCAL_STORAGE_KEY);
     const storedCode = localStorage.getItem(LOCAL_STORAGE_CODE_KEY);
+    const storedForm = localStorage.getItem(LOCAL_STORAGE_FORM_KEY);
+    
     if (storedCode) {
       setCode(storedCode);
+    }
+    
+    if (storedForm) {
+      try {
+        const parsedForm = JSON.parse(storedForm);
+        setForm(parsedForm);
+      } catch (e) {
+        // Invalid stored form, ignore
+      }
     }
 
     if (dismissed) {
@@ -105,9 +106,22 @@ export function LeadCaptureModal() {
     setForm((prev) => ({ ...prev, [field]: value }));
   };
 
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
-    if (!isValid) return;
+  const handleSubmit = async (event?: React.FormEvent) => {
+    if (event) {
+      event.preventDefault();
+    }
+    
+    // If code exists but form is not valid, we can't send email
+    if (code && !isValid) {
+      setStatusMessage("Please fill in all fields to send the code to your inbox.");
+      return;
+    }
+    
+    // If no code yet and form is invalid, don't proceed
+    if (!code && !isValid) {
+      return;
+    }
+    
     setSubmitting(true);
     const generated = code || generateCode();
 
@@ -117,24 +131,31 @@ export function LeadCaptureModal() {
       timestamp: new Date().toISOString(),
     };
 
-    const userEmailSent = await sendEmail(payload, emailConfig.userTemplateId);
-    const adminEmailSent = await sendEmail(payload, emailConfig.adminTemplateId);
+    const emailsSent = await sendEmailsServer(payload);
 
-    if (userEmailSent && adminEmailSent) {
+    if (emailsSent) {
       setStatusMessage("Your code is on the way to your inbox.");
-    } else if (!emailConfig.serviceId) {
-      setStatusMessage("Email service not configured yet. Please copy your code and we’ll handle the rest manually.");
     } else {
-      setStatusMessage("We couldn’t send the email right now, but your code is below.");
+      setStatusMessage("We couldn't send the email right now, but your code is below.");
     }
 
     setCode(generated);
     if (typeof window !== "undefined") {
       localStorage.setItem(LOCAL_STORAGE_KEY, "true");
       localStorage.setItem(LOCAL_STORAGE_CODE_KEY, generated);
+      localStorage.setItem(LOCAL_STORAGE_FORM_KEY, JSON.stringify(form));
     }
-    trackEvent("lead_popup_submit", { intent: form.intent });
+    
+    // Only track submit event on initial form submission, not when resending
+    if (!code) {
+      trackEvent("lead_popup_submit", { intent: form.intent });
+    }
+    
     setSubmitting(false);
+  };
+
+  const handleSendCode = async () => {
+    await handleSubmit();
   };
 
   if (!visible) {
@@ -151,7 +172,7 @@ export function LeadCaptureModal() {
             </p>
             <h3 className="mt-2 text-2xl font-semibold text-vs-text-strong">Get 10% off your first shoot</h3>
             <p className="mt-3 text-sm text-vs-text-body">
-              Share a few details and we’ll email you a personal code for 10% off your first order — no commitment, no spam.
+              Share a few details and we'll email you a personal code for 10% off your first order — no commitment, no spam.
             </p>
           </div>
           <button onClick={handleClose} aria-label="Close popup" className="text-sm text-vs-text-body">
@@ -167,7 +188,7 @@ export function LeadCaptureModal() {
             {statusMessage && <p className="mt-3 text-xs text-vs-text-body/70">{statusMessage}</p>}
             <button
               className="mt-4 rounded-full border border-vs-accent px-6 py-3 text-xs font-semibold uppercase tracking-[0.3em] text-vs-accent"
-              onClick={handleSubmit}
+              onClick={handleSendCode}
               disabled={submitting}
             >
               {submitting ? "Sending..." : "Send code to my inbox"}

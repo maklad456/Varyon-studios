@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
+    "@emailjs/nodejs": "^5.0.2",
     "clsx": "^2.1.1",
     "framer-motion": "^12.23.25",
     "next": "14.1.4",
