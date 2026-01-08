@@ -19,9 +19,11 @@ const LOCAL_STORAGE_FORM_KEY = "vs_lead_popup_form";
 const EMAILJS_API_URL = "https://api.emailjs.com/api/v1.0/email/send";
 
 // EmailJS Configuration from environment variables
-const EMAILJS_SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || "service_t645r5h";
+// Client Side Template (sent to customer)
 const EMAILJS_CUSTOMER_TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_CUSTOMER_TEMPLATE_ID || "template_o2u23o6";
+// Admin Side Template (sent to info@varyonstudios.com)
 const EMAILJS_ADMIN_TEMPLATE_ID = "template_0wy5yrf";
+const EMAILJS_SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || "service_t645r5h";
 const EMAILJS_PUBLIC_KEY = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || "EbiCFriLNvLNCFYAm";
 
 type LeadForm = {
@@ -50,27 +52,52 @@ function generateCode() {
  */
 async function sendEmailJS(templateId: string, templateParams: Record<string, any>): Promise<boolean> {
   try {
+    const requestBody = {
+      service_id: EMAILJS_SERVICE_ID,
+      template_id: templateId,
+      user_id: EMAILJS_PUBLIC_KEY,
+      template_params: templateParams,
+    };
+
+    console.log(`[EmailJS] Sending email with template: ${templateId}`, {
+      service_id: EMAILJS_SERVICE_ID,
+      template_id: templateId,
+      has_template_params: !!templateParams,
+    });
+
     const response = await fetch(EMAILJS_API_URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        service_id: EMAILJS_SERVICE_ID,
-        template_id: templateId,
-        user_id: EMAILJS_PUBLIC_KEY,
-        template_params: templateParams,
-      }),
+      body: JSON.stringify(requestBody),
     });
 
+    const responseText = await response.text().catch(() => "");
+    
+    // EmailJS returns 200 OK with body "OK" (or empty) on success
+    // 400 Bad Request with error message on failure
     if (!response.ok) {
-      const errorText = await response.text();
-      throw new Error(`EmailJS API error (${response.status}): ${errorText}`);
+      console.error(`[EmailJS] ❌ API error for template ${templateId}:`, {
+        status: response.status,
+        statusText: response.statusText,
+        response: responseText,
+        url: EMAILJS_API_URL,
+      });
+      throw new Error(`EmailJS API error (${response.status}): ${responseText || response.statusText}`);
     }
+
+    // Success - EmailJS returns 200 (response.ok = true)
+    // Response body can be "OK" or empty, both indicate success
+    console.log(`[EmailJS] ✅ Success for template ${templateId}:`, {
+      status: response.status,
+      response: responseText.trim() || "(empty response - still success)",
+    });
 
     return true;
   } catch (err) {
     const errorMessage = err instanceof Error ? err.message : "Unknown error";
+    console.error(`[EmailJS] Exception for template ${templateId}:`, errorMessage);
     throw new Error(errorMessage);
   }
 }
@@ -159,9 +186,18 @@ export function LeadCaptureModal() {
       timestamp: new Date().toISOString(),
     };
 
+    // Verify template IDs before sending
+    console.log("[EmailJS] Configuration check:", {
+      customerTemplate: EMAILJS_CUSTOMER_TEMPLATE_ID,
+      adminTemplate: EMAILJS_ADMIN_TEMPLATE_ID,
+      serviceId: EMAILJS_SERVICE_ID,
+      publicKey: EMAILJS_PUBLIC_KEY ? "SET" : "MISSING",
+    });
+
     // Send both emails using Promise.allSettled
     // Customer email success determines UI success
     // Admin email failure should not block user success
+    console.log("[EmailJS] Sending both emails in parallel...");
     const [customerResult, adminResult] = await Promise.allSettled([
       sendEmailJS(EMAILJS_CUSTOMER_TEMPLATE_ID, templateParams),
       sendEmailJS(EMAILJS_ADMIN_TEMPLATE_ID, templateParams),
@@ -170,14 +206,44 @@ export function LeadCaptureModal() {
     // Check customer email result (this determines success)
     const customerEmailSent = customerResult.status === "fulfilled" && customerResult.value === true;
 
-    // Log admin email failure if it occurred (but don't block success)
+    // Log customer email result for debugging
+    if (customerResult.status === "rejected") {
+      const errorMessage = customerResult.reason instanceof Error 
+        ? customerResult.reason.message 
+        : String(customerResult.reason);
+      console.error("[EmailJS] ❌ Customer email FAILED:", {
+        templateId: EMAILJS_CUSTOMER_TEMPLATE_ID,
+        error: errorMessage,
+      });
+    } else if (customerResult.status === "fulfilled") {
+      console.log("[EmailJS] ✅ Customer email SUCCESS:", {
+        templateId: EMAILJS_CUSTOMER_TEMPLATE_ID,
+        result: customerResult.value,
+      });
+    }
+
+    // Log admin email result for debugging
     if (adminResult.status === "rejected") {
       const errorMessage = adminResult.reason instanceof Error 
         ? adminResult.reason.message 
         : String(adminResult.reason);
-      console.warn("Admin email failed to send:", errorMessage);
-    } else if (adminResult.status === "fulfilled" && adminResult.value === false) {
-      console.warn("Admin email returned false");
+      console.error("[EmailJS] ❌ Admin email FAILED:", {
+        templateId: EMAILJS_ADMIN_TEMPLATE_ID,
+        error: errorMessage,
+        fullError: adminResult.reason,
+      });
+    } else if (adminResult.status === "fulfilled") {
+      if (adminResult.value === true) {
+        console.log("[EmailJS] ✅ Admin email SUCCESS:", {
+          templateId: EMAILJS_ADMIN_TEMPLATE_ID,
+          result: adminResult.value,
+        });
+      } else {
+        console.warn("[EmailJS] ⚠️ Admin email returned unexpected value:", {
+          templateId: EMAILJS_ADMIN_TEMPLATE_ID,
+          result: adminResult.value,
+        });
+      }
     }
 
     if (customerEmailSent) {
