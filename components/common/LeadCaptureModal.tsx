@@ -44,8 +44,21 @@ async function sendEmailsServer(payload: Record<string, string>) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
     });
+
+    if (!res.ok) {
+      const errorData = await res.json().catch(() => ({ message: "Unknown error" }));
+      console.error("API error response:", res.status, errorData);
+      return false;
+    }
+
     const result = await res.json();
-    return result.ok;
+    
+    if (!result.ok) {
+      console.error("API returned error:", result.message || "Unknown error");
+      return false;
+    }
+
+    return true;
   } catch (err) {
     console.error("API email error", err);
     return false;
