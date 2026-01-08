@@ -16,6 +16,12 @@ const LOCAL_STORAGE_KEY = "vs_lead_popup_dismissed";
 const LOCAL_STORAGE_CODE_KEY = "vs_lead_popup_code";
 const LOCAL_STORAGE_FORM_KEY = "vs_lead_popup_form";
 
+// EmailJS Configuration - using public key (safe to expose client-side)
+const EMAILJS_SERVICE_ID = "service_t645r5h";
+const EMAILJS_TEMPLATE_ID = "template_o2u23o6";
+const EMAILJS_PUBLIC_KEY = "EbiCFriLNvLNCFYAm";
+const EMAILJS_API_URL = "https://api.emailjs.com/api/v1.0/email/send";
+
 type LeadForm = {
   name: string;
   company: string;
@@ -37,30 +43,30 @@ function generateCode() {
   return `VS10-${random}`;
 }
 
-async function sendEmailsServer(payload: Record<string, string>) {
+async function sendEmailViaEmailJS(templateParams: Record<string, string>) {
   try {
-    const res = await fetch("/api/send-lead", {
+    const response = await fetch(EMAILJS_API_URL, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        service_id: EMAILJS_SERVICE_ID,
+        template_id: EMAILJS_TEMPLATE_ID,
+        user_id: EMAILJS_PUBLIC_KEY,
+        template_params: templateParams,
+      }),
     });
 
-    if (!res.ok) {
-      const errorData = await res.json().catch(() => ({ message: "Unknown error" }));
-      console.error("API error response:", res.status, errorData);
-      return false;
-    }
-
-    const result = await res.json();
-    
-    if (!result.ok) {
-      console.error("API returned error:", result.message || "Unknown error");
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("EmailJS API error:", response.status, errorText);
       return false;
     }
 
     return true;
   } catch (err) {
-    console.error("API email error", err);
+    console.error("Failed to send email:", err);
     return false;
   }
 }
@@ -138,15 +144,20 @@ export function LeadCaptureModal() {
     setSubmitting(true);
     const generated = code || generateCode();
 
-    const payload = {
+    const templateParams = {
       code: generated,
-      ...form,
+      name: form.name,
+      company: form.company,
+      email: form.email,
+      phone: form.phone,
+      intent: form.intent,
       timestamp: new Date().toISOString(),
     };
 
-    const emailsSent = await sendEmailsServer(payload);
+    // Send email via EmailJS REST API
+    const emailSent = await sendEmailViaEmailJS(templateParams);
 
-    if (emailsSent) {
+    if (emailSent) {
       setStatusMessage("Your code is on the way to your inbox.");
     } else {
       setStatusMessage("We couldn&apos;t send the email right now, but your code is below.");
