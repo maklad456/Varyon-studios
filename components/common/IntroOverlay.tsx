@@ -43,7 +43,15 @@ export function IntroOverlay() {
     }
 
     // Check if intro already seen this session
-    if (typeof window === "undefined") return;
+    if (typeof window === "undefined") {
+      // On server-side, ensure content is visible to prevent FCP blocking
+      const appContent = document.getElementById("app-content");
+      if (appContent) {
+        appContent.classList.remove("appContent--hidden");
+        appContent.classList.add("appContent--visible");
+      }
+      return;
+    }
     
     const hasSeenIntro = sessionStorage.getItem("varyon_intro_seen");
     

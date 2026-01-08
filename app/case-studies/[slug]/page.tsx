@@ -132,7 +132,7 @@ function LayoutSystemA({ study, detail }: { study: typeof caseStudies[0]; detail
                       ? "/case-studies/mehos/mehos1.webp"
                       : getImageForIndex(0)
                   } 
-                  alt="" 
+                  alt={`${study.name} problem showcase image 1`} 
                   fill 
                   className="object-cover" 
                   sizes="(max-width: 768px) 50vw, 25vw" 
@@ -147,7 +147,7 @@ function LayoutSystemA({ study, detail }: { study: typeof caseStudies[0]; detail
                       ? "/case-studies/mehos/mehos2.webp"
                       : getImageForIndex(1)
                   } 
-                  alt="" 
+                  alt={`${study.name} problem showcase image 2`} 
                   fill 
                   className="object-cover" 
                   sizes="(max-width: 768px) 50vw, 25vw" 
@@ -161,7 +161,7 @@ function LayoutSystemA({ study, detail }: { study: typeof caseStudies[0]; detail
         {study.slug === "discovery-homes" ? (
           <div className="mb-16 rounded-3xl border border-black/5 bg-white p-8 lg:p-12">
             <div className="relative aspect-[16/9] overflow-hidden rounded-2xl mb-8">
-              <Image src="/case-studies/discovery-homes/combine 16-9.webp" alt="" fill className="object-cover" sizes="(max-width: 768px) 100vw, 100%" />
+              <Image src="/case-studies/discovery-homes/combine 16-9.webp" alt={`${study.name} combined deliverables showcase`} fill className="object-cover" sizes="(max-width: 768px) 100vw, 100%" />
             </div>
             <div>
               <h2 className="text-2xl font-semibold text-vs-text-strong mb-4">What we did</h2>
@@ -240,7 +240,7 @@ function LayoutSystemA({ study, detail }: { study: typeof caseStudies[0]; detail
               <div className="relative aspect-[4/5] overflow-hidden rounded-2xl">
                 <Image 
                   src={study.slug === "mehos" ? "/case-studies/mehos/mehos3.webp" : getImageForIndex(2)} 
-                  alt="" 
+                  alt={`${study.name} deliverables image 1`} 
                   fill 
                   className="object-cover" 
                   sizes="(max-width: 768px) 50vw, 25vw" 
@@ -249,7 +249,7 @@ function LayoutSystemA({ study, detail }: { study: typeof caseStudies[0]; detail
               <div className="relative aspect-[4/5] overflow-hidden rounded-2xl">
                 <Image 
                   src={study.slug === "mehos" ? "/case-studies/mehos/mehos4.webp" : getImageForIndex(3)} 
-                  alt="" 
+                  alt={`${study.name} deliverables image 2`} 
                   fill 
                   className="object-cover" 
                   sizes="(max-width: 768px) 50vw, 25vw" 
@@ -285,7 +285,7 @@ function LayoutSystemA({ study, detail }: { study: typeof caseStudies[0]; detail
                     ? "/case-studies/zee-plexiglass-designs/plexi5.webp"
                     : getImageForIndex(4)
                 } 
-                alt="" 
+                alt={`${study.name} deliverables showcase 1`} 
                 fill 
                 className="object-cover" 
                 sizes="(max-width: 768px) 50vw, 25vw" 
@@ -304,7 +304,7 @@ function LayoutSystemA({ study, detail }: { study: typeof caseStudies[0]; detail
                     ? "/case-studies/zee-plexiglass-designs/plexi6.webp"
                     : getImageForIndex(5)
                 } 
-                alt="" 
+                alt={`${study.name} deliverables showcase 2`} 
                 fill 
                 className="object-cover" 
                 sizes="(max-width: 768px) 50vw, 25vw" 
@@ -329,7 +329,7 @@ function LayoutSystemA({ study, detail }: { study: typeof caseStudies[0]; detail
                     ? "/case-studies/zee-plexiglass-designs/plexi7.webp"
                     : getImageForIndex(6)
                 } 
-                alt="" 
+                alt={`${study.name} outcome showcase 1`} 
                 fill 
                 className="object-cover" 
                 sizes="(max-width: 768px) 50vw, 25vw" 
@@ -348,7 +348,7 @@ function LayoutSystemA({ study, detail }: { study: typeof caseStudies[0]; detail
                     ? "/case-studies/zee-plexiglass-designs/plexi8.webp"
                     : getImageForIndex(7)
                 } 
-                alt="" 
+                alt={`${study.name} outcome showcase 2`} 
                 fill 
                 className="object-cover" 
                 sizes="(max-width: 768px) 50vw, 25vw" 
