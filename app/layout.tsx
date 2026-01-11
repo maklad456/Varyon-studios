@@ -37,17 +37,17 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Varyon Studios | AI Media Production & Product Photography",
     description:
-      "Million-dollar photoshoots that actually sell. Get cinematic imagery, campaigns and videos built for conversion.",
+      "AI-powered content studio for brands that want global-level visuals without global-level headaches.",
     url: siteUrl,
     type: "website",
     locale: "en_US",
     siteName: "Varyon Studios",
     images: [
       {
-        url: "/branding/vs-logo-light.png",
-        width: 800,
-        height: 400,
-        alt: "Varyon Studios — Million-dollar photoshoots that actually sell.",
+        url: "/brand/full-logo-tagline.webp",
+        width: 3237,
+        height: 2030,
+        alt: "Varyon Studios — AI-powered content studio for brands that want global-level visuals without global-level headaches.",
       },
     ],
   },
@@ -55,8 +55,8 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Varyon Studios | AI Media Production & Product Photography",
     description:
-      "AI-powered content studio for ecommerce brands in Egypt and beyond. Free sample within days.",
-    images: ["/branding/vs-logo-light.png"],
+      "AI-powered content studio for brands that want global-level visuals without global-level headaches.",
+    images: ["/brand/full-logo-tagline.webp"],
   },
   other: {
     "geo.region": "EG",
