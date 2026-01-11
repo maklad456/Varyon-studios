@@ -102,7 +102,7 @@ const schema = {
       "@type": "WebSite",
       name: "Varyon Studios",
       url: siteUrl,
-      description: "AI-powered content studio turning simple product photos into cinematic campaigns, ecommerce imagery and launch assets that sell.",
+      description: "AI-powered content studio for brands that want global-level visuals without global-level headaches.",
       publisher: {
         "@type": "Organization",
         name: "Varyon Studios",
