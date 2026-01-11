@@ -63,13 +63,9 @@ export const metadata: Metadata = {
     "geo.placename": "Cairo",
   },
   icons: {
-    icon: [
-      { url: "/favicon.ico", sizes: "any" },
-      { url: "/icon.png", type: "image/png", sizes: "512x512" },
-      { url: "/branding/vs-favicon-white-on-black.png", type: "image/png", sizes: "512x512" },
-    ],
-    apple: "/branding/vs-favicon-white-on-black.png",
+    icon: "/icon.png",
     shortcut: "/favicon.ico",
+    apple: "/icon.png",
   },
 };
 
