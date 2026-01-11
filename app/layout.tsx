@@ -34,14 +34,6 @@ export const metadata: Metadata = {
     "Product images for e-commerce",
     "AI visuals for brands",
   ],
-  icons: {
-    icon: [
-      { url: "/branding/vs-icon-dark.png", sizes: "32x32", type: "image/png" },
-      { url: "/branding/vs-icon-dark.png", sizes: "16x16", type: "image/png" },
-    ],
-    shortcut: "/branding/vs-icon-dark.png",
-    apple: "/branding/vs-icon-dark.png",
-  },
   openGraph: {
     title: "Varyon Studios | AI Media Production & Product Photography",
     description:
