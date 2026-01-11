@@ -16,7 +16,7 @@ export const dynamic = "force-static";
 export const metadata: Metadata = {
   title: "Varyon Studios | AI Media Production & Product Photography",
   description:
-    "Cairo-based AI content studio turning simple product photos into cinematic campaigns, ecommerce imagery and launch assets that sell.",
+    "AI-powered content studio for brands that want global-level visuals without global-level headaches.",
   alternates: {
     canonical: "https://varyonstudios.com",
   },

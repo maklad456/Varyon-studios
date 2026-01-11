@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: "Varyon Studios | AI Media Production & Product Photography",
   description:
-    "Cairo-based AI content studio turning simple product photos into cinematic campaigns, ecommerce imagery and launch assets that sell.",
+    "AI-powered content studio for brands that want global-level visuals without global-level headaches.",
   keywords: [
     "AI media production agency",
     "AI product photography",
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     siteName: "Varyon Studios",
     images: [
       {
-        url: "/brand/full-logo-tagline.webp",
+        url: "/brand/full-logo-tagline-black-bg.webp",
         width: 3237,
         height: 2030,
         alt: "Varyon Studios — AI-powered content studio for brands that want global-level visuals without global-level headaches.",
@@ -56,7 +56,7 @@ export const metadata: Metadata = {
     title: "Varyon Studios | AI Media Production & Product Photography",
     description:
       "AI-powered content studio for brands that want global-level visuals without global-level headaches.",
-    images: ["/brand/full-logo-tagline.webp"],
+    images: ["/brand/full-logo-tagline-black-bg.webp"],
   },
   other: {
     "geo.region": "EG",
