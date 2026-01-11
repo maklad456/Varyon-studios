@@ -62,6 +62,15 @@ export const metadata: Metadata = {
     "geo.region": "EG",
     "geo.placename": "Cairo",
   },
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.png", type: "image/png", sizes: "512x512" },
+      { url: "/branding/vs-favicon-white-on-black.png", type: "image/png", sizes: "512x512" },
+    ],
+    apple: "/branding/vs-favicon-white-on-black.png",
+    shortcut: "/favicon.ico",
+  },
 };
 
 const schema = {
