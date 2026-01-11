@@ -35,7 +35,10 @@ export const metadata: Metadata = {
     "AI visuals for brands",
   ],
   icons: {
-    icon: "/branding/vs-icon-dark.png",
+    icon: [
+      { url: "/branding/vs-icon-dark.png", sizes: "32x32", type: "image/png" },
+      { url: "/branding/vs-icon-dark.png", sizes: "16x16", type: "image/png" },
+    ],
     shortcut: "/branding/vs-icon-dark.png",
     apple: "/branding/vs-icon-dark.png",
   },
