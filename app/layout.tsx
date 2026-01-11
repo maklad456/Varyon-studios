@@ -24,7 +24,7 @@ const siteUrl = "https://varyonstudios.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: "Varyon Studios | AI Media Production & Product Photography",
+  title: "Varyon Studios | AI media production",
   description:
     "AI-powered content studio for brands that want global-level visuals without global-level headaches.",
   keywords: [
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     "AI visuals for brands",
   ],
   openGraph: {
-    title: "Varyon Studios | AI Media Production & Product Photography",
+    title: "Varyon Studios | AI media production",
     description:
       "AI-powered content studio for brands that want global-level visuals without global-level headaches.",
     url: siteUrl,
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Varyon Studios | AI Media Production & Product Photography",
+    title: "Varyon Studios | AI media production",
     description:
       "AI-powered content studio for brands that want global-level visuals without global-level headaches.",
     images: ["/brand/full-logo-tagline-black-bg.webp"],
