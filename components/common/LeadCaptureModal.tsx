@@ -26,6 +26,9 @@ const EMAILJS_ADMIN_TEMPLATE_ID = "template_0wy5yrf";
 const EMAILJS_SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || "service_t645r5h";
 const EMAILJS_PUBLIC_KEY = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || "EbiCFriLNvLNCFYAm";
 
+// WhatsApp Configuration
+const WHATSAPP_NUMBER = "201116001400";
+
 type LeadForm = {
   name: string;
   company: string;
@@ -45,6 +48,15 @@ const initialForm: LeadForm = {
 function generateCode() {
   const random = Math.floor(1000 + Math.random() * 9000);
   return `VS10-${random}`;
+}
+
+/**
+ * Generate WhatsApp URL with prefilled message
+ */
+function getWhatsAppUrl(code: string): string {
+  const message = `Hello Varyon Studios, I'd like to use my 10% discount for my first shoot. My code is ${code}.`;
+  const encodedMessage = encodeURIComponent(message);
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
 }
 
 /**
@@ -118,6 +130,8 @@ export function LeadCaptureModal() {
     
     if (storedCode) {
       setCode(storedCode);
+      // Set status message for existing codes
+      setStatusMessage("Your code is on the way to your inbox.");
     }
     
     if (storedForm) {
@@ -156,24 +170,21 @@ export function LeadCaptureModal() {
     setForm((prev) => ({ ...prev, [field]: value }));
   };
 
-  const handleSubmit = async (event?: React.FormEvent) => {
-    if (event) {
-      event.preventDefault();
-    }
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
     
-    // If code exists but form is not valid, we can't send email
-    if (code && !isValid) {
-      setStatusMessage("Please fill in all fields to send the code to your inbox.");
+    // If form is invalid, don't proceed
+    if (!isValid) {
       return;
     }
     
-    // If no code yet and form is invalid, don't proceed
-    if (!code && !isValid) {
+    // If code already exists, don't resend emails (email only sends once)
+    if (code) {
       return;
     }
     
     setSubmitting(true);
-    const generated = code || generateCode();
+    const generated = generateCode();
 
     // Build payload with all form fields
     const templateParams = {
@@ -246,6 +257,7 @@ export function LeadCaptureModal() {
       }
     }
 
+    // Set status message and code
     if (customerEmailSent) {
       setStatusMessage("Your code is on the way to your inbox.");
     } else {
@@ -259,16 +271,10 @@ export function LeadCaptureModal() {
       localStorage.setItem(LOCAL_STORAGE_FORM_KEY, JSON.stringify(form));
     }
     
-    // Only track submit event on initial form submission, not when resending
-    if (!code) {
-      trackEvent("lead_popup_submit", { intent: form.intent });
-    }
+    // Track submit event only once (on initial form submission)
+    trackEvent("lead_popup_submit", { intent: form.intent });
     
     setSubmitting(false);
-  };
-
-  const handleSendCode = async () => {
-    await handleSubmit();
   };
 
   if (!visible) {
@@ -277,37 +283,51 @@ export function LeadCaptureModal() {
 
   return (
     <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/70 px-4">
-      <div className="w-full max-w-lg rounded-3xl bg-white p-8 shadow-2xl">
-        <div className="flex items-start justify-between">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-vs-text-body/70">
-              10% launch offer
-            </p>
-            <h3 className="mt-2 text-2xl font-semibold text-vs-text-strong">Get 10% off your first shoot</h3>
-            <p className="mt-3 text-sm text-vs-text-body">
-              Share a few details and we&apos;ll email you a personal code for 10% off your first order — no commitment, no spam.
-            </p>
-          </div>
-          <button onClick={handleClose} aria-label="Close popup" className="text-sm text-vs-text-body">
-            ✕
-          </button>
-        </div>
-
+      <div className="relative w-full max-w-lg rounded-3xl bg-white p-8 shadow-2xl">
         {code ? (
-          <div className="mt-6 rounded-2xl border border-dashed border-vs-accent-soft bg-vs-bg-light p-6 text-center">
-            <p className="text-sm uppercase tracking-[0.3em] text-vs-text-body">Your code</p>
-            <p className="mt-3 text-3xl font-bold text-vs-text-strong">{code}</p>
-            <p className="mt-2 text-sm text-vs-text-body">Keep a copy of your code to use on your first order.</p>
-            {statusMessage && <p className="mt-3 text-xs text-vs-text-body/70">{statusMessage}</p>}
-            <button
-              className="mt-4 rounded-full border border-vs-accent px-6 py-3 text-xs font-semibold uppercase tracking-[0.3em] text-vs-accent"
-              onClick={handleSendCode}
-              disabled={submitting}
-            >
-              {submitting ? "Sending..." : "Send code to my inbox"}
+          <>
+            <button onClick={handleClose} aria-label="Close popup" className="absolute right-8 top-8 text-sm text-vs-text-body">
+              ✕
             </button>
-          </div>
+            <div className="rounded-2xl border border-dashed border-vs-accent-soft bg-vs-bg-light p-6 text-center">
+              <p className="text-sm uppercase tracking-[0.3em] text-vs-text-body">Your code</p>
+              <p className="mt-3 text-3xl font-bold text-vs-text-strong">{code}</p>
+              <p className="mt-2 text-sm text-vs-text-body">Keep a copy of your code to use on your first order.</p>
+              {statusMessage && <p className="mt-3 text-xs text-vs-text-body/70">{statusMessage}</p>}
+              
+              {/* Guidance text */}
+              <div className="mt-4 space-y-1 text-xs text-vs-text-body/70">
+                <p>We&apos;ve emailed your code. Check Inbox, Spam, and Trash.</p>
+                <p>If you can&apos;t find it, contact us on WhatsApp or email info@varyonstudios.com.</p>
+              </div>
+
+              {/* WhatsApp CTA Button */}
+              <a
+                href={getWhatsAppUrl(code)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-6 inline-block w-full rounded-full bg-vs-accent px-6 py-4 text-xs font-semibold uppercase tracking-[0.3em] text-black transition-opacity hover:opacity-90"
+              >
+                Use my 10% on WhatsApp
+              </a>
+            </div>
+          </>
         ) : (
+          <>
+            <div className="flex items-start justify-between">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.3em] text-vs-text-body/70">
+                  10% launch offer
+                </p>
+                <h3 className="mt-2 text-2xl font-semibold text-vs-text-strong">Get 10% off your first shoot</h3>
+                <p className="mt-3 text-sm text-vs-text-body">
+                  Share a few details and we&apos;ll email you a personal code for 10% off your first order — no commitment, no spam.
+                </p>
+              </div>
+              <button onClick={handleClose} aria-label="Close popup" className="text-sm text-vs-text-body">
+                ✕
+              </button>
+            </div>
           <form onSubmit={handleSubmit} className="mt-6 space-y-4">
             <div className="grid gap-4 md:grid-cols-2">
               <label className="text-sm font-medium text-vs-text-body">
@@ -375,6 +395,7 @@ export function LeadCaptureModal() {
               {submitting ? "Sending..." : "Get my 10% code"}
             </button>
           </form>
+          </>
         )}
       </div>
     </div>
