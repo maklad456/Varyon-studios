@@ -102,6 +102,50 @@ const schema = {
         "@type": "Organization",
         name: "Varyon Studios",
       },
+      potentialAction: {
+        "@type": "SearchAction",
+        target: {
+          "@type": "EntryPoint",
+          urlTemplate: `${siteUrl}/search?q={search_term_string}`,
+        },
+        "query-input": "required name=search_term_string",
+      },
+    },
+    {
+      "@type": "SiteNavigationElement",
+      name: "Main Navigation",
+      url: siteUrl,
+      hasPart: [
+        {
+          "@type": "SiteNavigationElement",
+          name: "Home",
+          url: siteUrl,
+        },
+        {
+          "@type": "SiteNavigationElement",
+          name: "Library",
+          url: `${siteUrl}/library`,
+          description: "Explore real transformations across industries. Each project showcases how we elevate brands with AI-powered visual content.",
+        },
+        {
+          "@type": "SiteNavigationElement",
+          name: "Case Studies",
+          url: `${siteUrl}/case-studies`,
+          description: "Real client success stories and portfolio showcases of AI-powered visual content production.",
+        },
+        {
+          "@type": "SiteNavigationElement",
+          name: "Policies",
+          url: `${siteUrl}/policies`,
+          description: "Review Varyon Studios' privacy policy and refund policy. Learn how we handle your data and our refund terms for creative services.",
+        },
+        {
+          "@type": "SiteNavigationElement",
+          name: "Terms & Conditions",
+          url: `${siteUrl}/terms`,
+          description: "Legal terms covering Varyon Studios creative services and website use.",
+        },
+      ],
     },
   ],
 };
