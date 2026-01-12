@@ -84,7 +84,7 @@ export function LibraryTeaserSection() {
           </p>
           {/* Headline */}
           <h2 className="mt-4 text-3xl font-semibold leading-[1.05] text-white md:text-5xl">
-            Connected with 100+ clients worldwide
+            10,000+ images generated for brands that need results.
           </h2>
 
           {/* Subcopy */}

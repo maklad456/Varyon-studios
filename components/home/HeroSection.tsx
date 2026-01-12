@@ -54,17 +54,12 @@ export function HeroSection() {
         <ul className="mt-12 flex flex-wrap gap-3 justify-center md:justify-start">
           <li>
             <div className="rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-sm text-white/70">
-              100+ clients
+              10,000+ images
             </div>
           </li>
           <li>
             <div className="rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-sm text-white/70">
               18+ industries
-            </div>
-          </li>
-          <li>
-            <div className="rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-sm text-white/70">
-              40+ shipped projects
             </div>
           </li>
         </ul>
