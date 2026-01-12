@@ -101,6 +101,7 @@ const schema = {
     {
       "@type": "WebSite",
       name: "Varyon Studios",
+      alternateName: "Varyon Studios",
       url: siteUrl,
       description: "AI-powered content studio for brands that want global-level visuals without global-level headaches.",
       publisher: {
