@@ -333,9 +333,15 @@ function LayoutA({ sample, beforeImage, afterImages, hasChapters, currentChapter
           <p className="mt-4 text-base text-white/70">
             Let&apos;s discuss how we can elevate your brand visuals.
           </p>
-          <Link href="/#discovery" className="btn-primary mt-8">
+          <a
+            href="https://wa.me/201116001400?text=Hi!%20I%27m%20interested%20in%20working%20with%20you."
+            target="_blank"
+            rel="noreferrer"
+            className="btn-primary mt-8"
+            onClick={() => trackEvent("whatsapp_click", { location: "library-detail-cta" })}
+          >
             Connect with us
-          </Link>
+          </a>
         </div>
       </section>
       
@@ -653,9 +659,15 @@ function LayoutB({ sample, beforeImage, afterImages, hasChapters, currentChapter
           <p className="mt-4 text-base text-white/70">
             Let&apos;s discuss how we can elevate your brand visuals.
           </p>
-          <Link href="/#discovery" className="btn-primary mt-8">
+          <a
+            href="https://wa.me/201116001400?text=Hi!%20I%27m%20interested%20in%20working%20with%20you."
+            target="_blank"
+            rel="noreferrer"
+            className="btn-primary mt-8"
+            onClick={() => trackEvent("whatsapp_click", { location: "library-detail-cta" })}
+          >
             Connect with us
-          </Link>
+          </a>
         </div>
       </section>
       
@@ -742,9 +754,15 @@ function LayoutC({ sample, beforeImage, afterImages, hasChapters, currentChapter
           <p className="mt-4 text-base text-white/70">
             Let&apos;s discuss how we can elevate your brand visuals.
           </p>
-          <Link href="/#discovery" className="btn-primary mt-8">
+          <a
+            href="https://wa.me/201116001400?text=Hi!%20I%27m%20interested%20in%20working%20with%20you."
+            target="_blank"
+            rel="noreferrer"
+            className="btn-primary mt-8"
+            onClick={() => trackEvent("whatsapp_click", { location: "library-detail-cta" })}
+          >
             Connect with us
-          </Link>
+          </a>
         </div>
       </section>
       
@@ -858,9 +876,15 @@ function LayoutD({ sample, beforeImage, afterImages, hasChapters, currentChapter
           <p className="mt-4 text-base text-white/70">
             Let&apos;s discuss how we can elevate your brand visuals.
           </p>
-          <Link href="/#discovery" className="btn-primary mt-8">
+          <a
+            href="https://wa.me/201116001400?text=Hi!%20I%27m%20interested%20in%20working%20with%20you."
+            target="_blank"
+            rel="noreferrer"
+            className="btn-primary mt-8"
+            onClick={() => trackEvent("whatsapp_click", { location: "library-detail-cta" })}
+          >
             Connect with us
-          </Link>
+          </a>
         </div>
       </section>
       
@@ -970,9 +994,15 @@ function LayoutE({ sample, beforeImage, afterImages, hasChapters, currentChapter
           <p className="mt-4 text-base text-white/70">
             Let&apos;s discuss how we can elevate your brand visuals.
           </p>
-          <Link href="/#discovery" className="btn-primary mt-8">
+          <a
+            href="https://wa.me/201116001400?text=Hi!%20I%27m%20interested%20in%20working%20with%20you."
+            target="_blank"
+            rel="noreferrer"
+            className="btn-primary mt-8"
+            onClick={() => trackEvent("whatsapp_click", { location: "library-detail-cta" })}
+          >
             Connect with us
-          </Link>
+          </a>
         </div>
       </section>
       
