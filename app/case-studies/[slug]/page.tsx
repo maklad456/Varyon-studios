@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { caseStudies } from "@/data/varyonContent";
 import { caseStudyDetails } from "@/data/caseStudyDetails";
+import { CaseStudyConnectCTA } from "./CaseStudyCTAClient";
 
 export function generateStaticParams() {
   return caseStudies.map((study) => ({ slug: study.slug }));
@@ -371,15 +372,7 @@ function LayoutSystemA({ study, detail }: { study: typeof caseStudies[0]; detail
           <p className="mt-4 text-base text-white/70">
             Let&apos;s discuss how we can elevate your brand visuals.
           </p>
-          <a
-            href="https://wa.me/201116001400?text=Hi!%20I%27m%20interested%20in%20working%20with%20you."
-            target="_blank"
-            rel="noreferrer"
-            className="btn-primary mt-8"
-            onClick={() => trackEvent("whatsapp_click", { location: "case-study-detail-cta" })}
-          >
-            Connect with us
-          </a>
+          <CaseStudyConnectCTA />
         </div>
       </section>
     </main>
