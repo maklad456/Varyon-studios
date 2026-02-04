@@ -13,7 +13,7 @@ export function CaseStudiesCTAClient() {
         trackEvent("free_sample_click", { location: "case-studies-cta" });
       }}
     >
-      Connect with us
+      Get your free sample
     </Link>
   );
 }

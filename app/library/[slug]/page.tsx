@@ -338,7 +338,7 @@ function LayoutA({ sample, beforeImage, afterImages, hasChapters, currentChapter
             className="btn-primary mt-8"
             onClick={() => trackEvent("free_sample_click", { location: "library-detail-cta" })}
           >
-            Connect with us
+            Get your free sample
           </Link>
         </div>
       </section>
@@ -662,7 +662,7 @@ function LayoutB({ sample, beforeImage, afterImages, hasChapters, currentChapter
             className="btn-primary mt-8"
             onClick={() => trackEvent("free_sample_click", { location: "library-detail-cta" })}
           >
-            Connect with us
+            Get your free sample
           </Link>
         </div>
       </section>
@@ -755,7 +755,7 @@ function LayoutC({ sample, beforeImage, afterImages, hasChapters, currentChapter
             className="btn-primary mt-8"
             onClick={() => trackEvent("free_sample_click", { location: "library-detail-cta" })}
           >
-            Connect with us
+            Get your free sample
           </Link>
         </div>
       </section>
@@ -875,7 +875,7 @@ function LayoutD({ sample, beforeImage, afterImages, hasChapters, currentChapter
             className="btn-primary mt-8"
             onClick={() => trackEvent("free_sample_click", { location: "library-detail-cta" })}
           >
-            Connect with us
+            Get your free sample
           </Link>
         </div>
       </section>
@@ -991,7 +991,7 @@ function LayoutE({ sample, beforeImage, afterImages, hasChapters, currentChapter
             className="btn-primary mt-8"
             onClick={() => trackEvent("free_sample_click", { location: "library-detail-cta" })}
           >
-            Connect with us
+            Get your free sample
           </Link>
         </div>
       </section>

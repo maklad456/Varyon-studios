@@ -25,7 +25,7 @@ export function CaseStudyConnectCTA() {
         trackEvent("free_sample_click", { location: "case-study-detail-cta" });
       }}
     >
-      Connect with us
+      Get your free sample
     </Link>
   );
 }

@@ -2,7 +2,7 @@
 
 import { useSearchParams } from "next/navigation";
 import Script from "next/script";
-import { useMemo, Suspense, useEffect } from "react";
+import { useMemo, Suspense, useEffect, useRef } from "react";
 import { trackEvent } from "@/lib/analytics";
 
 const CALENDLY_BASE_PATH =
@@ -13,10 +13,7 @@ const CALENDLY_QUERY =
 const CALENDLY_BASE = `${CALENDLY_BASE_PATH}?${CALENDLY_QUERY}`;
 const HOURS_UNTIL_FIRST_SLOT = 72;
 
-function buildCalendlyUrl(
-  submittedAtMs: number,
-  prefill: { name: string; email: string }
-): string {
+function buildCalendlyUrl(submittedAtMs: number): string {
   const start = new Date(submittedAtMs);
   const firstAvailable = new Date(
     start.getTime() + HOURS_UNTIL_FIRST_SLOT * 60 * 60 * 1000
@@ -25,20 +22,7 @@ function buildCalendlyUrl(
   const month = String(firstAvailable.getMonth() + 1).padStart(2, "0");
   const day = String(firstAvailable.getDate()).padStart(2, "0");
   const dateStr = `${year}-${month}-${day}`;
-  const base = `${CALENDLY_BASE_PATH}/${dateStr}?${CALENDLY_QUERY}`;
-  return appendPrefill(base, prefill);
-}
-
-function appendPrefill(
-  url: string,
-  prefill: { name: string; email: string }
-): string {
-  if (!prefill.name.trim() && !prefill.email.trim()) return url;
-  const separator = url.includes("?") ? "&" : "?";
-  const params = new URLSearchParams();
-  if (prefill.name.trim()) params.set("name", prefill.name.trim());
-  if (prefill.email.trim()) params.set("email", prefill.email.trim());
-  return params.toString() ? `${url}${separator}${params.toString()}` : url;
+  return `${CALENDLY_BASE_PATH}/${dateStr}?${CALENDLY_QUERY}`;
 }
 
 function BookMeetingContent() {
@@ -47,16 +31,18 @@ function BookMeetingContent() {
   const nameParam = searchParams.get("name") ?? "";
   const emailParam = searchParams.get("email") ?? "";
 
+  const widgetRef = useRef<HTMLDivElement>(null);
+  const widgetInitializedRef = useRef(false);
+
   const calendlyUrl = useMemo(() => {
-    const prefill = { name: nameParam, email: emailParam };
     const submittedAtMs = submittedAtParam
       ? parseInt(submittedAtParam, 10)
       : Date.now();
     if (Number.isNaN(submittedAtMs)) {
-      return appendPrefill(CALENDLY_BASE, prefill);
+      return CALENDLY_BASE;
     }
-    return buildCalendlyUrl(submittedAtMs, prefill);
-  }, [submittedAtParam, nameParam, emailParam]);
+    return buildCalendlyUrl(submittedAtMs);
+  }, [submittedAtParam]);
 
   useEffect(() => {
     trackEvent("free_sample_book_meeting_view", { page: "free_sample_step_two" });
@@ -75,11 +61,72 @@ function BookMeetingContent() {
     return () => window.removeEventListener("message", handleMessage);
   }, [nameParam, emailParam]);
 
+  // Initialize Calendly widget with prefill AFTER script loads
+  useEffect(() => {
+    if (!widgetRef.current || widgetInitializedRef.current) return;
+
+    const initWidget = () => {
+      const win = window as typeof window & {
+        Calendly?: {
+          initInlineWidget: (options: {
+            url: string;
+            parentElement: HTMLElement;
+            prefill?: { name?: string; email?: string };
+          }) => void;
+        };
+      };
+
+      if (win.Calendly?.initInlineWidget && widgetRef.current) {
+        widgetInitializedRef.current = true;
+        win.Calendly.initInlineWidget({
+          url: calendlyUrl,
+          parentElement: widgetRef.current,
+          prefill: nameParam || emailParam ? {
+            ...(nameParam ? { name: nameParam } : {}),
+            ...(emailParam ? { email: emailParam } : {}),
+          } : undefined,
+        });
+      }
+    };
+
+    // Try immediately, then retry after a short delay if Calendly not loaded yet
+    initWidget();
+    const timeout = setTimeout(initWidget, 500);
+
+    return () => clearTimeout(timeout);
+  }, [calendlyUrl, nameParam, emailParam]);
+
   return (
     <main className="min-h-screen bg-vs-bgLight">
       <Script
         src="https://assets.calendly.com/assets/external/widget.js"
         strategy="afterInteractive"
+        onLoad={() => {
+          // Trigger widget init when script loads
+          if (!widgetRef.current || widgetInitializedRef.current) return;
+          
+          const win = window as typeof window & {
+            Calendly?: {
+              initInlineWidget: (options: {
+                url: string;
+                parentElement: HTMLElement;
+                prefill?: { name?: string; email?: string };
+              }) => void;
+            };
+          };
+          
+          if (win.Calendly && widgetRef.current) {
+            widgetInitializedRef.current = true;
+            win.Calendly.initInlineWidget({
+              url: calendlyUrl,
+              parentElement: widgetRef.current,
+              prefill: nameParam || emailParam ? {
+                ...(nameParam ? { name: nameParam } : {}),
+                ...(emailParam ? { email: emailParam } : {}),
+              } : undefined,
+            });
+          }
+        }}
       />
       <section className="bg-vs-bgDark text-white pt-28 pb-6 md:pt-24 md:pb-8">
         <div className="site-container pt-8 md:pt-4 md:text-center">
@@ -99,8 +146,8 @@ function BookMeetingContent() {
 
       <section className="site-container py-12 md:py-16">
         <div
+          ref={widgetRef}
           className="calendly-inline-widget min-h-[700px] w-full"
-          data-url={calendlyUrl}
           style={{ minWidth: "320px", height: "700px" }}
         />
       </section>

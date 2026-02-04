@@ -98,7 +98,7 @@ export default function LibraryPage() {
               trackEvent("free_sample_click", { location: "library-cta" });
             }}
           >
-            Connect with us
+            Get your free sample
           </Link>
         </div>
       </section>
