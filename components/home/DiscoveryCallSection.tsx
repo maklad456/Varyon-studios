@@ -1,10 +1,8 @@
 "use client";
 
 import { useState, type MouseEvent } from "react";
+import Link from "next/link";
 import { trackEvent } from "@/lib/analytics";
-
-const DISCOVERY_URL =
-  "https://wa.me/201116001400?text=Hi%20Varyon%20Studios,%20let%E2%80%99s%20plan%20a%20launch%20or%20campaign.";
 
 export function DiscoveryCallSection() {
   const [position, setPosition] = useState({ x: 50, y: 50 });
@@ -33,18 +31,13 @@ export function DiscoveryCallSection() {
           <p className="mt-6 text-base leading-relaxed text-vs-text-body">
             If you&apos;re working on a new collection, campaign or rebrand, we can help you plan the visuals from day one — not just generate images at the end.
           </p>
-          <a
-            href={DISCOVERY_URL}
-            target="_blank"
-            rel="noreferrer"
-            onClick={() => {
-              handleClick();
-              trackEvent("whatsapp_click", { location: "discovery" });
-            }}
+          <Link
+            href="/book-call"
+            onClick={handleClick}
             className="btn-secondary mt-6 !border-vs-text-body/30 !text-vs-text-strong hover:!border-vs-text-strong"
           >
             Book a discovery call
-          </a>
+          </Link>
         </div>
         <div className="relative h-80 overflow-hidden rounded-3xl border border-black/5 bg-white shadow-soft">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,#E8FFF6,transparent_60%)]" />

@@ -20,8 +20,7 @@ const otherPagesNavItems = [
   { label: "Case studies", href: "/case-studies" },
 ];
 
-const WHATSAPP_URL =
-  "https://wa.me/201116001400?text=Hi%20Varyon%20Studios,%20I%27d%20love%20to%20see%20a%20free%20sample%20for%20my%20brand.";
+const FREE_SAMPLE_URL = "/free-sample";
 
 export function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -57,8 +56,8 @@ export function SiteHeader() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [isLibraryDetailPage]);
 
-  const handleWhatsApp = () => {
-    trackEvent("whatsapp_click", { location: "header" });
+  const handleFreeSampleClick = () => {
+    trackEvent("free_sample_click", { location: "header" });
   };
 
   const handleNavClick = (href: string) => {
@@ -121,16 +120,14 @@ export function SiteHeader() {
         </nav>
 
         <div className="hidden items-center justify-end gap-4 md:flex">
-          <a
-            href={WHATSAPP_URL}
-            target="_blank"
-            rel="noreferrer"
-            onClick={handleWhatsApp}
+          <Link
+            href={FREE_SAMPLE_URL}
+            onClick={handleFreeSampleClick}
             className="flex flex-col items-center rounded-full bg-vs-accent px-6 py-3 text-[11px] font-semibold uppercase leading-tight tracking-[0.2em] text-black transition hover:bg-emerald-500"
           >
             <span className="block">Get your free</span>
             <span className="block">sample</span>
-          </a>
+          </Link>
         </div>
 
         <div className="flex items-center justify-end md:hidden col-start-3">
@@ -152,19 +149,17 @@ export function SiteHeader() {
                 {item.label}
               </button>
             ))}
-            <a
-              href={WHATSAPP_URL}
-              target="_blank"
-              rel="noreferrer"
+            <Link
+              href={FREE_SAMPLE_URL}
               onClick={() => {
-                handleWhatsApp();
+                handleFreeSampleClick();
                 setMenuOpen(false);
               }}
               className="flex flex-col items-center rounded-full bg-vs-accent px-4 py-3 text-center text-xs font-semibold uppercase tracking-[0.2em] text-black"
             >
               <span>Get your free</span>
               <span>sample</span>
-            </a>
+            </Link>
           </div>
         </div>
       )}

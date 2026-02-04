@@ -70,6 +70,16 @@
     /* Match btn-primary dimensions exactly */
     box-sizing: border-box;
   }
+
+  /* Form selects: white dropdown aligned under the field */
+  .form-select {
+    @apply bg-white;
+    background-color: #fff;
+  }
+  .form-select option {
+    background: #fff;
+    color: #000;
+  }
 }
 
 @layer utilities {

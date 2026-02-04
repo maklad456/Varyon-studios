@@ -1,9 +1,7 @@
 "use client";
 
+import Link from "next/link";
 import { trackEvent } from "@/lib/analytics";
-
-const WHATSAPP_URL =
-  "https://wa.me/201116001400?text=Hi%20Varyon%20Studios,%20I%27m%20ready%20to%20see%20a%20free%20sample.";
 
 export function FinalCtaSection() {
   return (
@@ -17,15 +15,13 @@ export function FinalCtaSection() {
         </div>
         <div className="flex flex-col items-center sm:items-end gap-4 w-full sm:w-auto">
           <div className="flex flex-col items-center gap-4 w-full sm:w-auto">
-            <a
-              href={WHATSAPP_URL}
-              target="_blank"
-              rel="noreferrer"
-              onClick={() => trackEvent("whatsapp_click", { location: "final-cta" })}
+            <Link
+              href="/free-sample"
+              onClick={() => trackEvent("free_sample_click", { location: "final-cta" })}
               className="btn-primary w-full sm:w-auto text-center"
             >
               Get your free sample
-            </a>
+            </Link>
             <a
               href="mailto:info@varyonstudios.com"
               className="text-sm text-white/80 underline-offset-4 hover:underline text-center"

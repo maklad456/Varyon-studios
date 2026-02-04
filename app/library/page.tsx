@@ -90,18 +90,16 @@ export default function LibraryPage() {
           <p className="mt-4 text-base text-white/70">
             Let&apos;s discuss how we can elevate your brand visuals.
           </p>
-          <a
-            href="https://wa.me/201116001400?text=Hi!%20I%27m%20interested%20in%20working%20with%20you."
-            target="_blank"
-            rel="noreferrer"
+          <Link
+            href="/free-sample"
             className="btn-primary mt-8"
             onClick={() => {
               handleCtaClick();
-              trackEvent("whatsapp_click", { location: "library-cta" });
+              trackEvent("free_sample_click", { location: "library-cta" });
             }}
           >
             Connect with us
-          </a>
+          </Link>
         </div>
       </section>
     </main>

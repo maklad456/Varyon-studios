@@ -6,8 +6,6 @@ import { useEffect, useRef } from "react";
 import { caseStudies } from "@/data/varyonContent";
 import { trackEvent } from "@/lib/analytics";
 
-const WHATSAPP_URL =
-  "https://wa.me/201116001400?text=Hi%20Varyon%20Studios,%20I%27d%20love%20to%20see%20a%20free%20sample%20for%20my%20brand.";
 
 export function CaseStudiesSection() {
   const sectionRef = useRef<HTMLElement | null>(null);
@@ -52,15 +50,13 @@ export function CaseStudiesSection() {
           >
             View all case studies
           </Link>
-          <a
-            href={WHATSAPP_URL}
-            target="_blank"
-            rel="noreferrer"
+          <Link
+            href="/free-sample"
             className="btn-secondary"
             onClick={() => trackEvent("case_studies_cta_click", { type: "free_sample" })}
           >
             Get your free sample
-          </a>
+          </Link>
         </div>
 
         {/* Card Grid */}

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { TKFCursorGrid } from "./TKFCursorGrid";
 import { TKFArticleTeaser, TKFArticle } from "./TKFArticleTeaser";
@@ -56,9 +57,12 @@ export function FeatureBrand() {
               We choreograph strategy, design, media, and automation so enterprise teams can move at cultural speed without losing rigor.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
-              <button className="rounded-full bg-white px-8 py-3 text-sm font-semibold uppercase tracking-[0.28em] text-black transition hover:bg-gray-200">
+              <Link
+                href="/book-call"
+                className="rounded-full bg-white px-8 py-3 text-sm font-semibold uppercase tracking-[0.28em] text-black transition hover:bg-gray-200"
+              >
                 Book a discovery call
-              </button>
+              </Link>
               <button className="rounded-full border border-white/30 px-8 py-3 text-sm font-semibold uppercase tracking-[0.28em] text-white transition hover:border-white">
                 Explore work
               </button>
@@ -122,9 +126,12 @@ export function FeatureBrand() {
                 Data guardrails ensure every test loops back into the system.
               </li>
             </ul>
-            <button className="mt-6 inline-flex items-center gap-2 rounded-full border border-white/30 px-6 py-3 text-sm font-semibold uppercase tracking-[0.28em] text-white transition hover:border-white">
+            <Link
+              href="/book-call"
+              className="mt-6 inline-flex items-center gap-2 rounded-full border border-white/30 px-6 py-3 text-sm font-semibold uppercase tracking-[0.28em] text-white transition hover:border-white"
+            >
               Book a discovery call →
-            </button>
+            </Link>
           </div>
         </div>
 

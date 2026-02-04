@@ -1,17 +1,14 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { trackEvent } from "@/lib/analytics";
 
-const WHATSAPP_URL =
-  "https://wa.me/201116001400?text=Hi%20Varyon%20Studios,%20I%27d%20love%20to%20see%20a%20free%20sample%20for%20my%20brand.";
-
 export function HeroSection() {
-  const handleWhatsApp = () => {
+  const handleFreeSampleClick = () => {
     trackEvent("hero_sample_click");
-    trackEvent("whatsapp_click", { location: "hero" });
+    trackEvent("free_sample_click", { location: "hero" });
   };
-
 
   return (
     <section className="relative min-h-screen bg-black text-white" aria-label="Varyon Studios hero">
@@ -41,15 +38,13 @@ export function HeroSection() {
           We turn simple phone photos into cinematic campaigns, product images and launch assets that look like a global brand — and are built to convert, not just look good.
         </p>
         <div className="mt-8 max-w-2xl mx-auto md:mx-0">
-          <a
-            href={WHATSAPP_URL}
-            target="_blank"
-            rel="noreferrer"
-            onClick={handleWhatsApp}
+          <Link
+            href="/free-sample"
+            onClick={handleFreeSampleClick}
             className="btn-primary inline-block text-center w-full text-base sm:w-auto sm:px-[84px] sm:py-4 md:text-xl"
           >
             Get your free sample
-          </a>
+          </Link>
         </div>
         <ul className="mt-12 flex flex-wrap gap-3 justify-center md:justify-start">
           <li>
