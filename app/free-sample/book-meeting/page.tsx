@@ -2,7 +2,7 @@
 
 import { useSearchParams } from "next/navigation";
 import Script from "next/script";
-import { useMemo, Suspense, useEffect, useRef } from "react";
+import { useMemo, Suspense, useEffect } from "react";
 import { trackEvent } from "@/lib/analytics";
 
 const CALENDLY_BASE_PATH =
@@ -31,9 +31,6 @@ function BookMeetingContent() {
   const nameParam = searchParams.get("name") ?? "";
   const emailParam = searchParams.get("email") ?? "";
 
-  const widgetRef = useRef<HTMLDivElement>(null);
-  const widgetInitializedRef = useRef(false);
-
   const calendlyUrl = useMemo(() => {
     const submittedAtMs = submittedAtParam
       ? parseInt(submittedAtParam, 10)
@@ -61,72 +58,11 @@ function BookMeetingContent() {
     return () => window.removeEventListener("message", handleMessage);
   }, [nameParam, emailParam]);
 
-  // Initialize Calendly widget with prefill AFTER script loads
-  useEffect(() => {
-    if (!widgetRef.current || widgetInitializedRef.current) return;
-
-    const initWidget = () => {
-      const win = window as typeof window & {
-        Calendly?: {
-          initInlineWidget: (options: {
-            url: string;
-            parentElement: HTMLElement;
-            prefill?: { name?: string; email?: string };
-          }) => void;
-        };
-      };
-
-      if (win.Calendly?.initInlineWidget && widgetRef.current) {
-        widgetInitializedRef.current = true;
-        win.Calendly.initInlineWidget({
-          url: calendlyUrl,
-          parentElement: widgetRef.current,
-          prefill: nameParam || emailParam ? {
-            ...(nameParam ? { name: nameParam } : {}),
-            ...(emailParam ? { email: emailParam } : {}),
-          } : undefined,
-        });
-      }
-    };
-
-    // Try immediately, then retry after a short delay if Calendly not loaded yet
-    initWidget();
-    const timeout = setTimeout(initWidget, 500);
-
-    return () => clearTimeout(timeout);
-  }, [calendlyUrl, nameParam, emailParam]);
-
   return (
     <main className="min-h-screen bg-vs-bgLight">
       <Script
         src="https://assets.calendly.com/assets/external/widget.js"
         strategy="afterInteractive"
-        onLoad={() => {
-          // Trigger widget init when script loads
-          if (!widgetRef.current || widgetInitializedRef.current) return;
-          
-          const win = window as typeof window & {
-            Calendly?: {
-              initInlineWidget: (options: {
-                url: string;
-                parentElement: HTMLElement;
-                prefill?: { name?: string; email?: string };
-              }) => void;
-            };
-          };
-          
-          if (win.Calendly && widgetRef.current) {
-            widgetInitializedRef.current = true;
-            win.Calendly.initInlineWidget({
-              url: calendlyUrl,
-              parentElement: widgetRef.current,
-              prefill: nameParam || emailParam ? {
-                ...(nameParam ? { name: nameParam } : {}),
-                ...(emailParam ? { email: emailParam } : {}),
-              } : undefined,
-            });
-          }
-        }}
       />
       <section className="bg-vs-bgDark text-white pt-28 pb-6 md:pt-24 md:pb-8">
         <div className="site-container pt-8 md:pt-4 md:text-center">
@@ -146,8 +82,8 @@ function BookMeetingContent() {
 
       <section className="site-container py-12 md:py-16">
         <div
-          ref={widgetRef}
           className="calendly-inline-widget min-h-[700px] w-full"
+          data-url={calendlyUrl}
           style={{ minWidth: "320px", height: "700px" }}
         />
       </section>
