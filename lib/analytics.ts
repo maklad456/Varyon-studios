@@ -38,15 +38,19 @@ export function trackEvent(eventName: string, params: AnalyticsEventParams = {})
 }
 
 /**
- * Maps custom event names to Meta Pixel standard events
- * Standard events: PageView, ViewContent, Search, AddToCart, InitiateCheckout, 
- * AddPaymentInfo, Purchase, Lead, CompleteRegistration, etc.
+ * Maps our event names to Meta Pixel standard events for better reporting.
+ * Standard: PageView, ViewContent, Lead, CompleteRegistration, Schedule, etc.
+ * Custom events (form progress, abandonment) stay as trackCustom for diagnostics.
  */
 function mapToMetaPixelEvent(eventName: string): string | null {
   const eventMap: Record<string, string> = {
-    // Map your custom events to Meta Pixel standard events if applicable
-    // Example: "form_submit" -> "Lead"
-    // "purchase_complete" -> "Purchase"
+    free_sample_form_view: "ViewContent",
+    free_sample_submit: "Lead",
+    free_sample_book_meeting_view: "ViewContent",
+    free_sample_meeting_booked: "Schedule",
+    free_sample_click: "ViewContent",
+    lead_popup_view: "ViewContent",
+    lead_popup_submit: "Lead",
   };
 
   return eventMap[eventName] || null;

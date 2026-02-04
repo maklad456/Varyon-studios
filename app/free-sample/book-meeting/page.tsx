@@ -2,7 +2,8 @@
 
 import { useSearchParams } from "next/navigation";
 import Script from "next/script";
-import { useMemo, Suspense } from "react";
+import { useMemo, Suspense, useEffect } from "react";
+import { trackEvent } from "@/lib/analytics";
 
 const CALENDLY_BASE_PATH =
   "https://calendly.com/varyonstudios/45-minute-meeting-clone";
@@ -56,6 +57,23 @@ function BookMeetingContent() {
     }
     return buildCalendlyUrl(submittedAtMs, prefill);
   }, [submittedAtParam, nameParam, emailParam]);
+
+  useEffect(() => {
+    trackEvent("free_sample_book_meeting_view", { page: "free_sample_step_two" });
+  }, []);
+
+  useEffect(() => {
+    const handleMessage = (event: MessageEvent) => {
+      if (event.data?.event === "calendly.event_scheduled") {
+        trackEvent("free_sample_meeting_booked", {
+          source: "free_sample",
+          has_prefill: Boolean(nameParam || emailParam),
+        });
+      }
+    };
+    window.addEventListener("message", handleMessage);
+    return () => window.removeEventListener("message", handleMessage);
+  }, [nameParam, emailParam]);
 
   return (
     <main className="min-h-screen bg-vs-bgLight">

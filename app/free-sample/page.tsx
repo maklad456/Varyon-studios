@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { trackEvent } from "@/lib/analytics";
 import {
@@ -71,11 +71,76 @@ const initialForm: FreeSampleFormState = {
   honeypot: "",
 };
 
+const REQUIRED_FORM_FIELDS: (keyof FreeSampleFormState)[] = [
+  "fullName",
+  "email",
+  "phoneNumber",
+  "brandName",
+  "brandLink",
+  "sampleType",
+  "assetsLink",
+];
+
+function getFormProgress(form: FreeSampleFormState): {
+  fields_filled: number;
+  progress_percent: number;
+} {
+  const total = REQUIRED_FORM_FIELDS.length;
+  const filled = REQUIRED_FORM_FIELDS.filter((key) => {
+    const v = form[key];
+    return typeof v === "string" && v.trim().length > 0;
+  }).length;
+  return {
+    fields_filled: filled,
+    progress_percent: total ? Math.round((filled / total) * 100) : 0,
+  };
+}
+
 export default function FreeSamplePage() {
   const router = useRouter();
   const [form, setForm] = useState<FreeSampleFormState>(initialForm);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const formSubmittedRef = useRef(false);
+  const lastFieldBlurRef = useRef<string | null>(null);
+
+  useEffect(() => {
+    trackEvent("free_sample_form_view", { page: "free_sample_step_one" });
+  }, []);
+
+  useEffect(() => {
+    const handleAbandon = () => {
+      if (formSubmittedRef.current) return;
+      const { fields_filled, progress_percent } = getFormProgress(form);
+      trackEvent("free_sample_form_abandoned", {
+        progress_percent,
+        fields_filled,
+        total_required: REQUIRED_FORM_FIELDS.length,
+        last_field: lastFieldBlurRef.current,
+      });
+    };
+    const onHide = () => {
+      if (document.visibilityState === "hidden") handleAbandon();
+    };
+    const onUnload = () => handleAbandon();
+    document.addEventListener("visibilitychange", onHide);
+    window.addEventListener("pagehide", onUnload);
+    return () => {
+      document.removeEventListener("visibilitychange", onHide);
+      window.removeEventListener("pagehide", onUnload);
+    };
+  }, [form]);
+
+  const handleFieldBlur = (fieldName: string) => {
+    lastFieldBlurRef.current = fieldName;
+    const { fields_filled, progress_percent } = getFormProgress(form);
+    trackEvent("free_sample_field_completed", {
+      field: fieldName,
+      progress_percent,
+      fields_filled,
+      total_required: REQUIRED_FORM_FIELDS.length,
+    });
+  };
 
   const handleChange = (
     field: keyof FreeSampleFormState,
@@ -95,8 +160,15 @@ export default function FreeSamplePage() {
     setSubmitting(false);
 
     if (result.ok) {
+      formSubmittedRef.current = true;
       const submittedAt = Date.now();
-      trackEvent("free_sample_submit", { sampleType: form.sampleType });
+      const { progress_percent, fields_filled } = getFormProgress(form);
+      trackEvent("free_sample_submit", {
+        sampleType: form.sampleType,
+        progress_percent,
+        fields_filled,
+        total_required: REQUIRED_FORM_FIELDS.length,
+      });
       const params = new URLSearchParams({
         submitted_at: String(submittedAt),
         name: form.fullName.trim(),
@@ -153,6 +225,7 @@ export default function FreeSamplePage() {
                       name="fullName"
                       value={form.fullName}
                       onChange={(e) => handleChange("fullName", e.target.value)}
+                      onBlur={() => handleFieldBlur("fullName")}
                       className="mt-1 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-base"
                       required
                       pattern="(\S{3,}\s+)+\S{3,}"
@@ -166,6 +239,7 @@ export default function FreeSamplePage() {
                       name="email"
                       value={form.email}
                       onChange={(e) => handleChange("email", e.target.value)}
+                      onBlur={() => handleFieldBlur("email")}
                       className="mt-1 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-base"
                       required
                       pattern="[^\s@]+@[^\s@]+\.[^\s@]+"
@@ -182,6 +256,7 @@ export default function FreeSamplePage() {
                       name="brandName"
                       value={form.brandName}
                       onChange={(e) => handleChange("brandName", e.target.value)}
+                      onBlur={() => handleFieldBlur("brandName")}
                       className="mt-1 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-base"
                       required
                     />
@@ -193,6 +268,7 @@ export default function FreeSamplePage() {
                       name="brandLink"
                       value={form.brandLink}
                       onChange={(e) => handleChange("brandLink", e.target.value)}
+                      onBlur={() => handleFieldBlur("brandLink")}
                       placeholder="example.com or https://example.com"
                       className="mt-1 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-base"
                       required
@@ -226,6 +302,7 @@ export default function FreeSamplePage() {
                       name="phoneNumber"
                       value={form.phoneNumber}
                       onChange={(e) => handleChange("phoneNumber", e.target.value)}
+                      onBlur={() => handleFieldBlur("phoneNumber")}
                       placeholder="Phone number"
                       className="mt-1 flex-1 rounded-2xl border border-black/10 bg-white px-4 py-3 text-base"
                       autoComplete="tel-national"
@@ -241,6 +318,7 @@ export default function FreeSamplePage() {
                       name="sampleType"
                       value={form.sampleType}
                       onChange={(e) => handleChange("sampleType", e.target.value)}
+                      onBlur={() => handleFieldBlur("sampleType")}
                       className="form-select mt-1 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-base"
                       required
                     >
@@ -257,6 +335,7 @@ export default function FreeSamplePage() {
                       name="targetMarket"
                       value={form.targetMarket}
                       onChange={(e) => handleChange("targetMarket", e.target.value)}
+                      onBlur={() => handleFieldBlur("targetMarket")}
                       className="form-select mt-1 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-base"
                     >
                       {TARGET_MARKET_OPTIONS.map((opt) => (
@@ -276,6 +355,7 @@ export default function FreeSamplePage() {
                       name="assetsLink"
                       value={form.assetsLink}
                       onChange={(e) => handleChange("assetsLink", e.target.value)}
+                      onBlur={() => handleFieldBlur("assetsLink")}
                       placeholder="drive.google.com, dropbox.com, etc."
                       className="mt-1 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-base md:h-[5.5rem] md:min-h-[5.5rem]"
                       required
@@ -288,6 +368,7 @@ export default function FreeSamplePage() {
                       name="inspirationLinks"
                       value={form.inspirationLinks}
                       onChange={(e) => handleChange("inspirationLinks", e.target.value)}
+                      onBlur={() => handleFieldBlur("inspirationLinks")}
                       rows={3}
                       placeholder="Optional: links to references, mood boards, or examples"
                       className="mt-1 w-full resize-none overflow-y-auto rounded-2xl border border-black/10 bg-white px-4 py-3 text-base md:h-[5.5rem] md:min-h-[5.5rem]"

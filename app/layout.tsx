@@ -176,8 +176,8 @@ export default function RootLayout({
             gtag('config', 'G-RCYFF994BH');
           `}
         </Script>
-        {/* Meta Pixel Code */}
-        <Script id="meta-pixel" strategy="lazyOnload">
+        {/* Meta (Facebook) Pixel – standard init and PageView; custom events via trackEvent() in lib/analytics.ts */}
+        <Script id="facebook-pixel" strategy="lazyOnload">
           {`
             !function(f,b,e,v,n,t,s)
             {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -192,9 +192,9 @@ export default function RootLayout({
           `}
         </Script>
         <noscript>
-          <img 
-            height="1" 
-            width="1" 
+          <img
+            height="1"
+            width="1"
             style={{display:'none'}}
             src="https://www.facebook.com/tr?id=1573698290511016&ev=PageView&noscript=1"
             alt=""
