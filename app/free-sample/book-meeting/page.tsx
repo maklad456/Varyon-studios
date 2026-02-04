@@ -1,8 +1,7 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
 import Script from "next/script";
-import { useMemo, Suspense, useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { trackEvent } from "@/lib/analytics";
 
 const CALENDLY_BASE_PATH =
@@ -10,37 +9,9 @@ const CALENDLY_BASE_PATH =
 /* Site button color #10b981 (vs-accent) – no hash for Calendly */
 const CALENDLY_QUERY =
   "hide_event_type_details=1&hide_gdpr_banner=1&primary_color=10b981";
-const CALENDLY_BASE = `${CALENDLY_BASE_PATH}?${CALENDLY_QUERY}`;
-const HOURS_UNTIL_FIRST_SLOT = 72;
-
-function buildCalendlyUrl(submittedAtMs: number): string {
-  const start = new Date(submittedAtMs);
-  const firstAvailable = new Date(
-    start.getTime() + HOURS_UNTIL_FIRST_SLOT * 60 * 60 * 1000
-  );
-  const year = firstAvailable.getFullYear();
-  const month = String(firstAvailable.getMonth() + 1).padStart(2, "0");
-  const day = String(firstAvailable.getDate()).padStart(2, "0");
-  const dateStr = `${year}-${month}-${day}`;
-  return `${CALENDLY_BASE_PATH}/${dateStr}?${CALENDLY_QUERY}`;
-}
+const CALENDLY_URL = `${CALENDLY_BASE_PATH}?${CALENDLY_QUERY}`;
 
 function BookMeetingContent() {
-  const searchParams = useSearchParams();
-  const submittedAtParam = searchParams.get("submitted_at");
-  const nameParam = searchParams.get("name") ?? "";
-  const emailParam = searchParams.get("email") ?? "";
-
-  const calendlyUrl = useMemo(() => {
-    const submittedAtMs = submittedAtParam
-      ? parseInt(submittedAtParam, 10)
-      : Date.now();
-    if (Number.isNaN(submittedAtMs)) {
-      return CALENDLY_BASE;
-    }
-    return buildCalendlyUrl(submittedAtMs);
-  }, [submittedAtParam]);
-
   useEffect(() => {
     trackEvent("free_sample_book_meeting_view", { page: "free_sample_step_two" });
   }, []);
@@ -48,15 +19,12 @@ function BookMeetingContent() {
   useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
       if (event.data?.event === "calendly.event_scheduled") {
-        trackEvent("free_sample_meeting_booked", {
-          source: "free_sample",
-          has_prefill: Boolean(nameParam || emailParam),
-        });
+        trackEvent("free_sample_meeting_booked", { source: "free_sample" });
       }
     };
     window.addEventListener("message", handleMessage);
     return () => window.removeEventListener("message", handleMessage);
-  }, [nameParam, emailParam]);
+  }, []);
 
   return (
     <main className="min-h-screen bg-vs-bgLight">
@@ -83,7 +51,7 @@ function BookMeetingContent() {
       <section className="site-container py-12 md:py-16">
         <div
           className="calendly-inline-widget min-h-[700px] w-full"
-          data-url={calendlyUrl}
+          data-url={CALENDLY_URL}
           style={{ minWidth: "320px", height: "700px" }}
         />
       </section>

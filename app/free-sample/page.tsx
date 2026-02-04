@@ -161,7 +161,6 @@ export default function FreeSamplePage() {
 
     if (result.ok) {
       formSubmittedRef.current = true;
-      const submittedAt = Date.now();
       const { progress_percent, fields_filled } = getFormProgress(form);
       trackEvent("free_sample_submit", {
         sampleType: form.sampleType,
@@ -169,12 +168,7 @@ export default function FreeSamplePage() {
         fields_filled,
         total_required: REQUIRED_FORM_FIELDS.length,
       });
-      const params = new URLSearchParams({
-        submitted_at: String(submittedAt),
-        name: form.fullName.trim(),
-        email: form.email.trim(),
-      });
-      router.push(`/free-sample/book-meeting?${params.toString()}`);
+      router.push("/free-sample/book-meeting");
       return;
     }
     setError(result.error || "Something went wrong. Please try again.");
