@@ -41,17 +41,17 @@ while IFS= read -r -d '' file; do
     # Skip if WebP already exists and is newer than source
     if [[ -f "$out" && "$out" -nt "$file" ]]; then
         echo "⏭️  Skipped (up-to-date): $out"
-        ((skipped++))
+        skipped=$((skipped + 1))
         continue
     fi
     
     # Convert
     echo "📸 Converting: $file → $out"
     if cwebp -q "$QUALITY" -m 6 -mt -metadata none "$file" -o "$out" 2>/dev/null; then
-        ((converted++))
+        converted=$((converted + 1))
     else
         echo "⚠️  Failed: $file"
-        ((failed++))
+        failed=$((failed + 1))
     fi
     
 done < <(find "$SAMPLES_DIR" -type f \( -iname "*.png" -o -iname "*.jpg" -o -iname "*.jpeg" \) -print0 2>/dev/null)
