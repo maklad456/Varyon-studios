@@ -13,23 +13,15 @@ export type FreeSampleFormState = {
   email: string;
   phoneCountryCode: string;
   phoneNumber: string;
-  brandName: string;
   brandLink: string;
-  sampleType: string;
-  assetsLink: string;
   consent?: boolean;
-  inspirationLinks?: string;
-  targetMarket?: string;
   honeypot?: string;
 };
 
 const REQUIRED_FIELDS: (keyof FreeSampleFormState)[] = [
   "fullName",
   "email",
-  "brandName",
   "brandLink",
-  "sampleType",
-  "assetsLink",
 ];
 
 function isValidEmail(email: string): boolean {
@@ -81,10 +73,7 @@ export function validateFreeSampleForm(form: FreeSampleFormState): string | null
     return "Please enter your phone number.";
   }
   if (!isValidLink(form.brandLink)) {
-    return "Brand link must be a valid URL (e.g. example.com or https://example.com).";
-  }
-  if (!isValidLink(form.assetsLink)) {
-    return "Assets link must be a valid URL (e.g. drive.google.com or https://example.com).";
+    return "Brand website / page must be a valid URL (e.g. example.com or https://example.com).";
   }
 
   return null;
@@ -113,12 +102,7 @@ export async function submitFreeSample(
     fullName: formState.fullName.trim(),
     email: formState.email.trim(),
     phone,
-    brandName: formState.brandName.trim(),
     brandLink: formState.brandLink.trim(),
-    sampleType: formState.sampleType.trim(),
-    assetsLink: formState.assetsLink.trim(),
-    inspirationLinks: (formState.inspirationLinks || "").trim(),
-    targetMarket: (formState.targetMarket || "").trim(),
     timestamp: new Date().toISOString(),
     to_email: "info@varyonstudios.com",
   };

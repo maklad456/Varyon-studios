@@ -8,21 +8,6 @@ import {
   type FreeSampleFormState,
 } from "@/lib/submitFreeSample";
 
-const SAMPLE_TYPE_OPTIONS = [
-  "2 images (recommended): 1 product-only + 1 lifestyle",
-  "Product-only images",
-  "Lifestyle images",
-  "On-model / CGI",
-];
-
-const TARGET_MARKET_OPTIONS = [
-  "",
-  "Egypt",
-  "GCC",
-  "EU / US",
-  "Other / Not sure",
-];
-
 const COUNTRY_OPTIONS: { code: string; label: string; flag: string }[] = [
   { code: "+20", label: "Egypt", flag: "🇪🇬" },
   { code: "+971", label: "United Arab Emirates", flag: "🇦🇪" },
@@ -62,12 +47,7 @@ const initialForm: FreeSampleFormState = {
   email: "",
   phoneCountryCode: "+20",
   phoneNumber: "",
-  brandName: "",
   brandLink: "",
-  sampleType: SAMPLE_TYPE_OPTIONS[0],
-  assetsLink: "",
-  inspirationLinks: "",
-  targetMarket: "",
   honeypot: "",
 };
 
@@ -75,10 +55,7 @@ const REQUIRED_FORM_FIELDS: (keyof FreeSampleFormState)[] = [
   "fullName",
   "email",
   "phoneNumber",
-  "brandName",
   "brandLink",
-  "sampleType",
-  "assetsLink",
 ];
 
 function getFormProgress(form: FreeSampleFormState): {
@@ -163,7 +140,6 @@ export default function FreeSamplePage() {
       formSubmittedRef.current = true;
       const { progress_percent, fields_filled } = getFormProgress(form);
       trackEvent("free_sample_submit", {
-        sampleType: form.sampleType,
         progress_percent,
         fields_filled,
         total_required: REQUIRED_FORM_FIELDS.length,
@@ -211,8 +187,8 @@ export default function FreeSamplePage() {
                   />
                 </div>
 
-                <div className="grid gap-6 md:grid-cols-2">
-                  <label className="text-sm font-medium text-vs-text-body md:text-base md:col-span-1">
+                <div className="space-y-6">
+                  <label className="block text-sm font-medium text-vs-text-body md:text-base">
                     Full name <span className="text-red-500">*</span>
                     <input
                       type="text"
@@ -226,7 +202,7 @@ export default function FreeSamplePage() {
                       title="At least 2 names, each with at least 3 letters"
                     />
                   </label>
-                  <label className="text-sm font-medium text-vs-text-body md:text-base md:col-span-1">
+                  <label className="block text-sm font-medium text-vs-text-body md:text-base">
                     Email <span className="text-red-500">*</span>
                     <input
                       type="email"
@@ -243,20 +219,8 @@ export default function FreeSamplePage() {
                 </div>
 
                 <div className="grid gap-6 md:grid-cols-2">
-                  <label className="text-sm font-medium text-vs-text-body md:text-base md:col-span-1">
-                    Brand name <span className="text-red-500">*</span>
-                    <input
-                      type="text"
-                      name="brandName"
-                      value={form.brandName}
-                      onChange={(e) => handleChange("brandName", e.target.value)}
-                      onBlur={() => handleFieldBlur("brandName")}
-                      className="mt-1 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-base"
-                      required
-                    />
-                  </label>
-                  <label className="text-sm font-medium text-vs-text-body md:text-base md:col-span-1">
-                    Brand link <span className="text-red-500">*</span>
+                  <label className="block text-sm font-medium text-vs-text-body md:text-base">
+                    Brand website / page <span className="text-red-500">*</span>
                     <input
                       type="text"
                       name="brandLink"
@@ -303,71 +267,6 @@ export default function FreeSamplePage() {
                       required
                     />
                   </div>
-                </div>
-
-                <div className="grid gap-6 md:grid-cols-2">
-                  <label className="block text-sm font-medium text-vs-text-body md:text-base">
-                    Sample type <span className="text-red-500">*</span>
-                    <select
-                      name="sampleType"
-                      value={form.sampleType}
-                      onChange={(e) => handleChange("sampleType", e.target.value)}
-                      onBlur={() => handleFieldBlur("sampleType")}
-                      className="form-select mt-1 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-base"
-                      required
-                    >
-                      {SAMPLE_TYPE_OPTIONS.map((opt) => (
-                        <option key={opt} value={opt}>
-                          {opt}
-                        </option>
-                      ))}
-                    </select>
-                  </label>
-                  <label className="block text-sm font-medium text-vs-text-body md:text-base">
-                    Target market
-                    <select
-                      name="targetMarket"
-                      value={form.targetMarket}
-                      onChange={(e) => handleChange("targetMarket", e.target.value)}
-                      onBlur={() => handleFieldBlur("targetMarket")}
-                      className="form-select mt-1 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-base"
-                    >
-                      {TARGET_MARKET_OPTIONS.map((opt) => (
-                        <option key={opt || "empty"} value={opt}>
-                          {opt || "— Select —"}
-                        </option>
-                      ))}
-                    </select>
-                  </label>
-                </div>
-
-                <div className="grid gap-6 md:grid-cols-2">
-                  <label className="block text-sm font-medium text-vs-text-body md:text-base">
-                    Assets link <span className="text-red-500">*</span>
-                    <input
-                      type="text"
-                      name="assetsLink"
-                      value={form.assetsLink}
-                      onChange={(e) => handleChange("assetsLink", e.target.value)}
-                      onBlur={() => handleFieldBlur("assetsLink")}
-                      placeholder="drive.google.com, dropbox.com, etc."
-                      className="mt-1 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-base md:h-[5.5rem] md:min-h-[5.5rem]"
-                      required
-                      title="Enter a valid link (e.g. drive.google.com or https://...)"
-                    />
-                  </label>
-                  <label className="block text-sm font-medium text-vs-text-body md:text-base">
-                    Inspiration links
-                    <textarea
-                      name="inspirationLinks"
-                      value={form.inspirationLinks}
-                      onChange={(e) => handleChange("inspirationLinks", e.target.value)}
-                      onBlur={() => handleFieldBlur("inspirationLinks")}
-                      rows={3}
-                      placeholder="Optional: links to references, mood boards, or examples"
-                      className="mt-1 w-full resize-none overflow-y-auto rounded-2xl border border-black/10 bg-white px-4 py-3 text-base md:h-[5.5rem] md:min-h-[5.5rem]"
-                    />
-                  </label>
                 </div>
 
                 {error && (
