@@ -6,6 +6,9 @@ const SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || "service_t645r5
 const TEMPLATE_INTERNAL =
   process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_FREE_SAMPLE_INTERNAL ||
   "template_19fur3d";
+const TEMPLATE_CLIENT =
+  process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_FREE_SAMPLE_CLIENT ||
+  "template_9j7s9h5";
 const PUBLIC_KEY = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || "EbiCFriLNvLNCFYAm";
 
 export type FreeSampleFormState = {
@@ -90,7 +93,7 @@ export async function submitFreeSample(
     return { ok: false, error: validationError };
   }
 
-  if (!SERVICE_ID || !TEMPLATE_INTERNAL || !PUBLIC_KEY) {
+  if (!SERVICE_ID || !TEMPLATE_INTERNAL || !TEMPLATE_CLIENT || !PUBLIC_KEY) {
     return { ok: false, error: "Email configuration is missing." };
   }
 
@@ -98,7 +101,7 @@ export async function submitFreeSample(
     [formState.phoneCountryCode?.trim(), formState.phoneNumber?.trim()]
       .filter(Boolean)
       .join(" ") || "";
-  const templateParams = {
+  const internalParams = {
     fullName: formState.fullName.trim(),
     email: formState.email.trim(),
     phone,
@@ -106,16 +109,29 @@ export async function submitFreeSample(
     timestamp: new Date().toISOString(),
     to_email: "info@varyonstudios.com",
   };
+  const clientParams = {
+    fullName: formState.fullName.trim(),
+    email: formState.email.trim(),
+    phone,
+    brandLink: formState.brandLink.trim(),
+    to_email: formState.email.trim(),
+  };
 
   try {
     await emailjs.send(
       SERVICE_ID,
       TEMPLATE_INTERNAL,
-      templateParams,
+      internalParams,
+      PUBLIC_KEY
+    );
+    await emailjs.send(
+      SERVICE_ID,
+      TEMPLATE_CLIENT,
+      clientParams,
       PUBLIC_KEY
     );
   } catch (err) {
-    const msg = err instanceof Error ? err.message : "Failed to send internal email.";
+    const msg = err instanceof Error ? err.message : "Failed to send email.";
     return { ok: false, error: msg };
   }
 
