@@ -1,23 +1,36 @@
 export type AnalyticsEventParams = Record<string, unknown>;
 
-export function trackEvent(eventName: string, params: AnalyticsEventParams = {}) {
+export function trackEvent(
+  eventName: string,
+  params: AnalyticsEventParams = {},
+  eventID?: string
+) {
   if (typeof window === "undefined") {
     return;
   }
 
-  // Use gtag if available (GA4), otherwise fallback to dataLayer
-  const win = window as typeof window & { 
+  const win = window as typeof window & {
     dataLayer?: Array<Record<string, unknown>>;
     gtag?: (...args: unknown[]) => void;
     fbq?: (...args: unknown[]) => void;
   };
 
-  // Track to Google Analytics
+  const metaEventName = mapToMetaPixelEvent(eventName);
+
+  if (process.env.NODE_ENV === "development") {
+    console.debug("[analytics] trackEvent", {
+      eventName,
+      gaEventName: eventName,
+      metaEventName: metaEventName ?? `trackCustom:${eventName}`,
+      params,
+      ...(eventID ? { eventID } : {}),
+    });
+  }
+
+  // Track to Google Analytics (GA4)
   if (typeof win.gtag === "function") {
-    // Use gtag directly for GA4
     win.gtag("event", eventName, params);
   } else {
-    // Fallback to dataLayer if gtag not loaded yet
     if (!Array.isArray(win.dataLayer)) {
       win.dataLayer = [];
     }
@@ -26,21 +39,23 @@ export function trackEvent(eventName: string, params: AnalyticsEventParams = {})
 
   // Track to Meta Pixel
   if (typeof win.fbq === "function") {
-    // Map common event names to Meta Pixel standard events
-    const metaEventName = mapToMetaPixelEvent(eventName);
+    const metaParams: Record<string, unknown> = { ...params };
+    if (eventID) metaParams.eventID = eventID;
+
     if (metaEventName) {
-      win.fbq("track", metaEventName, params);
+      win.fbq("track", metaEventName, metaParams, eventID ? { eventID } : undefined);
     } else {
-      // For custom events, use trackCustom
-      win.fbq("trackCustom", eventName, params);
+      win.fbq("trackCustom", eventName, metaParams);
     }
   }
 }
 
 /**
- * Maps our event names to Meta Pixel standard events for better reporting.
- * Standard: PageView, ViewContent, Lead, CompleteRegistration, Schedule, etc.
- * Custom events (form progress, abandonment) stay as trackCustom for diagnostics.
+ * Maps internal event names to Meta Pixel standard events for better ad reporting.
+ *
+ * NOTE: `lead_popup_submit` is intentionally NOT mapped to "Lead" here.
+ * The popup fires a trackCustom "PopupCouponLead" event so that it does not
+ * pollute the free-sample Lead signal used for ad optimisation.
  */
 function mapToMetaPixelEvent(eventName: string): string | null {
   const eventMap: Record<string, string> = {
@@ -50,8 +65,8 @@ function mapToMetaPixelEvent(eventName: string): string | null {
     free_sample_meeting_booked: "Schedule",
     free_sample_click: "ViewContent",
     lead_popup_view: "ViewContent",
-    lead_popup_submit: "Lead",
+    // lead_popup_submit → NOT mapped; fires as trackCustom "PopupCouponLead" in LeadCaptureModal
   };
 
-  return eventMap[eventName] || null;
+  return eventMap[eventName] ?? null;
 }

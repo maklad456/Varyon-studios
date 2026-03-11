@@ -270,10 +270,28 @@ export function LeadCaptureModal() {
       localStorage.setItem(LOCAL_STORAGE_CODE_KEY, generated);
       localStorage.setItem(LOCAL_STORAGE_FORM_KEY, JSON.stringify(form));
     }
-    
-    // Track submit event only once (on initial form submission)
-    trackEvent("lead_popup_submit", { intent: form.intent });
-    
+
+    const adminEmailSent =
+      adminResult.status === "fulfilled" && adminResult.value === true;
+
+    if (customerEmailSent && adminEmailSent) {
+      // Both succeeded — fire the popup conversion as a custom Meta event so it
+      // does NOT pollute the free-sample Lead optimisation signal.
+      // In analytics.ts, "lead_popup_submit" has no standard-event mapping, so
+      // Meta receives it as trackCustom("PopupCouponLead").
+      trackEvent("lead_popup_submit", {
+        intent: form.intent,
+        meta_custom_event: "PopupCouponLead",
+      });
+    } else if (customerEmailSent && !adminEmailSent) {
+      // Customer got their code but we missed the admin notification — fire a
+      // diagnostic event so we can monitor this in GA/Meta without counting it
+      // as a successful lead conversion.
+      trackEvent("popup_admin_email_failed", { intent: form.intent });
+    }
+    // If neither email succeeded the user sees the fallback status message
+    // and we intentionally do not fire any conversion event.
+
     setSubmitting(false);
   };
 

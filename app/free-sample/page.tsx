@@ -139,11 +139,16 @@ export default function FreeSamplePage() {
     if (result.ok) {
       formSubmittedRef.current = true;
       const { progress_percent, fields_filled } = getFormProgress(form);
-      trackEvent("free_sample_submit", {
-        progress_percent,
-        fields_filled,
-        total_required: REQUIRED_FORM_FIELDS.length,
-      });
+      const eventID = `fs_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`;
+      trackEvent(
+        "free_sample_submit",
+        {
+          progress_percent,
+          fields_filled,
+          total_required: REQUIRED_FORM_FIELDS.length,
+        },
+        eventID
+      );
       router.push("/free-sample/book-meeting");
       return;
     }
