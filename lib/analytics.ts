@@ -51,21 +51,25 @@ export function trackEvent(
 }
 
 /**
- * Maps internal event names to Meta Pixel standard events for better ad reporting.
+ * Maps internal event names to Meta Pixel standard events.
  *
- * NOTE: `lead_popup_submit` is intentionally NOT mapped to "Lead" here.
- * The popup fires a trackCustom "PopupCouponLead" event so that it does not
- * pollute the free-sample Lead signal used for ad optimisation.
+ * Only the two primary funnel conversion points are mapped to standard events:
+ *   - free_sample_submit       → SubmitApplication  (form filled & sent)
+ *   - free_sample_meeting_booked → Schedule          (Calendly booking confirmed)
+ *
+ * Everything else goes to Meta as trackCustom so it does not pollute
+ * the conversion signals used for ad optimisation.
+ *
+ * Notable intentional omissions:
+ *   - free_sample_form_view / free_sample_book_meeting_view / lead_popup_view
+ *     → page-view signals; tracked in GA only, not Meta standard events
+ *   - free_sample_click → engagement signal; trackCustom on Meta
+ *   - lead_popup_submit → coupon popup; trackCustom "PopupCouponLead" (see LeadCaptureModal)
  */
 function mapToMetaPixelEvent(eventName: string): string | null {
   const eventMap: Record<string, string> = {
-    free_sample_form_view: "ViewContent",
-    free_sample_submit: "Lead",
-    free_sample_book_meeting_view: "ViewContent",
+    free_sample_submit: "SubmitApplication",
     free_sample_meeting_booked: "Schedule",
-    free_sample_click: "ViewContent",
-    lead_popup_view: "ViewContent",
-    // lead_popup_submit → NOT mapped; fires as trackCustom "PopupCouponLead" in LeadCaptureModal
   };
 
   return eventMap[eventName] ?? null;

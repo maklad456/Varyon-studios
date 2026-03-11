@@ -1,7 +1,7 @@
 "use client";
 
 import Script from "next/script";
-import { Suspense, useEffect } from "react";
+import { Suspense, useEffect, useRef } from "react";
 import { trackEvent } from "@/lib/analytics";
 
 const CALENDLY_BASE_PATH =
@@ -16,12 +16,32 @@ function BookMeetingContent() {
     trackEvent("free_sample_book_meeting_view", { page: "free_sample_step_two" });
   }, []);
 
+  // Guard so the booking conversion fires at most once per page session,
+  // even if Calendly posts the message multiple times.
+  const bookingFiredRef = useRef(false);
+
   useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
-      if (event.data?.event === "calendly.event_scheduled") {
-        trackEvent("free_sample_meeting_booked", { source: "free_sample" });
-      }
+      if (event.data?.event !== "calendly.event_scheduled") return;
+      if (bookingFiredRef.current) return;
+      bookingFiredRef.current = true;
+
+      const eventID = `fsm_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`;
+
+      // Calendly may include booking details in event.data.payload — extract
+      // what's available without breaking if the payload shape changes.
+      const payload = event.data?.payload ?? {};
+      const params: Record<string, unknown> = {
+        source: "free_sample",
+        ...(payload.event_type?.name ? { event_type: payload.event_type.name } : {}),
+        ...(payload.invitee?.name ? { invitee_name: payload.invitee.name } : {}),
+        ...(payload.invitee?.email ? { invitee_email: payload.invitee.email } : {}),
+        ...(payload.event?.start_time ? { start_time: payload.event.start_time } : {}),
+      };
+
+      trackEvent("free_sample_meeting_booked", params, eventID);
     };
+
     window.addEventListener("message", handleMessage);
     return () => window.removeEventListener("message", handleMessage);
   }, []);
@@ -41,7 +61,7 @@ function BookMeetingContent() {
             Schedule Your Sample Delivery Call
           </h1>
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-white/70 sm:text-lg md:mx-auto">
-            In this meeting, we’ll review your free custom sample and show
+            In this meeting, we&apos;ll review your free custom sample and show
             exactly how your brand can use AI media to increase output and lower
             creative cost.
           </p>
